@@ -12,7 +12,7 @@
                 </li>
             </ul>            
         </div>
-
+        
         <h1 class="page-title"> Admin Dashboard
             <small>statistics, charts, recent events and reports</small>
         </h1>    

@@ -40,91 +40,49 @@
                     </form>
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
-                <li class="nav-item start active open">
+                <li v-for="menuItem in menu" :key="menuItem.id" class="nav-item">
+                    <a :href="menuItem.href" class="nav-link nav-toggle">
+                        <span class="title">{{menuItem.title}}</span>
+                        <span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item active open">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-home"></i>
-                        <span class="title">Dashboard</span>
+                        <span class="title">智能医疗</span>
                         <span class="selected"></span>
                         <span class="arrow open"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item start active open">
-                            <a href="index.html" class="nav-link ">
+                        <li class="nav-item active">
+                            <a href="/" class="nav-link ">
                                 <i class="icon-bar-chart"></i>
                                 <span class="title">Dashboard 1</span>
                                 <span class="selected"></span>
                             </a>
                         </li>
-                        <li class="nav-item start ">
-                            <a href="dashboard_2.html" class="nav-link ">
-                                <i class="icon-bulb"></i>
-                                <span class="title">Dashboard 2</span>
-                                <span class="badge badge-success">1</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start ">
-                            <a href="dashboard_3.html" class="nav-link ">
-                                <i class="icon-graph"></i>
-                                <span class="title">Dashboard 3</span>
-                                <span class="badge badge-danger">5</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
-                <li class="heading">
-                    <h3 class="uppercase">Features</h3>
-                </li>
-                <li class="nav-item  ">
+                <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-diamond"></i>
-                        <span class="title">UI Features</span>
+                        <i class="icon-briefcase"></i>
+                        <span class="title">电子病历系统</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item  ">
-                            <a href="ui_colors.html" class="nav-link ">
-                                <span class="title">Color Library</span>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="title">病历查询</span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="ui_general.html" class="nav-link ">
-                                <span class="title">General Components</span>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <span class="title">病历录入</span>
                             </a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a href="ui_buttons.html" class="nav-link ">
-                                <span class="title">Buttons</span>
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a href="ui_buttons_spinner.html" class="nav-link ">
-                                <span class="title">Spinner Buttons</span>
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a href="ui_confirmations.html" class="nav-link ">
-                                <span class="title">Popover Confirmations</span>
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a href="ui_sweetalert.html" class="nav-link ">
-                                <span class="title">Bootstrap Sweet Alerts</span>
-                            </a>
-                        </li>                        
-                        <li class="nav-item  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <span class="title">Page Progress Bar</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item ">
-                                    <a href="ui_page_progress_style_1.html" class="nav-link "> Flash </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="ui_page_progress_style_2.html" class="nav-link "> Big Counter </a>
-                                </li>
-                            </ul>
-                        </li>                        
+                        </li>                                           
                     </ul>
                 </li>                        
             </ul>
@@ -136,7 +94,38 @@
 
 <script>
 export default {
-    name: 'sidebar'
+    name: 'sidebar',
+    data () {
+        return {
+            menu: [
+                {
+                    title: '智能医疗',
+                    icon: '<i class="icon-home"></i>',
+                    href: '/',
+                    submenu: [
+                        {
+                            title: '主页',
+                            href: '/'
+                        }
+                    ]
+                },
+                {
+                    title: '电子病历系统',
+                    href: '/',
+                    submenu: [
+                        {
+                            title: '病历查询',
+                            href: '#'
+                        },
+                        {
+                            title: '病历录入',
+                            href: '#'
+                        }
+                    ]
+                }
+            ]
+        }
+    }
 }
 </script>
 
