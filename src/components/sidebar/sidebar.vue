@@ -67,6 +67,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'sidebar',
     data () {
@@ -76,22 +77,22 @@ export default {
                 {
                     title: '智能医疗',
                     icon: 'icon-home',
-                    href: '/',
-                    isActive: true,
-                    isOpen: true,
+                    href: '',
+                    isActive: false,
+                    isOpen: false,
                     submenu: [
                         {
                             title: '主页',
                             icon: 'icon-bar-chart',
-                            href: '/',
-                            isActive: true
+                            href: '/index',
+                            isActive: false
                         }
                     ]
                 },
                 {
                     title: '电子病历系统',
                     icon: 'icon-briefcase',
-                    href: '/',
+                    href: '',
                     isActive: false,
                     isOpen: false,
                     submenu: [
@@ -104,13 +105,27 @@ export default {
                         {
                             title: '病历录入',
                             icon: 'icon-note',
-                            href: '/',
+                            href: '/input',
                             isActive: false
                         }
                     ]
                 }
             ]
         }
+    },
+    created () {
+        var path = this.$route.path;
+        console.log(path);
+        this.menu.forEach(menuItem => {            
+            menuItem.submenu.forEach(submenuItem => {
+                if(submenuItem.href === path){
+                    submenuItem.isActive = true;
+                    menuItem.isActive = true;
+                    menuItem.isOpen = true;
+                }
+            })
+        })
+        
     },
     methods: {
         activeMenu (menu, submenu) {
