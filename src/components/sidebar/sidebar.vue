@@ -40,51 +40,25 @@
                     </form>
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
-                <li v-for="menuItem in menu" :key="menuItem.id" class="nav-item">
-                    <a :href="menuItem.href" class="nav-link nav-toggle">
+                <li v-for="menuItem in menu" :key="menuItem.id" class="nav-item" :class="{active: menuItem.isActive, open: menuItem.isOpen}">
+                    <router-link :to="menuItem.href" class="nav-link nav-toggle">
+                        <i :class="menuItem.icon"></i>
                         <span class="title">{{menuItem.title}}</span>
-                        <span>
-                            <span class="selected"></span>
-                            <span class="arrow open"></span>
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item active open">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-home"></i>
-                        <span class="title">智能医疗</span>
-                        <span class="selected"></span>
-                        <span class="arrow open"></span>
-                    </a>
+                        <span :class="{selected: menuItem.isActive}"></span>
+                        <span :class="{arrow: menuItem.submenu && menuItem.submenu.length > 0, open: menuItem.isOpen}"></span>
+                    </router-link>
                     <ul class="sub-menu">
-                        <li class="nav-item active">
-                            <a href="/" class="nav-link ">
-                                <i class="icon-bar-chart"></i>
-                                <span class="title">Dashboard 1</span>
-                                <span class="selected"></span>
-                            </a>
+                        <li v-for="submenuItem in menuItem.submenu" :key="submenuItem.id" class="nav-item" :class="{active: submenuItem.isActive, open: submenuItem.isOpen}" @click="activeMenu(menuItem, submenuItem)">
+                            <router-link :to="submenuItem.href" class="nav-link">
+                                <i :class="submenuItem.icon"></i>
+                                <span class="title">{{submenuItem.title}}</span>
+                                <span :class="{selected: submenuItem.isActive}"></span>
+                                <!-- <span :class="{arrow: submenuItem.submenu && submenuItem.submenu.length > 0, open: submenuItem.isOpen}"></span> -->
+                            </router-link>
+                            <!-- <ul class="sub-menu" v-if="submenuItem.submenu && submenuItem.submenu.length > 0"></ul> -->
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-briefcase"></i>
-                        <span class="title">电子病历系统</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <span class="title">病历查询</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <span class="title">病历录入</span>
-                            </a>
-                        </li>                                           
-                    </ul>
-                </li>                        
+                </li>                          
             </ul>
             <!-- END SIDEBAR MENU -->
         </div>
@@ -97,33 +71,59 @@ export default {
     name: 'sidebar',
     data () {
         return {
+            //目前只实现二级菜单
             menu: [
                 {
                     title: '智能医疗',
-                    icon: '<i class="icon-home"></i>',
+                    icon: 'icon-home',
                     href: '/',
+                    isActive: true,
+                    isOpen: true,
                     submenu: [
                         {
                             title: '主页',
-                            href: '/'
+                            icon: 'icon-bar-chart',
+                            href: '/',
+                            isActive: true
                         }
                     ]
                 },
                 {
                     title: '电子病历系统',
+                    icon: 'icon-briefcase',
                     href: '/',
+                    isActive: false,
+                    isOpen: false,
                     submenu: [
                         {
                             title: '病历查询',
-                            href: '#'
+                            icon: 'icon-question',
+                            href: '/',
+                            isActive: false
                         },
                         {
                             title: '病历录入',
-                            href: '#'
+                            icon: 'icon-note',
+                            href: '/',
+                            isActive: false
                         }
                     ]
                 }
             ]
+        }
+    },
+    methods: {
+        activeMenu (menu, submenu) {
+            this.menu.forEach(menuItem => {
+                menuItem.isActive = false;
+                menuItem.isOpen = false;
+                menuItem.submenu.forEach(submenuItem => {
+                    submenuItem.isActive = false;
+                })
+            })
+            menu.isActive = true;
+            menu.isOpen = true;
+            submenu.isActive = true;
         }
     }
 }
