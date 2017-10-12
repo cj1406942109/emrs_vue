@@ -84,7 +84,7 @@ export default {
                         {
                             title: '主页',
                             icon: 'icon-bar-chart',
-                            href: '/index',
+                            href: '/home/index',
                             isActive: false
                         }
                     ]
@@ -99,13 +99,13 @@ export default {
                         {
                             title: '病历查询',
                             icon: 'icon-question',
-                            href: '/',
+                            href: '/home',
                             isActive: false
                         },
                         {
                             title: '病历录入',
                             icon: 'icon-note',
-                            href: '/input',
+                            href: '/home/input',
                             isActive: false
                         }
                     ]

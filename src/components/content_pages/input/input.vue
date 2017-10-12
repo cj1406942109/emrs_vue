@@ -8,7 +8,7 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <router-link to="/input">病历录入</router-link>
+                    <router-link to="/home/input">病历录入</router-link>
                 </li>
             </ul>
         </div>
@@ -33,7 +33,7 @@
                         <div class="form-body">
                             <ul class="nav nav-pills nav-justified steps">
                                 <li v-for="step in steps" :key="step.id" :class="{active:currentStep===step.value, done: currentStep>step.value}">
-                                    <a :href="step.href" data-toggle="tab" class="step" @click="preventClick($event)">
+                                    <a :href="step.href" data-toggle="tab" class="step">
                                         <span class="number">{{step.value}}</span>
                                         <span class="desc"><i class="fa fa-check"></i>{{step.title}}</span>
                                     </a>
@@ -42,10 +42,12 @@
                             <div class="progress progress-striped active">
                                 <div class="progress-bar progress-bar-info" role="progressbar" :style="{width:currentStep*50+'%'}"></div>
                             </div>
-                            <div class="tab-content" v-show="isAlert">
-                                <div class="alert" :class="[isFormValid?'alert-danger':'alert-success']">
+                            <div class="tab-content">
+                                <div class="alert" :class="[isFormValid?'alert-danger':'alert-success']" v-show="isAlert">
                                     <button class="close" data-dismiss="alert"></button> <span v-if="isFormValid">表单填写错误，请重新检查字段填写要求！</span><span v-else>表单格式验证成功！</span>
-                                </div>                                
+                                </div>
+                                <router-view class="tab-pane" :class="{active: true}" id="tab1" name="tab1"></router-view>
+                                <router-view class="tab-pane" :class="{active: true}" id="tab2" name="tab2"></router-view>
                             </div>
                         </div>
                         <div class="form-actions">
@@ -95,11 +97,7 @@ export default {
         }
     },
     methods: {
-        preventClick (event) {
-            console.log(event);
-            event.preventDefault();
-            return false;
-        }
+        
     }
 }
 

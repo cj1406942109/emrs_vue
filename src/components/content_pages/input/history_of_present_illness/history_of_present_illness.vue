@@ -1,6 +1,6 @@
 <template>
   <div>
-      
+      现病史
   </div>
 </template>
 
