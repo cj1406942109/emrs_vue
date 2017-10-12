@@ -1,7 +1,7 @@
 <template>
     <div class="page-content-wrapper">
         <keep-alive>
-            <router-view></router-view>        
+            <router-view></router-view>
         </keep-alive>
     </div>
 </template>

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import login from '@/components/login/login';
+import home from '@/components/home/home';
 import index from '@/components/content_pages/index/index';
 import input from '@/components/content_pages/input/input';
 
@@ -15,6 +16,11 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: login
+        },
+        {
+            path: '/home',
+            name: 'home',
+            component: home
         },
         {
             path: '/index',
