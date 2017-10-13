@@ -24,7 +24,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class=" icon-layers font-red"></i>
-                    <span class="caption-subject font-red bold uppercase"> 病历录入向导 -<span class="step-title"> 步骤 1 / 2 </span></span>
+                    <span class="caption-subject font-red bold uppercase"> 病历录入向导 -<span class="step-title"> 步骤 {{currentStep}} / {{steps.length}} </span></span>
                 </div>
             </div>
             <div class="portlet-body form">
@@ -46,20 +46,56 @@
                                 <div class="alert" :class="[isFormValid?'alert-danger':'alert-success']" v-show="isAlert">
                                     <button class="close" data-dismiss="alert"></button> <span v-if="isFormValid">表单填写错误，请重新检查字段填写要求！</span><span v-else>表单格式验证成功！</span>
                                 </div>
-                                <router-view class="tab-pane" :class="{active: true}" id="tab1" name="tab1"></router-view>
-                                <router-view class="tab-pane" :class="{active: true}" id="tab2" name="tab2"></router-view>
+                                <div class="tab-pane active" id="tab1" v-show="currentStep==1">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="bold uppercase">请填写患者病历基本信息</span>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <router-view name="tab1"></router-view>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane active" id="tab2" v-show="currentStep==2">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="bold uppercase">请填写患者病历详细信息</span>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="tabbable-custom">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#tab_1_1" data-toggle="tab"> 现病史 </a></li>
+                                                    <li><a href="#tab_1_2" data-toggle="tab"> 既往病史及危险因素 </a></li>
+                                                    <li><a href="#tab_1_3" data-toggle="tab"> 家族史 </a></li>
+                                                    <li><a href="#tab_1_4" data-toggle="tab"> 体格检查 </a></li>
+                                                    <li><a href="#tab_1_5" data-toggle="tab"> 常规检查 </a></li>
+                                                    <li><a href="#tab_1_6" data-toggle="tab"> 特殊检查 </a></li>
+                                                    <li><a href="#tab_1_7" data-toggle="tab"> 入院诊断 </a></li>
+                                                    <li><a href="#tab_1_8" data-toggle="tab"> 出院诊断 </a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <router-view name="tab2"></router-view>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-4 button-previous" v-show="currentStep>1">
+                                    <div class="col-md-2 button-previous" v-show="currentStep>1" @click="lastStep">
                                         <a href="javascript:;" class="btn btn-block default"><i class="fa fa-angle-left"></i> 返回 </a>
                                     </div>
-                                    <div class="col-md-4 button-next" v-show="currentStep!=2">
+                                    <div class="col-md-2 button-next" v-show="currentStep!=2" @click="nextStep">
                                         <a href="javascript:;" class="btn btn-block green"> 继续 <i class="fa fa-angle-right"></i></a>
                                     </div>
-                                    <div class="col-md-4 button-submit" v-show="currentStep===2">
+                                    <div class="col-md-2 button-submit" v-show="currentStep===2">
                                         <a href="javascript:;" class="btn btn-block green"> 提交 <i class="fa fa-check"></i></a>
                                     </div>
                                 </div>
@@ -97,7 +133,12 @@ export default {
         }
     },
     methods: {
-        
+        nextStep () {
+            this.currentStep++;
+        },
+        lastStep () {
+            this.currentStep--;
+        }
     }
 }
 
