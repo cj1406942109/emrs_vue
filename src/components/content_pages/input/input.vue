@@ -40,7 +40,7 @@
                                 </li>
                             </ul>
                             <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-info" role="progressbar" :style="{width:currentStep*50+'%'}"></div>
+                                <div class="progress-bar progress-bar-success" role="progressbar" :style="{width:currentStep*50+'%'}"></div>
                             </div>
                             <div class="tab-content">
                                 <div class="alert" :class="[isFormValid?'alert-danger':'alert-success']" v-show="isAlert">
@@ -89,10 +89,10 @@
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-2 button-previous" v-show="currentStep>1" @click="lastStep">
+                                    <div class="col-md-2 button-previous col-md-offset-2" v-show="currentStep>1" @click="lastStep">
                                         <a href="javascript:;" class="btn btn-block default"><i class="fa fa-angle-left"></i> 返回 </a>
                                     </div>
-                                    <div class="col-md-2 button-next" v-show="currentStep!=2" @click="nextStep">
+                                    <div class="col-md-2 button-next  col-md-offset-2" v-show="currentStep!=2" @click="nextStep">
                                         <a href="javascript:;" class="btn btn-block green"> 继续 <i class="fa fa-angle-right"></i></a>
                                     </div>
                                     <div class="col-md-2 button-submit" v-show="currentStep===2">

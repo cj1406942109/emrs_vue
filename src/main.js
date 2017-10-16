@@ -5,7 +5,8 @@ import App from './App';
 import router from './router';
 
 import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import '@/../static/plugins/bootstrap/css/bootstrap.min.css';
 import '@/../static/css/family=Open+Sans.css';
 import '@/../static/plugins/simple-line-icons/simple-line-icons.min.css';
 import '@/../static/plugins/jquery-slimscroll/jquery.slimscroll.min';
@@ -20,6 +21,7 @@ import '@/assets/layout/css/custom.css';
 
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.min.js';
+// import '@/../static/plugins/bootstrap/js/bootstrap.min.js';
 
 import '@/assets/global/js/app.js';
 import '@/assets/layout/js/layout.js';

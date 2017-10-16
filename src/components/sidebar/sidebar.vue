@@ -48,7 +48,7 @@
                         <span :class="{arrow: menuItem.submenu && menuItem.submenu.length > 0, open: menuItem.isOpen}"></span>
                     </router-link>
                     <ul class="sub-menu">
-                        <li v-for="submenuItem in menuItem.submenu" :key="submenuItem.id" class="nav-item" :class="{active: submenuItem.isActive, open: submenuItem.isOpen}" @click="activeMenu(menuItem, submenuItem)">
+                        <li @click="activeMenu(menuItem, submenuItem)" v-for="submenuItem in menuItem.submenu" :key="submenuItem.id" class="nav-item" :class="{active: submenuItem.isActive, open: submenuItem.isOpen}">
                             <router-link :to="submenuItem.href" class="nav-link">
                                 <i :class="submenuItem.icon"></i>
                                 <span class="title">{{submenuItem.title}}</span>
@@ -105,7 +105,7 @@ export default {
                         {
                             title: '病历录入',
                             icon: 'icon-note',
-                            href: '/home/input',
+                            href: '/home/input/basic_info',
                             isActive: false
                         }
                     ]
@@ -115,7 +115,6 @@ export default {
     },
     created () {
         var path = this.$route.path;
-        console.log(path);
         this.menu.forEach(menuItem => {            
             menuItem.submenu.forEach(submenuItem => {
                 if(submenuItem.href === path){
@@ -145,7 +144,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+    
 </style>
 
 
