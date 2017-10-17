@@ -23,11 +23,9 @@ import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.min.js';
 // import '@/../static/plugins/bootstrap/js/bootstrap.min.js';
 
-import '@/assets/global/js/app.js';
-import '@/assets/layout/js/layout.js';
-import '@/assets/layout/js/demo.js';
-import '@/assets/layout/js/quick-sidebar.js';
-import '@/assets/layout/js/quick-nav.js';
+// import '@/assets/global/js/app.js';
+// import '@/assets/layout/js/layout.js';
+// import '@/assets/layout/js/demo.js';
 
 Vue.config.productionTip = false;
 

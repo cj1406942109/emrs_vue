@@ -1,6 +1,5 @@
 <template>
-  <div class="page-content">
-                        
+  <div class="input">
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
@@ -110,7 +109,7 @@
 </template>
 
 <script>
-
+import utils from '@/components/utils/utils';
 export default {
     name: 'input',
     data () {
@@ -139,6 +138,9 @@ export default {
         lastStep () {
             this.currentStep--;
         }
+    },
+    mounted () {
+        utils.handleSidebarAndContentHeight();
     }
 }
 

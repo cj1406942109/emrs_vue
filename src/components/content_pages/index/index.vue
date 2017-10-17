@@ -1,6 +1,5 @@
 <template>
-  <div class="page-content">
-                        
+  <div class="index">
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
@@ -73,11 +72,15 @@
 </template>
 
 <script>
+import utils from '@/components/utils/utils';
 
 export default {
     name: 'index',
     data () {
         return {}
+    },
+    mounted () {
+        utils.handleSidebarAndContentHeight();
     }
 }
 </script>

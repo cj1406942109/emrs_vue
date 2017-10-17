@@ -1,17 +1,11 @@
-const utils = {};
-
-utils.handleSidebarAndContentHeight = () => {
-
-}
-
-handleSidebarAndContentHeight = function() {
+var handleSidebarAndContentHeight = function() {
     var content = $('.page-content');
     var sidebar = $('.page-sidebar');
     var body = $('body');
     var height;
 
     if(body.hasClass("page-footer-fixed") === true && body.hasClass("page-sidebar-fixed") === false) {
-        var available_height = App.getViewPort().height - $('.page-footer').outerHeight() - $('.page-header').outerHeight();
+        var available_height = getViewPort().height - $('.page-footer').outerHeight() - $('.page-header').outerHeight();
         var sidebar_height = sidebar.outerHeight();
         if(sidebar_height > available_height) {
             available_height = sidebar_height + $('.page-footer').outerHeight();
@@ -29,16 +23,44 @@ handleSidebarAndContentHeight = function() {
             var headerHeight = $('.page-header').outerHeight();
             var footerHeight = $('.page-footer').outerHeight();
 
-            if(App.getViewPort().width < resBreakpointMd) {
-                height = App.getViewPort().height - headerHeight - footerHeight;
+            if(getViewPort().width < resBreakpointMd) {
+                height = getViewPort().height - headerHeight - footerHeight;
             } else {
                 height = sidebar.height() + 20;
             }
 
-            if((height + headerHeight + footerHeight) <= App.getViewPort().height) {
-                height = App.getViewPort().height - headerHeight - footerHeight;
+            if((height + headerHeight + footerHeight) <= getViewPort().height) {
+                height = getViewPort().height - headerHeight - footerHeight;
             }
         }
         content.css('min-height', height);
+        sidebar.css('min-height', height);
     }
 };
+
+// Helper function to calculate sidebar height for fixed sidebar layout.
+var _calculateFixedSidebarViewportHeight = function() {
+    var sidebarHeight = getViewPort().height - $('.page-header').outerHeight(true);
+    if($('body').hasClass("page-footer-fixed")) {
+        sidebarHeight = sidebarHeight - $('.page-footer').outerHeight();
+    }
+    return sidebarHeight;
+};
+
+var getViewPort = function() {
+    var e = window,
+        a = 'inner';
+    if(!('innerWidth' in window)) {
+        a = 'client';
+        e = document.documentElement || document.body;
+    }
+
+    return {
+        width: e[a + 'Width'],
+        height: e[a + 'Height']
+    };
+};
+
+export default {
+    handleSidebarAndContentHeight: handleSidebarAndContentHeight
+}

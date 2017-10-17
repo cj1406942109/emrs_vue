@@ -27,22 +27,22 @@ const router = new Router({
             children: [{
                 path: '',
                 redirect: 'index'
-            },{
+            }, {
                 path: 'index',
                 component: index
-            },{
+            }, {
                 path: 'input',
                 component: input,
-                children:[{
+                children: [{
                     path: '',
                     redirect: 'basic_info'
-                },{
-                    path:'basic_info',
+                }, {
+                    path: 'basic_info',
                     components: {
                         tab1: basicInfo
                     }
-                },{
-                    path:'history_of_present_illness',
+                }, {
+                    path: 'history_of_present_illness',
                     components: {
                         tab2: historyOfPresentIllness
                     }
@@ -53,10 +53,9 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        console.log(to);
+    if(to.matched.some(record => record.meta.requiresAuth)) {
         next();
-    }else{
+    } else {
         next();
     }
 });

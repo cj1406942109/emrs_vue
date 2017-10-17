@@ -236,7 +236,7 @@ export default {
                 to: '2016-02-20'
             }]
         }
-    },
+    },    
     components: {
         'date-picker': vDatepicker
     }
