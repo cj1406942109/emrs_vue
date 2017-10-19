@@ -3,7 +3,7 @@
       {{basicInfo}}
     <div class="form-group">
         <label class="control-label col-md-2">姓名<span class="required"> * </span></label>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <input type="text" class="form-control" name="name" v-model="basicInfo.name">
             <span class="help-block"> 填写患者姓名 </span>
         </div>
@@ -63,32 +63,23 @@
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">主治医生<span class="required"> * </span></label>
-        <div class="col-md-4">
-            <select name="doctor" id="doctor_list" class="form-control" v-model="basicInfo.doctorId">
-                <option value="1">1</option>                                                                    
-                <option value="2">2</option>                                                                    
-                <option value="3">3</option>                                                                    
-                <option value="4">4</option>                                                                    
-            </select>
+        <div class="col-md-3">
+            <select name="doctor" class="form-control" v-model="basicInfo.doctorId" v-select="doctorListSettings"><option value="" disabled></option></select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">记录者<span class="required"> * </span></label>
-        <div class="col-md-4">
-            <select name="recorder" id="recorder_list" class="form-control" v-model="basicInfo.recorderId">
-                <option value="1">1</option>                                                                    
-                <option value="2">2</option>                                                                    
-                <option value="3">3</option>                                                                    
-                <option value="4">4</option>                                                                    
+        <div class="col-md-3">
+            <select name="recorder" class="form-control" v-model="basicInfo.recorderId" v-select="recorderListSettings">
+                <option value="" disabled></option>
             </select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">民族</label>
-        <div class="col-md-4">
-            <select name="nationality" id="nationality_list" class="form-control" v-model="basicInfo.nationality">
-                <option value="汉族">汉族</option>                                                                    
-                <option value="回族">回族</option>                                                                    
+        <div class="col-md-3">
+            <select name="nationality" class="form-control" v-model="basicInfo.nationality" v-select="nationalityListSettings">
+                <option value="" disabled></option>
             </select>
         </div>
     </div>
@@ -104,20 +95,14 @@
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">出生日期</label>
-        <div class="col-md-4">
-            <!-- <div class="input-group input-block date date-picker" id="birthday">
-                <input type="text" class="form-control" readonly>
-                <span class="input-group-btn"><button class="btn default" type="button"><i class="fa fa-calendar"></i></button></span>
-            </div> -->
-            <date-picker :date="startTime" :option="option" :limit="limit"></date-picker>
+        <div class="col-md-2">            
+            <date-picker :date="birthday" :option="option" :limit="limit" v-model="basicInfo.birthday" class="from-control"></date-picker>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">职业</label>
-        <div class="col-md-4">
-            <select name="profession" id="profession_list" class="form-control">
-                <option value=""></option>
-            </select>
+        <div class="col-md-3">
+            <select name="profession" class="form-control" v-model="basicInfo.profession" v-select="professionListSettings"><option value="" disabled></option></select>
         </div>
     </div>
     <div class="form-group" id="addressPlace">
@@ -151,9 +136,15 @@
 <script>
 import moment from 'moment';
 import vDatepicker from 'vue-datepicker';
+import utils from '@/utils/utils';
 
 export default {
     name: 'basic_info',
+    props: {
+        pagedata: {
+            type: Object
+        }
+    },
     data () {
         return {
             basicInfo: {
@@ -168,75 +159,54 @@ export default {
                 cellphone2: "17754234489",
                 telephone: "027-87563354",
                 gender: "0",
-                nationality: "汉族",
+                nationality: "",
                 birthProvince: "湖北省",
                 birthCity: "武汉市",
                 birthday: "1990-06-01",
-                profession: "教师",
+                profession: "",
                 addressProvince: "湖北省",
                 addressCity: "武汉市",
                 addressArea: "洪山区",
                 addressTown: "珞南街道",
                 address: "湖北省武汉市洪山区南湖山庄20栋3单元"
             },
-            // for Vue 2.0 
-            startTime: {
-                time: ''
-            },
-            endtime: {
-                time: ''
-            },
- 
-            option: {
-                type: 'day',
-                week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                format: 'YYYY-MM-DD',
-                placeholder: 'when?',
-                inputStyle: {
-                'display': 'inline-block',
-                'padding': '6px',
-                'line-height': '22px',
-                'font-size': '16px',
-                'border': '2px solid #fff',
-                'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
-                'border-radius': '2px',
-                'color': '#5F5F5F'
-                },
-                color: {
-                header: '#ccc',
-                headerText: '#f00'
-                },
-                buttons: {
-                ok: 'Ok',
-                cancel: 'Cancel'
-                },
-                overlayOpacity: 0.5, // 0.5 as default 
-                dismissible: true // as true as default 
-            },
-            timeoption: {
-                type: 'min',
-                week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                format: 'YYYY-MM-DD HH:mm'
-            },
-            multiOption: {
-                type: 'multi-day',
-                week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                format:"YYYY-MM-DD HH:mm"
-            },
+            //datePicker
+            option: utils.datepickerOption,
             limit: [{
-                type: 'weekday',
-                available: [1, 2, 3, 4, 5]
-            },
-            {
                 type: 'fromto',
-                from: '2016-02-01',
-                to: '2016-02-20'
-            }]
+                from: '',
+                to: (new Date()).toUTCString()
+            }],
+            birthday: {
+                time:''
+            },
+            doctorListSettings: {},
+            recorderListSettings: {},
+            nationalityListSettings: {},
+            professionListSettings: {},
         }
     },    
+    watch: {
+        'birthday':{
+            handler: 'updateBirthday',
+            deep: true
+        }
+    },
+    created () {
+        console.log(this.pagedata);
+        this.birthday.time = this.basicInfo.birthday;
+        this.$nextTick(() => {
+            this.$set(this.doctorListSettings, 'data', this.pagedata.doctorList);
+            this.$set(this.recorderListSettings, 'data', this.pagedata.recorderList);
+            this.$set(this.nationalityListSettings, 'data', this.pagedata.nationalityList);
+            this.$set(this.professionListSettings, 'data', this.pagedata.professionList);
+        });
+    },
+    methods: {
+        updateBirthday (val, oldVal) {
+            this.basicInfo.birthday = val.time;
+        }
+    },
     components: {
         'date-picker': vDatepicker
     }

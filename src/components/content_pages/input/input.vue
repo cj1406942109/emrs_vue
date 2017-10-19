@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="portlet-body">
-                                            <router-view name="tab1"></router-view>
+                                            <router-view name="tab1" :pagedata="pagedata"></router-view>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                                     <li><a href="#tab_1_8" data-toggle="tab"> 出院诊断 </a></li>
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <router-view name="tab2"></router-view>
+                                                    <router-view name="tab2" :pagedata="pagedata"></router-view>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,9 +109,12 @@
 </template>
 
 <script>
-import utils from '@/components/utils/utils';
+import utils from '@/utils/utils';
 export default {
     name: 'input',
+    props: {
+        pagedata: {}
+    },
     data () {
         return {
             steps: [

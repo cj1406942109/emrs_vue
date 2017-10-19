@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import utils from '@/components/utils/utils';
+import utils from '@/utils/utils';
 
 export default {
     name: 'index',
