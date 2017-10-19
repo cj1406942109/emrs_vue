@@ -1,6 +1,5 @@
 <template>
   <div class="basic-info">
-      {{basicInfo}}
     <div class="form-group">
         <label class="control-label col-md-2">姓名<span class="required"> * </span></label>
         <div class="col-md-2">
@@ -64,7 +63,9 @@
     <div class="form-group">
         <label class="control-label col-md-2">主治医生<span class="required"> * </span></label>
         <div class="col-md-3">
-            <select name="doctor" class="form-control" v-model="basicInfo.doctorId" v-select="doctorListSettings"><option value="" disabled></option></select>
+            <select name="doctor" class="form-control" v-model="basicInfo.doctorId" v-select="doctorListSettings">
+                <option value="" disabled></option>
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -85,13 +86,7 @@
     </div>
     <div class="form-group" id="birthPlace">
         <label class="control-label col-md-2">出生地</label>
-        <div class="col-md-2">
-            <select name="province" id="birth_province" class="form-control"></select>
-            <span class="help-block">  </span>
-        </div>
-        <div class="col-md-2">
-            <select name="city" id="birth_city" class="form-control"></select>
-        </div>
+        <location-picker :location="birthPlace" :grade="2" :className="'col-md-2'"></location-picker>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">出生日期</label>
@@ -102,34 +97,22 @@
     <div class="form-group">
         <label class="control-label col-md-2">职业</label>
         <div class="col-md-3">
-            <select name="profession" class="form-control" v-model="basicInfo.profession" v-select="professionListSettings"><option value="" disabled></option></select>
+            <select name="profession" class="form-control" v-model="basicInfo.profession" v-select="professionListSettings">
+                <option value="" disabled></option>
+            </select>
         </div>
     </div>
     <div class="form-group" id="addressPlace">
         <label class="control-label col-md-2">家庭住址</label>
-        <div class="col-md-2">
-            <select class="form-control" name="province" id="address_province"></select>
-            <span class="help-block">  </span>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control" name="city" id="address_city"></select>
-            <span class="help-block">  </span>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control" name="area" id="address_area"></select>
-            <span class="help-block">  </span>
-        </div>
-        <div class="col-md-2">
-            <select class="form-control" name="town" id="address_town"></select>
-        </div>
+        <location-picker :location="address" :grade="4" :className="'col-md-2'"></location-picker>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">详细住址</label>
         <div class="col-md-6">
-            <textarea class="form-control" name="address" rows="4"></textarea>
+            <textarea class="form-control" name="address" rows="4" v-model="basicInfo.address"></textarea>
             <span class="help-block"> 填写患者详细家庭住址 </span>
         </div>
-    </div>
+    </div>    
   </div>
 </template>
 
@@ -137,6 +120,7 @@
 import moment from 'moment';
 import vDatepicker from 'vue-datepicker';
 import utils from '@/utils/utils';
+import locationPicker from '@/components/location_picker/location_picker';
 
 export default {
     name: 'basic_info',
@@ -180,21 +164,52 @@ export default {
             birthday: {
                 time:''
             },
-            doctorListSettings: {},
-            recorderListSettings: {},
-            nationalityListSettings: {},
-            professionListSettings: {},
+            birthPlace: {
+                province: '',
+                city: ''
+            },
+            address: {
+                province: '',
+                city: '',
+                area: '',
+                town: ''
+            },
+            doctorListSettings: {
+                placeholder: '请选择主治医生'
+            },
+            recorderListSettings: {
+                placeholder: '请选择记录者'
+            },
+            nationalityListSettings: {
+                placeholder: '请选择民族'
+            },
+            professionListSettings: {
+                placeholder: '请选择职业'
+            },
         }
     },    
     watch: {
         'birthday':{
             handler: 'updateBirthday',
             deep: true
+        },
+        'birthPlace':{
+            handler: 'updateBirthPlace',
+            deep: true
+        },
+        'address':{
+            handler: 'updateAddress',
+            deep: true
         }
     },
     created () {
-        console.log(this.pagedata);
         this.birthday.time = this.basicInfo.birthday;
+        this.birthPlace.province = this.basicInfo.birthProvince;
+        this.birthPlace.city = this.basicInfo.birthCity;
+        this.address.province = this.basicInfo.addressProvince;
+        this.address.city = this.basicInfo.addressCity;
+        this.address.area = this.basicInfo.addressArea;
+        this.address.town = this.basicInfo.addressTown;
         this.$nextTick(() => {
             this.$set(this.doctorListSettings, 'data', this.pagedata.doctorList);
             this.$set(this.recorderListSettings, 'data', this.pagedata.recorderList);
@@ -205,10 +220,21 @@ export default {
     methods: {
         updateBirthday (val, oldVal) {
             this.basicInfo.birthday = val.time;
+        },
+        updateBirthPlace (val, oldVal) {
+            this.basicInfo.birthProvince = val.province;
+            this.basicInfo.birthCity = val.city;
+        },
+        updateAddress (val, oldVal) {
+            this.basicInfo.addressProvince = val.province;
+            this.basicInfo.addressCity = val.city;
+            this.basicInfo.addressArea = val.area;
+            this.basicInfo.addressTown = val.town;
         }
     },
     components: {
-        'date-picker': vDatepicker
+        'date-picker': vDatepicker,
+        locationPicker
     }
 }
 </script>
