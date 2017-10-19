@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import login from '@/components/login/login';
 import home from '@/components/home/home';
 import index from '@/components/content_pages/index/index';
+import query from '@/components/content_pages/query/query';
 import input from '@/components/content_pages/input/input';
 import basicInfo from '@/components/content_pages/input/basic_info/basic_info';
 import historyOfPresentIllness from '@/components/content_pages/input/history_of_present_illness/history_of_present_illness';
@@ -46,6 +47,9 @@ const router = new Router({
                         tab2: historyOfPresentIllness
                     }
                 }]
+            }, {
+                path: 'query',
+                component: query
             }]
         }
     ]
