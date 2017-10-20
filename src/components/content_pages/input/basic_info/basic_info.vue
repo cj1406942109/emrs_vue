@@ -39,11 +39,10 @@
     <div class="form-group">
         <label class="control-label col-md-2">性别<span class="required"> * </span></label>
         <div class="col-md-4">
-            <div class="icheck-inline">
-                <label><input type="radio" name="gender" value="0" data-title="男" v-model="basicInfo.gender"> 男 </label>
-                <label><input type="radio" name="gender" value="1" data-title="女" v-model="basicInfo.gender"> 女 </label>
+            <div>
+                <label><radio value="1" v-model="basicInfo.gender" name="gender">男</radio></label>
+                <label><radio value="0" v-model="basicInfo.gender" name="gender">女</radio></label>
             </div>            
-            <div id="form_gender_error"></div>
         </div>
     </div>            
     <div class="form-group">
@@ -112,6 +111,7 @@
 import moment from 'moment';
 import vDatepicker from 'vue-datepicker';
 import vSelect from 'vue-select';
+import {Radio} from 'vue-checkbox-radio';
 import utils from '@/utils/utils';
 import locationPicker from '@/components/location_picker/location_picker';
 
@@ -211,6 +211,7 @@ export default {
         'date-picker': vDatepicker,
         locationPicker,
         vSelect,
+        Radio
     }
 }
 </script>
