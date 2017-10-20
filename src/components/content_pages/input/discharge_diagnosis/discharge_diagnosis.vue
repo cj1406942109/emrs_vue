@@ -1,6 +1,6 @@
 <template>
   <div>
-      
+      出院诊断
   </div>
 </template>
 

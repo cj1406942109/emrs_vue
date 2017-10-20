@@ -1,6 +1,6 @@
 <template>
   <div>
-      
+      入院诊断
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-      
+      家族史
   </div>
 </template>
 

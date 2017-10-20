@@ -1,6 +1,6 @@
 <template>
   <div>
-      
+      危险因素
   </div>
 </template>
 

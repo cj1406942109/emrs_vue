@@ -1,6 +1,6 @@
 <template>
   <div>
-      
+      常规检查
   </div>
 </template>
 

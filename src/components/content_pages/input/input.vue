@@ -67,14 +67,7 @@
                                         <div class="portlet-body">
                                             <div class="tabbable-custom">
                                                 <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#tab_1_1" data-toggle="tab"> 现病史 </a></li>
-                                                    <li><a href="#tab_1_2" data-toggle="tab"> 既往病史及危险因素 </a></li>
-                                                    <li><a href="#tab_1_3" data-toggle="tab"> 家族史 </a></li>
-                                                    <li><a href="#tab_1_4" data-toggle="tab"> 体格检查 </a></li>
-                                                    <li><a href="#tab_1_5" data-toggle="tab"> 常规检查 </a></li>
-                                                    <li><a href="#tab_1_6" data-toggle="tab"> 特殊检查 </a></li>
-                                                    <li><a href="#tab_1_7" data-toggle="tab"> 入院诊断 </a></li>
-                                                    <li><a href="#tab_1_8" data-toggle="tab"> 出院诊断 </a></li>
+                                                    <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><router-link :to="tab.href" data-toggle="tab">{{tab.title}}</router-link></li>                                               
                                                 </ul>
                                                 <div class="tab-content">
                                                     <router-view name="tab2" :pagedata="pagedata"></router-view>
@@ -130,6 +123,37 @@ export default {
                 }
             ],
             currentStep: 1,
+            detailTabs: [
+                {
+                    href: 'history_of_present_illness',
+                    title: '现病史'
+                },{
+                    href: 'anamnesis',
+                    title: '既往病史'
+                },{
+                    href: 'risk_factors',
+                    title: '危险因素'
+                },{
+                    href: 'family_history',
+                    title: '家族史'
+                },{
+                    href: 'physical_examination',
+                    title: '体格检查'
+                },{
+                    href: 'routine_examination',
+                    title: '常规检查'
+                },{
+                    href: 'special_examination',
+                    title: '特殊检查'
+                },{
+                    href: 'admission_diagnosis',
+                    title: '入院诊断'
+                },{
+                    href: 'discharge_diagnosis',
+                    title: '出院诊断'
+                }
+            ],
+            activeTab: 1,
             isFormValid: false,     //表单是否合法
             isAlert: false          //是否显示出错信息
         }
@@ -137,10 +161,20 @@ export default {
     methods: {
         nextStep () {
             this.currentStep++;
+            this.$router.push('history_of_present_illness');
         },
         lastStep () {
             this.currentStep--;
+            this.$router.push('basic_info');
+        },
+        changeActiveTab (index) {
+            this.activeTab = index+1;
         }
+    },
+    created () {
+        if(JSON.stringify(this.detailTabs).indexOf(this.$route.path.split('/home/input/')[1])>0 && this.currentStep!=2) {
+            this.$router.push('basic_info');
+        };
     },
     mounted () {
         utils.handleSidebarAndContentHeight();

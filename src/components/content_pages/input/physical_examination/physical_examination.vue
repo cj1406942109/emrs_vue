@@ -1,6 +1,6 @@
 <template>
   <div>
-      
+      体格检查
   </div>
 </template>
 
