@@ -26,8 +26,8 @@ export default {
             this.$http.post(config.apiHost + '/user/getAllDoctorIdAndName').then(response => {
                 var responseData = response.body;
                 if (responseData.status) {
-                    this.$set(this.pagedata,'doctorList', this.addIdforList(responseData.data));
-                    this.$set(this.pagedata,'recorderList', this.addIdforList(responseData.data));
+                    this.$set(this.pagedata,'doctorList', responseData.data);
+                    this.$set(this.pagedata,'recorderList', responseData.data);
                 }
             }, response => {
                 console.log(response);
@@ -35,15 +35,6 @@ export default {
         }, response => {
             console.log(response);
         });    
-    },
-    methods: {
-        addIdforList (array) {
-            array.forEach(function(item){
-                item.id = item._id;
-                item.text = item.name;
-            })
-            return array;
-        }
     }
 }
 </script>

@@ -63,25 +63,19 @@
     <div class="form-group">
         <label class="control-label col-md-2">主治医生<span class="required"> * </span></label>
         <div class="col-md-3">
-            <select name="doctor" class="form-control" v-model="basicInfo.doctorId" v-select="doctorListSettings">
-                <option value="" disabled></option>
-            </select>
+            <v-select label="name" :searchable="true" placeholder="请选择主治医生" v-model="basicInfo.doctor" :options="pagedata.doctorList"></v-select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">记录者<span class="required"> * </span></label>
         <div class="col-md-3">
-            <select name="recorder" class="form-control" v-model="basicInfo.recorderId" v-select="recorderListSettings">
-                <option value="" disabled></option>
-            </select>
+            <v-select label="name" :searchable="true" placeholder="请选择记录者" v-model="basicInfo.recorder" :options="pagedata.recorderList"></v-select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">民族</label>
         <div class="col-md-3">
-            <select name="nationality" class="form-control" v-model="basicInfo.nationality" v-select="nationalityListSettings">
-                <option value="" disabled></option>
-            </select>
+            <v-select label="text" :searchable="true" placeholder="请选择民族" v-model="basicInfo.nationality" :options="pagedata.nationalityList"></v-select>
         </div>
     </div>
     <div class="form-group" id="birthPlace">
@@ -97,9 +91,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">职业</label>
         <div class="col-md-3">
-            <select name="profession" class="form-control" v-model="basicInfo.profession" v-select="professionListSettings">
-                <option value="" disabled></option>
-            </select>
+            <v-select label="text" :searchable="true" placeholder="请选择职业" v-model="basicInfo.profession" :options="pagedata.professionList"></v-select>            
         </div>
     </div>
     <div class="form-group" id="addressPlace">
@@ -119,6 +111,7 @@
 <script>
 import moment from 'moment';
 import vDatepicker from 'vue-datepicker';
+import vSelect from 'vue-select';
 import utils from '@/utils/utils';
 import locationPicker from '@/components/location_picker/location_picker';
 
@@ -134,8 +127,8 @@ export default {
             basicInfo: {
                 admissionNum: "1234567890",
                 bedNum: "A楼310室10号床",
-                doctorId: "",
-                recorderId: "",
+                doctor: "",
+                recorder: "",
                 name: "李鹏",
                 medicalCardNum: "A32620985",
                 idNum: "42063019880722040",
@@ -173,19 +166,7 @@ export default {
                 city: '',
                 area: '',
                 town: ''
-            },
-            doctorListSettings: {
-                placeholder: '请选择主治医生'
-            },
-            recorderListSettings: {
-                placeholder: '请选择记录者'
-            },
-            nationalityListSettings: {
-                placeholder: '请选择民族'
-            },
-            professionListSettings: {
-                placeholder: '请选择职业'
-            },
+            }
         }
     },    
     watch: {
@@ -202,20 +183,17 @@ export default {
             deep: true
         }
     },
-    created () {
+    created () {        
         this.birthday.time = this.basicInfo.birthday;
         this.birthPlace.province = this.basicInfo.birthProvince;
         this.birthPlace.city = this.basicInfo.birthCity;
         this.address.province = this.basicInfo.addressProvince;
         this.address.city = this.basicInfo.addressCity;
         this.address.area = this.basicInfo.addressArea;
-        this.address.town = this.basicInfo.addressTown;
-        this.$nextTick(() => {
-            this.$set(this.doctorListSettings, 'data', this.pagedata.doctorList);
-            this.$set(this.recorderListSettings, 'data', this.pagedata.recorderList);
-            this.$set(this.nationalityListSettings, 'data', this.pagedata.nationalityList);
-            this.$set(this.professionListSettings, 'data', this.pagedata.professionList);
-        });
+        this.address.town = this.basicInfo.addressTown;        
+    },
+    mounted () {
+        console.log(this.pagedata);
     },
     methods: {
         updateBirthday (val, oldVal) {
@@ -234,7 +212,8 @@ export default {
     },
     components: {
         'date-picker': vDatepicker,
-        locationPicker
+        locationPicker,
+        vSelect,
     }
 }
 </script>
