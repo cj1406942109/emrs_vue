@@ -73,14 +73,16 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="control-label col-md-2">职业</label>
+        <div class="col-md-3">
+            <v-select label="text" :searchable="true" placeholder="请选择职业" v-model="basicInfo.profession" :options="pagedata.professionList"></v-select>            
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label col-md-2">民族</label>
         <div class="col-md-3">
             <v-select label="text" :searchable="true" placeholder="请选择民族" v-model="basicInfo.nationality" :options="pagedata.nationalityList"></v-select>
         </div>
-    </div>
-    <div class="form-group" id="birthPlace">
-        <label class="control-label col-md-2">出生地</label>
-        <location-picker :location="birthPlace" :grade="2" :className="'col-md-2'"></location-picker>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">出生日期</label>
@@ -88,11 +90,9 @@
             <date-picker :date="birthday" :option="option" :limit="limit" v-model="basicInfo.birthday" class="from-control"></date-picker>
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">职业</label>
-        <div class="col-md-3">
-            <v-select label="text" :searchable="true" placeholder="请选择职业" v-model="basicInfo.profession" :options="pagedata.professionList"></v-select>            
-        </div>
+    <div class="form-group" id="birthPlace">
+        <label class="control-label col-md-2">出生地</label>
+        <location-picker :location="birthPlace" :grade="2" :className="'col-md-2'"></location-picker>
     </div>
     <div class="form-group" id="addressPlace">
         <label class="control-label col-md-2">家庭住址</label>
@@ -191,9 +191,6 @@ export default {
         this.address.city = this.basicInfo.addressCity;
         this.address.area = this.basicInfo.addressArea;
         this.address.town = this.basicInfo.addressTown;        
-    },
-    mounted () {
-        console.log(this.pagedata);
     },
     methods: {
         updateBirthday (val, oldVal) {
