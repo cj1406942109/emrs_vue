@@ -6,6 +6,7 @@ import router from './router';
 import Resource from 'vue-resource';
 
 import 'font-awesome/css/font-awesome.min.css';
+import 'vue-multiselect/dist/vue-multiselect.min.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/../static/plugins/bootstrap/css/bootstrap.min.css';
 import '@/../static/css/family=Open+Sans.css';

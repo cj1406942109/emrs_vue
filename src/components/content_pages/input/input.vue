@@ -81,7 +81,7 @@
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-2 button-previous col-md-offset-2" v-show="currentStep>1" @click="lastStep">
+                                    <div class="col-md-2 button-previous" v-show="currentStep>1" @click="lastStep">
                                         <a href="javascript:;" class="btn btn-block default"><i class="fa fa-angle-left"></i> 返回 </a>
                                     </div>
                                     <div class="col-md-2 button-next  col-md-offset-2" v-show="currentStep!=2" @click="nextStep">

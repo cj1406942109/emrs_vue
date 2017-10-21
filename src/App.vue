@@ -5,9 +5,12 @@
 </template>
 
 <script>    
-    export default {
-        
-    }
+  import utils from '@/utils/utils';
+  export default {
+      mounted () {
+        utils.handlePortletCollapse();
+      }
+  }
 </script>
 
 <style lang="stylus">
@@ -53,6 +56,21 @@
       cursor pointer
       background-color #3498DB
       border-radius 50%
-    
+    //修改vue-multiselect样式
+    .multiselect
+      .multiselect__select
+        height 34px
+      .multiselect__tags
+        min-height 34px
+        padding 2px 40px 0 4px
+        border 1px solid #c2cad8
+        .multiselect__input
+            margin-top 4px
+            margin-bottom 4px
+        .multiselect__tags-wrap
+          .multiselect__tag
+            margin-top 3px
+            margin-bottom 0
+          
 </style>
 

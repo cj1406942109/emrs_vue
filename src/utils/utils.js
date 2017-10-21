@@ -38,6 +38,19 @@ var handleSidebarAndContentHeight = function() {
     }
 };
 
+var handlePortletCollapse = function() {
+    $('body').on('click', '.portlet > .portlet-title > .tools > .collapse, .portlet .portlet-title > .tools > .expand', function(e) {
+        e.preventDefault();
+        var el = $(this).closest(".portlet").children(".portlet-body");
+        if($(this).hasClass("collapse")) {
+            $(this).removeClass("collapse").addClass("expand");
+            el.stop().slideUp(200);
+        } else {
+            $(this).removeClass("expand").addClass("collapse");
+            el.stop().slideDown(200);
+        }
+    });
+};
 // Helper function to calculate sidebar height for fixed sidebar layout.
 var _calculateFixedSidebarViewportHeight = function() {
     var sidebarHeight = getViewPort().height - $('.page-header').outerHeight(true);
@@ -91,5 +104,6 @@ var datepickerOption = {
 
 export default {
     handleSidebarAndContentHeight: handleSidebarAndContentHeight,
-    datepickerOption: datepickerOption
+    datepickerOption: datepickerOption,
+    handlePortletCollapse: handlePortletCollapse
 }
