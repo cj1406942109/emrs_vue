@@ -62,25 +62,37 @@
     <div class="form-group">
         <label class="control-label col-md-2">主治医生<span class="required"> * </span></label>
         <div class="col-md-3">
-            <v-select label="name" :searchable="true" placeholder="请选择主治医生" v-model="basicInfo.doctor" :options="pagedata.doctorList"></v-select>
+            <select name="body_part_name" class="form-control" v-model="basicInfo.doctor">
+                <option value="" disabled selected>请选择主治医生</option>
+                <option v-for="doctor in pagedata.doctorList" :key="doctor.id" :value="doctor">{{doctor.name}}</option>
+            </select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">记录者<span class="required"> * </span></label>
         <div class="col-md-3">
-            <v-select label="name" :searchable="true" placeholder="请选择记录者" v-model="basicInfo.recorder" :options="pagedata.recorderList"></v-select>
+            <select name="body_part_name" class="form-control" v-model="basicInfo.recorder">
+                <option value="" disabled selected>请选择记录者</option>
+                <option v-for="recorder in pagedata.recorderList" :key="recorder.id" :value="recorder">{{recorder.name}}</option>
+            </select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">职业</label>
         <div class="col-md-3">
-            <v-select label="text" :searchable="true" placeholder="请选择职业" v-model="basicInfo.profession" :options="pagedata.professionList"></v-select>            
+            <select name="body_part_name" class="form-control" v-model="basicInfo.profession">
+                <option value="" disabled selected>请选择职业</option>
+                <option v-for="profession in pagedata.professionList" :key="profession.id" :value="profession.id">{{profession.text}}</option>
+            </select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">民族</label>
         <div class="col-md-3">
-            <v-select label="text" :searchable="true" placeholder="请选择民族" v-model="basicInfo.nationality" :options="pagedata.nationalityList"></v-select>
+            <select name="body_part_name" class="form-control" v-model="basicInfo.nationality">
+                <option value="" disabled selected>请选择职业</option>
+                <option v-for="nationality in pagedata.nationalityList" :key="nationality.id" :value="nationality.id">{{nationality.text}}</option>
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -108,9 +120,7 @@
 </template>
 
 <script>
-import moment from 'moment';
 import vDatepicker from 'vue-datepicker';
-import vSelect from 'vue-select';
 import {Radio} from 'vue-checkbox-radio';
 import utils from '@/utils/utils';
 import locationPicker from '@/components/location_picker/location_picker';
@@ -210,7 +220,6 @@ export default {
     components: {
         'date-picker': vDatepicker,
         locationPicker,
-        vSelect,
         Radio
     }
 }
