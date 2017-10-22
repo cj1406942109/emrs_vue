@@ -296,7 +296,6 @@ export default {
     methods: {
         setValue (attr, name, el) {
             this.historyOfPresentIllness[attr].diseaseBodyParts = $(el).repeaterVal()[name];
-            console.log(this.historyOfPresentIllness[attr].diseaseBodyParts);
         },
         showOthers (e, array) {
             var el = e.target;
@@ -311,9 +310,22 @@ export default {
         }
     },
     mounted() {
+        let vm = this;
+        // console.log(vm);
+        // let vm = new Vue();
         $('.mt-repeater').repeater({
             show: function () {
                 $(this).slideDown();
+                //手动绑定事件监听
+                $(this).find("select[name*='body_part_name']").on('change',function(event){
+                    vm.showOthers(event, vm.pagedata.diseaseBodyPartNames)
+                });
+                $(this).find("select[name*='quality_of_pain']").on('change',function(event){
+                    vm.showOthers(event, vm.pagedata.diseaseQualityOfPain)
+                });
+                $(this).find("select[name*='duration_of_pain']").on('change',function(event){
+                    vm.showOthers(event, vm.pagedata.diseaseDurationOfPain)
+                })
             },
             hide: function (deleteElement) {
                 if(confirm('确认删除该栏？')) {
