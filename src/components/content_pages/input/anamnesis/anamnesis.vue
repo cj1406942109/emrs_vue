@@ -415,7 +415,6 @@
                     </div>
                 </div>
                 <!-- 深静脉血栓部分结束 -->
-                <div v-if="false">                                
                 <!-- 既往缺血性卒中部分开始 -->
                 <div class="portlet box blue">
                     <div class="portlet-title">
@@ -428,34 +427,40 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">有无既往缺血性卒中</label>
                             <div class="col-md-2">
-                                <div class="icheck-inline">
-                                    <label><input type="radio" name="is_old_ischemic_stroke" value="0"> 无 </label>
-                                    <label><input type="radio" name="is_old_ischemic_stroke" value="1"> 有 </label>
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isOldIschemicStroke">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isOldIschemicStroke">有</radio></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mt-repeater" v-if="mr.anamnesis.old_ischemic_stroke.is_old_ischemic_stroke=='1'">
-                            <label class="control-label col-md-1">类型</label>
+                        <div class="form-group mt-repeater" v-if="anamnesis.isOldIschemicStroke=='1'">
+                            <label class="control-label col-md-2 bold">类型</label>
                             <div class="col-md-4">
                                 <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加类型</a>
                                 <span class="help-block">  </span>
                             </div>
-                            <div class="col-md-offset-1 col-md-11">
+                            <div class="col-md-offset-2 col-md-10">
                                 <div data-repeater-list="old_ischemic_stroke" id="old_ischemic_stroke_repeater">
-                                    <div data-repeater-item class="mt-repeater-item form-group">
-                                        <!-- jQuery Repeater Container -->
-                                        <div class="col-md-2">
-                                            <select name="type_name" class="form-control"><option value=""></option></select>
+                                    <div data-repeater-item class="mt-repeater-item">
+                                        <div class="mt-repeater-input">
+                                            <select name="type_name" class="form-control">
+                                                <option value="" disabled selected>选择</option>
+                                                <option v-for="typeName in pagedata.oldIschemicStrokeTypes" :key="typeName.id" :value="typeName.id">{{typeName.text}}</option>
+                                            </select>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="mt-repeater-input">
                                             <input type="text" name="onset_time_year" class="form-control input-inline">
                                             <span class="help-inline"> 年 </span>
+                                        </div>                         
+                                        <div class="mt-repeater-input"> 
                                             <input type="text" name="onset_time_month" class="form-control input-inline">
-                                            <span class="help-inline"> 月前，发生 </span>
+                                            <span class="help-inline"> 月前，发生 </span>              
+                                        </div>                         
+                                        <div class="mt-repeater-input"> 
                                             <input type="text" name="onset_frequency" class="form-control input-inline">
-                                            <span class="help-inline"> 次 </span>
-                                        </div>
-                                        <div class="col-md-1">
+                                            <span class="help-inline"> 次 </span>              
+                                        </div>                                        
+                                        <div class="mt-repeater-input">
                                             <a href="javascript:;" data-repeater-delete class="btn btn-danger">
                                                 <i class="fa fa-close"></i> 删除</a>
                                         </div>
@@ -478,16 +483,16 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">有无血管性疾病史</label>
                             <div class="col-md-2">
-                                <div class="icheck-inline">
-                                    <label><input type="radio" name="is_vascular_diseases" value="0"> 无 </label>
-                                    <label><input type="radio" name="is_vascular_diseases" value="1"> 有 </label>
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isVascularDiseases">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isVascularDiseases">有</radio></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" v-if="mr.anamnesis.vascular_diseases.is_vascular_diseases=='1'">
-                            <label class="control-label col-md-2 col-md-offset-1">类型（多选）</label>
-                            <div class="col-md-6">
-                                <select name="vascula_diseases_types" class="form-control" id="anamnesis_vascula_diseases_types"></select>
+                        <div class="form-group" v-if="anamnesis.isVascularDiseases=='1'">
+                            <label class="control-label col-md-2 col-md-offset-1 bold">类型（多选）</label>
+                            <div class="col-md-8">
+                                <div><label v-for="diseaseType in pagedata.vascularDiseasesTypes" :key="diseaseType.id"><checkbox v-model="anamnesis.vascularDiseasesTypes" :value="diseaseType.id">{{diseaseType.text}}</checkbox></label></div>
                             </div>
                         </div>
                     </div>
@@ -505,32 +510,36 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">有无出血病史</label>
                             <div class="col-md-2">
-                                <div class="icheck-inline">
-                                    <label><input type="radio" name="is_hemorrhage" value="0"> 无 </label>
-                                    <label><input type="radio" name="is_hemorrhage" value="1"> 有 </label>
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isHemorrhage">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isHemorrhage">有</radio></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mt-repeater" v-if="mr.anamnesis.hemorrhage.is_hemorrhage=='1'">
-                            <label class="control-label col-md-1">类型</label>
+                        <div class="form-group mt-repeater" v-if="anamnesis.isHemorrhage=='1'">
+                            <label class="control-label col-md-2 bold">类型</label>
                             <div class="col-md-4">
                                 <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加类型</a>
                                 <span class="help-block">  </span>
                             </div>
-                            <div class="col-md-offset-1 col-md-11">
+                            <div class="col-md-offset-2 col-md-10">
                                 <div data-repeater-list="hemorrhage" id="hemorrhage_repeater">
-                                    <div data-repeater-item class="mt-repeater-item form-group">
-                                        <!-- jQuery Repeater Container -->
-                                        <div class="col-md-2">
-                                            <select name="type_name" class="form-control"><option value=""></option></select>
-                                        </div>
-                                        <div class="col-md-7">
+                                    <div data-repeater-item class="mt-repeater-item">
+                                        <div class="mt-repeater-input"> 
+                                            <select name="type_name" class="form-control">
+                                                <option value="" disabled selected>选择</option>
+                                                <option v-for="typeName in pagedata.hemorrhageTypes" :key="typeName.id" :value="typeName.id">{{typeName.text}}</option>
+                                            </select>
+                                        </div>                                        
+                                        <div class="mt-repeater-input"> 
+                                            <input type="text" name="onset_time" class="form-control input-inline">              
                                             <span class="help-inline"> 发生时间 </span>
-                                            <input type="text" name="onset_time" class="form-control input-inline">
+                                        </div>                                        
+                                        <div class="mt-repeater-input"> 
+                                            <input type="text" name="onset_frequency" class="form-control input-inline">              
                                             <span class="help-inline"> 发生次数 </span>
-                                            <input type="text" name="onset_frequency" class="form-control input-inline">
-                                        </div>
-                                        <div class="col-md-2">
+                                        </div>                                        
+                                        <div class="mt-repeater-input">
                                             <a href="javascript:;" data-repeater-delete class="btn btn-danger">
                                                 <i class="fa fa-close"></i> 删除</a>
                                         </div>
@@ -553,39 +562,40 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">有无出血史</label>
                             <div class="col-md-2">
-                                <div class="icheck-inline">
-                                    <label><input type="radio" name="is_bleeding" value="0"> 无 </label>
-                                    <label><input type="radio" name="is_bleeding" value="1"> 有 </label>
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isBleeding">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isBleeding">有</radio></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mt-repeater" v-if="mr.anamnesis.bleeding.is_bleeding=='1'">
-                            <label class="control-label col-md-1">病因</label>
+                        <div class="form-group mt-repeater" v-if="anamnesis.isBleeding=='1'">
+                            <label class="control-label col-md-2 bold">病因</label>
                             <div class="col-md-4">
                                 <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加病因</a>
                                 <span class="help-block">  </span>
                             </div>
-                            <div class="col-md-offset-1 col-md-11">
+                            <div class="col-md-offset-2 col-md-10">
                                 <div data-repeater-list="bleeding" id="bleeding_repeater">
-                                    <div data-repeater-item class="mt-repeater-item form-group">
-                                        <!-- jQuery Repeater Container -->
-                                        <div class="col-md-2">
-                                            <select name="cause" class="form-control"><option value=""></option></select>
-                                        </div>
-                                        <div class="col-md-5">
+                                    <div data-repeater-item class="mt-repeater-item">
+                                        <div class="mt-repeater-input"> 
+                                            <select name="type_name" class="form-control">
+                                                <option value="" disabled selected>选择</option>
+                                                <option v-for="cause in pagedata.bleedingCauses" :key="cause.id" :value="cause.id">{{cause.text}}</option>
+                                            </select>
+                                        </div>                                        
+                                        <div class="mt-repeater-input"> 
+                                            <input type="text" name="onset_time" class="form-control input-inline">              
                                             <span class="help-inline"> 发生时间 </span>
-                                            <input type="text" name="onset_time" class="form-control input-inline">
-                                        </div>
-                                        <div class="col-md-2">
+                                        </div>                                                                                                                      
+                                        <div class="mt-repeater-input">
                                             <a href="javascript:;" data-repeater-delete class="btn btn-danger">
                                                 <i class="fa fa-close"></i> 删除</a>
-                                        </div>
+                                        </div>                                                                            
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
                 <!-- 出血史部分结束 -->
             </div>
@@ -596,6 +606,7 @@
 
 <script>
 import {Checkbox, Radio} from 'vue-checkbox-radio';
+import 'jquery.repeater';
 export default {
     name: 'anamnesis',
     props: {
@@ -666,7 +677,7 @@ export default {
                     }
                 ],
                 isVascularDiseases: "1",
-                vascularDiseasesTypes: "2,3",
+                vascularDiseasesTypes: [],
                 isHemorrhage: "1",
                 hemorrhageTypes: [{
                         typeName: "2",
@@ -691,6 +702,18 @@ export default {
                 ]
             }
         }
+    },    
+    mounted() {
+        $('.mt-repeater').repeater({
+            show: function () {
+                $(this).slideDown();                                
+            },
+            hide: function (deleteElement) {
+                if(confirm('确认删除该栏？')) {
+                    $(this).slideUp(deleteElement);
+                }
+            },
+        });
     },
     components: {
         Checkbox, Radio
