@@ -21,8 +21,8 @@
                             <label class="control-label bold col-md-2">是否吸烟</label>
                             <div class="col-md-2">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isSomking" name="is_somking">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isSomking" name="is_somking">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isSomking">否</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isSomking">是</radio></label>
                                 </div>                                 
                             </div>
                             <div class="col-md-4" v-if="riskFactors.isSomking=='1'">
@@ -53,8 +53,8 @@
                             <label class="control-label bold col-md-2">是否戒烟</label>
                             <div class="col-md-2">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isSmokingCessation" name="is_smoking_cessation">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isSmokingCessation" name="is_smoking_cessation">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isSmokingCessation">否</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isSmokingCessation">是</radio></label>
                                 </div>
                                 <span class="help-block"> &nbsp;</span>                                   
                             </div>
@@ -112,8 +112,8 @@
                             <label class="control-label bold col-md-2">是否戒酒</label>
                             <div class="col-md-2">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isTemperance" name="is_temperance">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isTemperance" name="is_temperance">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isTemperance">否</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isTemperance">是</radio></label>
                                 </div>                                
                                 <span class="help-block"> &nbsp;</span>
                             </div>
@@ -282,8 +282,8 @@
                             <label class="control-label bold col-md-6">有无长期心理压力</label>
                             <div class="col-md-6">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isLongtermPsychologicalStress" name="is_longterm_psychological_stress">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isLongtermPsychologicalStress" name="is_longterm_psychological_stress">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isLongtermPsychologicalStress">否</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isLongtermPsychologicalStress">是</radio></label>
                                 </div>                                
                             </div>
                         </div>
@@ -291,8 +291,8 @@
                             <label class="control-label bold col-md-6">有无抑郁症（悲观、焦虑或反应迟钝、疲劳、缺乏自信、饮食睡眠改变）</label>
                             <div class="col-md-6">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isDepression" name="is_depression">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isDepression" name="is_depression">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isDepression">否</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isDepression">是</radio></label>
                                 </div>                                
                             </div>
                         </div>
@@ -353,8 +353,8 @@
                             <label class="control-label bold col-md-2">有无中心型肥胖</label>
                             <div class="col-md-2">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isCentralObesity" name="is_central_obesity">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isCentralObesity" name="is_central_obesity">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isCentralObesity">否</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isCentralObesity">是</radio></label>
                                 </div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>

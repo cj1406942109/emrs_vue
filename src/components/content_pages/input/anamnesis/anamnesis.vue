@@ -1,15 +1,699 @@
 <template>
-  <div>
-      既往病史
+  <div class="tab-pane active portlet">
+    <div class="portlet-title">
+        <div class="caption">
+            <span class="caption-subject bold font-dark uppercase">既往病史</span>
+        </div>
+    </div>
+    <div class="porlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 血脂异常部分开始 -->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">血脂异常</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无血脂异常</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="-1" v-model="anamnesis.isLipidAbnormality" >不知道</radio></label>
+                                    <label><radio value="0" v-model="anamnesis.isLipidAbnormality" >否</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isLipidAbnormality" >是</radio></label>
+                                </div>                                
+                            </div>
+                            <div v-if="anamnesis.isLipidAbnormality=='1'">
+                                <div class="col-md-3">
+                                    <input type="text" name="lipid_abnormality_duration" class="form-control input-inline" v-model="anamnesis.lipidAbnormalityDuration">
+                                    <span class="help-inline"> 年 </span>
+                                    <span class="help-block"> 填写病史 </span>
+                                </div>
+                                <label class="control-label col-md-1">类型</label>
+                                <div class="col-md-2">
+                                    <select name="blood_type" class="form-control" v-model="anamnesis.lipidAbnormalityType">
+                                        <option value="" disabled selected>选择类型</option>
+                                        <option v-for="lipidAbnormalityType in pagedata.lipidAbnormalityTypes" :key="lipidAbnormalityType.id" :value="lipidAbnormalityType.id">{{lipidAbnormalityType.text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" v-if="anamnesis.isLipidAbnormality=='1'">
+                            <label class="control-label col-md-2 col-md-offset-1 bold">有无治疗</label>
+                            <div class="col-md-4">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isLipidAbnormalityUnderTreatment">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isLipidAbnormalityUnderTreatment">间断</radio></label>
+                                    <label><radio value="2" v-model="anamnesis.isLipidAbnormalityUnderTreatment">长期用药</radio></label>
+                                </div>              
+                                <span class="help-block"> &nbsp;</span>                  
+                            </div>
+                            <div class="col-md-2" v-if="anamnesis.isLipidAbnormalityUnderTreatment=='2'">
+                                <input type="text" name="lipid_abnormality_drug_name" class="form-control input-inline" v-model="anamnesis.lipidAbnormalityDrugName">
+                                <span class="help-block"> 填写长期用药药名 </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 血脂异常部分结束 -->
+                <!-- 原发性高血压部分开始 -->
+                <div class="portlet box red">
+                    <div class="portlet-title">
+                        <div class="caption">原发性高血压</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无原发性高血压</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="-1" v-model="anamnesis.isEssentialHypertension">不知道</radio></label>
+                                    <label><radio value="0" v-model="anamnesis.isEssentialHypertension">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isEssentialHypertension">有</radio></label>
+                                </div>              
+                            </div>
+                            <div class="col-md-4" v-if="anamnesis.isEssentialHypertension=='1'">
+                                <input type="text" name="essential_hypertension_duration" class="form-control input-inline" v-model="anamnesis.essentialHypertensionDuration">
+                                <span class="help-inline"> 年 </span>
+                                <span class="help-block"> 填写病史 </span>
+                            </div>
+                        </div>
+                        <div class="form-group" v-if="anamnesis.isEssentialHypertension=='1'">
+                            <label class="control-label col-md-2 col-md-offset-1 bold">有无治疗</label>
+                            <div class="col-md-4">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isEssentialHypertensionUnderTreatment">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isEssentialHypertensionUnderTreatment">间断</radio></label>
+                                    <label><radio value="2" v-model="anamnesis.isEssentialHypertensionUnderTreatment">长期用药</radio></label>
+                                </div>              
+                                <span class="help-block"> &nbsp;</span>                                
+                            </div>
+                            <div class="col-md-2" v-if="anamnesis.isEssentialHypertensionUnderTreatment=='2'">
+                                <input type="text" name="lipid_abnormality_drug_name" class="form-control input-inline" v-model="anamnesis.essentialHypertensionDrugName">
+                                <span class="help-block"> 填写长期用药药名 </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">血压最高值</label>
+                            <div class="col-md-4">
+                                <input type="text" placeholder="___/___" name="maximum_value" class="form-control input-inline" v-model="anamnesis.maximumValue">
+                                <span class="help-inline"> mmHg </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">血压平时值</label>
+                            <div class="col-md-4">
+                                <input type="text" placeholder="___/___" name="ordinary_value" class="form-control input-inline" v-model="anamnesis.ordinaryValue">
+                                <span class="help-inline"> mmHg </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 原发性高血压部分结束 -->
+                <!-- 血糖异常部分开始 -->
+                <div class="portlet box yellow">
+                    <div class="portlet-title">
+                        <div class="caption">血糖异常</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无血糖异常</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="-1" v-model="anamnesis.isDysglycemia">不知道</radio></label>
+                                    <label><radio value="0" v-model="anamnesis.isDysglycemia">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isDysglycemia">有</radio></label>
+                                </div>                         
+                                <span class="help-block"> &nbsp;</span>                  
+                            </div>
+                            <div v-if="anamnesis.isDysglycemia=='1'">
+                                <div class="col-md-3">
+                                    <input type="text" name="dysglycemia_duration" class="form-control input-inline" v-model="anamnesis.dysglycemiaDuration">
+                                    <span class="help-inline"> 年 </span>
+                                    <span class="help-block"> 填写病史 </span>
+                                </div>
+                                <label class="control-label col-md-1">类型</label>
+                                <div class="col-md-2">
+                                    <select name="blood_type" class="form-control" v-model="anamnesis.dysglycemiaType">
+                                        <option value="" disabled selected>选择类型</option>
+                                        <option v-for="dysglycemiaType in pagedata.dysglycemiaTypes" :key="dysglycemiaType.id" :value="dysglycemiaType.id">{{dysglycemiaType.text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">是否糖尿病</label>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div>
+                                            <label><radio value="0" v-model="anamnesis.isDiabetesMellitus">否</radio></label>
+                                            <label><radio value="1" v-model="anamnesis.isDiabetesMellitus">是</radio></label>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="anamnesis.isDiabetesMellitus=='1'">
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1 bold">有无治疗</label>
+                                <div class="col-md-9">
+                                    <div>
+                                        <label><radio value="0" v-model="anamnesis.isDiabetesMellitusUnderTreatment">无</radio></label>
+                                        <label><radio value="1" v-model="anamnesis.isDiabetesMellitusUnderTreatment">不规律</radio></label>
+                                        <label><radio value="2" v-model="anamnesis.isDiabetesMellitusUnderTreatment">规律治疗</radio></label>
+                                    </div>              
+                                    <span class="help-block"> &nbsp;</span>
+                                </div>
+                            </div>
+                            <div class="form-group" v-if="anamnesis.isDiabetesMellitusUnderTreatment=='1'||anamnesis.isDiabetesMellitusUnderTreatment=='2'">
+                                <label class="control-label col-md-2 col-md-offset-1 bold">治疗方法（多选）</label>
+                                <div class="col-md-5">
+                                    <div><label v-for="treatMethod in pagedata.diabetesMellitusTreatmentMethods" :key="treatMethod.id"><checkbox v-model="anamnesis.diabetesMellitusTreatmentMethod" :value="treatMethod.id">{{treatMethod.text}}</checkbox></label></div>
+                                    <span class="help-block"> &nbsp;</span>
+                                </div>
+                                <div class="col-md-4" v-if="anamnesis.diabetesMellitusTreatmentMethod.indexOf('3')>=0">
+                                    <input type="text" name="diabetes_mellitus_oral_drug_name" class="form-control input-inline" v-model="anamnesis.diabetesMellitusOralDrugName">
+                                    <span class="help-block"> 填写口服药药名 </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 血糖异常部分结束 -->
+                <!-- 痛风部分开始 -->
+                <div class="portlet box green-dark">
+                    <div class="portlet-title">
+                        <div class="caption">痛风</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无痛风</label>
+                            <div class="col-md-4">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isGout">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isGout">有</radio></label>
+                                </div>                       
+                                <span class="help-block"> &nbsp;</span>          
+                            </div>
+                            <div class="col-md-4" v-if="anamnesis.isGout=='1'">
+                                <input type="text" name="gout_duration" class="form-control input-inline" v-model="anamnesis.goutDuration">
+                                <span class="help-inline"> 年 </span>
+                                <span class="help-block"> 填写病史 </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">血清尿酸</label>
+                            <div class="col-md-6">
+                                <input type="text" name="serum_uric_acid_level" class="form-control input-inline" v-model="anamnesis.serumUricAcidLevel">
+                                <span class="help-inline">mmol/L</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无肾功能不全</label>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div>
+                                            <label><radio value="-1" v-model="anamnesis.isRenalInsufficiency">不知道</radio></label>
+                                            <label><radio value="0" v-model="anamnesis.isRenalInsufficiency">无</radio></label>
+                                            <label><radio value="1" v-model="anamnesis.isRenalInsufficiency">有</radio></label>
+                                        </div>                         
+                                        <span class="help-block"> &nbsp;</span>                                        
+                                    </div>
+                                    <div class="col-md-4" v-if="anamnesis.isRenalInsufficiency=='1'">
+                                        <input type="text" name="renal_insufficiency_duration" class="form-control input-inline" v-model="anamnesis.renalInsufficiencyDuration">
+                                        <span class="help-inline"> 年 </span>
+                                        <span class="help-block"> 填写病史 </span>
+                                    </div>
+                                    <div class="col-md-4" v-if="anamnesis.isRenalInsufficiency=='1'">
+                                        <input type="text" name="renal_insufficiency_etiology" class="form-control" v-model="anamnesis.renalInsufficiencyEtiology">
+                                        <span class="help-block"> 填写病因 </span>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">最高Cr</label>
+                            <div class="col-md-6">
+                                <input type="text" name="maximum_Cr" class="form-control input-inline" v-model="anamnesis.maximumCr">
+                                <span class="help-inline">mmol/L</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">近期Cr</label>
+                            <div class="col-md-6">
+                                <input type="text" name="recent_Cr" class="form-control input-inline" v-model="anamnesis.recentCr">
+                                <span class="help-inline">mmol/L</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 痛风部分结束 -->
+                <!-- 心脏病史部分开始 -->
+                <div class="portlet box purple">
+                    <div class="portlet-title">
+                        <div class="caption">心脏病史</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无陈旧性心硬</label>
+                            <div class="col-md-2">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isOldMyocardialInfarction">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isOldMyocardialInfarction">有</radio></label>
+                                </div>                       
+                                <span class="help-block"> &nbsp;</span>                                
+                            </div>
+                            <div class="col-md-8" v-if="anamnesis.isOldMyocardialInfarction=='1'">
+                                <input type="text" name="old_myocardial_infarction_onset_time_year" class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeYear">
+                                <span class="help-inline"> 年 </span>
+                                <input type="text" name="old_myocardial_infarction_onset_time_month" class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeMonth">
+                                <span class="help-inline"> 月前，发生 </span>
+                                <input type="text" name="old_myocardial_infarction_onset_frequency" class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetFrequency">
+                                <span class="help-inline"> 次 </span>
+                            </div>
+                        </div>
+                        <div class="form-group" v-if="anamnesis.isOldMyocardialInfarction=='1'">
+                            <label class="control-label col-md-2 col-md-offset-1 bold">部位（多选）</label>
+                            <div class="col-md-6">
+                                <div><label v-for="location in pagedata.oldMyocardialInfarctionLocations" :key="location.id"><checkbox v-model="anamnesis.oldMyocardialInfarctionLocation" :value="location.id">{{location.text}}</checkbox></label></div>
+                                <span class="help-block"> &nbsp;</span>
+                            </div>
+                            <div class="col-md-3" v-if="anamnesis.oldMyocardialInfarctionLocation.indexOf('7')>='0'">
+                                <input type="text" class="form-control" name="old_myocardial_infarction_location_others" v-model="anamnesis.oldMyocardialInfarctionLocationOthers">
+                                <span class="help-block"> 填写其他部位 </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无PCI史</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isPciHistory">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isPciHistory">有</radio></label>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无CABG史</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isCabgHistory">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isCabgHistory">有</radio></label>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无冠脉造影≥50%狭窄史</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isCasGt50History">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isCasGt50History">有</radio></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无房颤</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isAtrialFibrillation">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isAtrialFibrillation">有</radio></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无其他心脏病史</label>
+                            <div class="col-md-3">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isOtherHeartDiseaseHistory">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isOtherHeartDiseaseHistory">有</radio></label>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="form-group" v-if="anamnesis.isOtherHeartDiseaseHistory=='1'">
+                            <label class="control-label col-md-2 col-md-offset-1 bold">类型（多选）</label>
+                            <div class="col-md-6">
+                                <div><label v-for="diseaseType in pagedata.otherHeartDiseaseTypes" :key="diseaseType.id"><checkbox v-model="anamnesis.otherHeartDiseaseType" :value="diseaseType.id">{{diseaseType.text}}</checkbox></label></div>
+                                <span class="help-block"> &nbsp;</span>
+                            </div>
+                            <div class="col-md-3" v-if="anamnesis.otherHeartDiseaseType.indexOf('8')>='0'">
+                                <input type="text" name="other_heart_disease_type_others" class="form-control" v-model="anamnesis.otherHeartDiseaseTypeOthers">
+                                <span class="help-block">填写其他类型</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 心脏病史部分结束 -->
+                <!-- 深静脉血栓部分开始 -->
+                <div class="portlet box dark">
+                    <div class="portlet-title">
+                        <div class="caption">深静脉血栓</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无深静脉血栓</label>
+                            <div class="col-md-2">
+                                <div>
+                                    <label><radio value="0" v-model="anamnesis.isDeepVenousThrombosis">无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isDeepVenousThrombosis">有</radio></label>
+                                </div>
+                            </div>
+                            <div class="col-md-8" v-if="anamnesis.isDeepVenousThrombosis=='1'">
+                                <input type="text" name="deep_venou_thrombosis_onset_time_year" class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeYear">
+                                <span class="help-inline"> 年 </span>
+                                <input type="text" name="deep_venou_thrombosis_onset_time_month" class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeMonth">
+                                <span class="help-inline"> 月前 </span>
+                            </div>
+                        </div>
+                        <div v-if="anamnesis.isDeepVenousThrombosis=='1'">
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1 bold">诱因（多选）</label>
+                                <div class="col-md-6">
+                                    <div><label v-for="inducement in pagedata.deepVenousThrombosisInducements" :key="inducement.id"><checkbox v-model="anamnesis.deepVenousThrombosisInducements" :value="inducement.id">{{inducement.text}}</checkbox></label></div>
+                                    <span class="help-block"> &nbsp;</span>
+                                </div>
+                                <div class="col-md-2" v-if="anamnesis.deepVenousThrombosisInducements.indexOf('5')>='0'">
+                                    <input type="text" class="form-control" name="deep_venou_thrombosis_inducements_others" v-model="anamnesis.deepVenousThrombosisInducementsOthers">
+                                    <span class="help-block"> 填写其他诱因 </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1 bold">症状（多选）</label>
+                                <div class="col-md-8">
+                                    <div><label v-for="symptom in pagedata.deepVenousThrombosisSymptoms" :key="symptom.id"><checkbox v-model="anamnesis.deepVenousThrombosisSymptoms" :value="symptom.id">{{symptom.text}}</checkbox></label></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1 bold">诊断结果</label>
+                                <div class="col-md-9">
+                                    <div>
+                                        <label><radio value="1" v-model="anamnesis.deepVenousThrombosisDiagnosisResult">确诊为DVT</radio></label>
+                                        <label><radio value="2" v-model="anamnesis.deepVenousThrombosisDiagnosisResult">DVT可能性较大</radio></label>
+                                        <label><radio value="3" v-model="anamnesis.deepVenousThrombosisDiagnosisResult">DVT可能性与PE相同</radio></label>
+                                        <label><radio value="4" v-model="anamnesis.deepVenousThrombosisDiagnosisResult">DVT可能性较小</radio></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 深静脉血栓部分结束 -->
+                <div v-if="false">                                
+                <!-- 既往缺血性卒中部分开始 -->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">既往缺血性卒中</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无既往缺血性卒中</label>
+                            <div class="col-md-2">
+                                <div class="icheck-inline">
+                                    <label><input type="radio" name="is_old_ischemic_stroke" value="0"> 无 </label>
+                                    <label><input type="radio" name="is_old_ischemic_stroke" value="1"> 有 </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-repeater" v-if="mr.anamnesis.old_ischemic_stroke.is_old_ischemic_stroke=='1'">
+                            <label class="control-label col-md-1">类型</label>
+                            <div class="col-md-4">
+                                <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加类型</a>
+                                <span class="help-block">  </span>
+                            </div>
+                            <div class="col-md-offset-1 col-md-11">
+                                <div data-repeater-list="old_ischemic_stroke" id="old_ischemic_stroke_repeater">
+                                    <div data-repeater-item class="mt-repeater-item form-group">
+                                        <!-- jQuery Repeater Container -->
+                                        <div class="col-md-2">
+                                            <select name="type_name" class="form-control"><option value=""></option></select>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" name="onset_time_year" class="form-control input-inline">
+                                            <span class="help-inline"> 年 </span>
+                                            <input type="text" name="onset_time_month" class="form-control input-inline">
+                                            <span class="help-inline"> 月前，发生 </span>
+                                            <input type="text" name="onset_frequency" class="form-control input-inline">
+                                            <span class="help-inline"> 次 </span>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:;" data-repeater-delete class="btn btn-danger">
+                                                <i class="fa fa-close"></i> 删除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 既往缺血性卒中部分结束 -->
+                <!-- 血管性疾病史部分开始 -->
+                <div class="portlet box red">
+                    <div class="portlet-title">
+                        <div class="caption">血管性疾病史</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无血管性疾病史</label>
+                            <div class="col-md-2">
+                                <div class="icheck-inline">
+                                    <label><input type="radio" name="is_vascular_diseases" value="0"> 无 </label>
+                                    <label><input type="radio" name="is_vascular_diseases" value="1"> 有 </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" v-if="mr.anamnesis.vascular_diseases.is_vascular_diseases=='1'">
+                            <label class="control-label col-md-2 col-md-offset-1">类型（多选）</label>
+                            <div class="col-md-6">
+                                <select name="vascula_diseases_types" class="form-control" id="anamnesis_vascula_diseases_types"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 血管性疾病史部分结束 -->
+                <!-- 出血病史部分开始 -->
+                <div class="portlet box yellow">
+                    <div class="portlet-title">
+                        <div class="caption">出血病史</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无出血病史</label>
+                            <div class="col-md-2">
+                                <div class="icheck-inline">
+                                    <label><input type="radio" name="is_hemorrhage" value="0"> 无 </label>
+                                    <label><input type="radio" name="is_hemorrhage" value="1"> 有 </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-repeater" v-if="mr.anamnesis.hemorrhage.is_hemorrhage=='1'">
+                            <label class="control-label col-md-1">类型</label>
+                            <div class="col-md-4">
+                                <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加类型</a>
+                                <span class="help-block">  </span>
+                            </div>
+                            <div class="col-md-offset-1 col-md-11">
+                                <div data-repeater-list="hemorrhage" id="hemorrhage_repeater">
+                                    <div data-repeater-item class="mt-repeater-item form-group">
+                                        <!-- jQuery Repeater Container -->
+                                        <div class="col-md-2">
+                                            <select name="type_name" class="form-control"><option value=""></option></select>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <span class="help-inline"> 发生时间 </span>
+                                            <input type="text" name="onset_time" class="form-control input-inline">
+                                            <span class="help-inline"> 发生次数 </span>
+                                            <input type="text" name="onset_frequency" class="form-control input-inline">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="javascript:;" data-repeater-delete class="btn btn-danger">
+                                                <i class="fa fa-close"></i> 删除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 出血病史部分结束 -->
+                <!-- 出血史部分开始 -->
+                <div class="portlet box green-dark">
+                    <div class="portlet-title">
+                        <div class="caption">出血史</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-2">有无出血史</label>
+                            <div class="col-md-2">
+                                <div class="icheck-inline">
+                                    <label><input type="radio" name="is_bleeding" value="0"> 无 </label>
+                                    <label><input type="radio" name="is_bleeding" value="1"> 有 </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-repeater" v-if="mr.anamnesis.bleeding.is_bleeding=='1'">
+                            <label class="control-label col-md-1">病因</label>
+                            <div class="col-md-4">
+                                <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加病因</a>
+                                <span class="help-block">  </span>
+                            </div>
+                            <div class="col-md-offset-1 col-md-11">
+                                <div data-repeater-list="bleeding" id="bleeding_repeater">
+                                    <div data-repeater-item class="mt-repeater-item form-group">
+                                        <!-- jQuery Repeater Container -->
+                                        <div class="col-md-2">
+                                            <select name="cause" class="form-control"><option value=""></option></select>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <span class="help-inline"> 发生时间 </span>
+                                            <input type="text" name="onset_time" class="form-control input-inline">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="javascript:;" data-repeater-delete class="btn btn-danger">
+                                                <i class="fa fa-close"></i> 删除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- 出血史部分结束 -->
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 
 <script>
-
+import {Checkbox, Radio} from 'vue-checkbox-radio';
 export default {
     name: 'anamnesis',
+    props: {
+        pagedata: {
+            type: Object
+        }
+    },
     data () {
-        return {}
+        return {
+            anamnesis: {
+                isLipidAbnormality: "1",
+                lipidAbnormalityType: "2",
+                lipidAbnormalityDuration: "3",
+                isLipidAbnormalityUnderTreatment: "2",
+                lipidAbnormalityDrugName: "辛伐他丁",
+                isEssentialHypertension: "1",
+                essentialHypertensionDuration: "5",
+                maximumValue: "170/100",
+                ordinaryValue: "150/95",
+                isEssentialHypertensionUnderTreatment: "2",
+                essentialHypertensionDrugName: "美托洛尔",
+                isDysglycemia: "1",
+                dysglycemiaDuration: "1",
+                dysglycemiaType: "1",
+                isDiabetesMellitus: "1",
+                isDiabetesMellitusUnderTreatment: "2",
+                diabetesMellitusTreatmentMethod: [],
+                diabetesMellitusOralDrugName: "达美康",
+                isGout: "1",
+                goutDuration: "3",
+                serumUricAcidLevel: "442",
+                isRenalInsufficiency: "1",
+                renalInsufficiencyDuration: "1",
+                maximumCr: "186",
+                recentCr: "160",
+                renalInsufficiencyEtiology: "高血压",
+                isOldMyocardialInfarction: "1",
+                oldMyocardialInfarctionOnsetTimeYear: "2017",
+                oldMyocardialInfarctionOnsetTimeMonth: "3",
+                oldMyocardialInfarctionOnsetFrequency: "5",
+                oldMyocardialInfarctionLocation: [],
+                oldMyocardialInfarctionLocationOthers: "其他部位",
+                isPciHistory: "1",
+                isCabgHistory: "1",
+                isCasGt50History: "1",
+                isAtrialFibrillation: "1",
+                isOtherHeartDiseaseHistory: "1",
+                otherHeartDiseaseType: [],
+                otherHeartDiseaseTypeOthers: "心脏肿瘤",
+                isDeepVenousThrombosis: "1",
+                deepVenousThrombosisOnsetTimeYear: "2016",
+                deepVenousThrombosisOnsetTimeMonth: "12",
+                deepVenousThrombosisInducements: [],
+                deepVenousThrombosisSymptoms: [],
+                deepVenousThrombosisDiagnosisResult: "2",
+                isOldIschemicStroke: "1",
+                oldIschemicStrokeTypes: [{
+                        typeName: "3",
+                        onsetTimeYear: "2016",
+                        onsetTimeMonth: "8",
+                        onsetFrequency: "3"
+                    },
+                    {
+                        typeName: "3",
+                        onsetTimeYear: "2015",
+                        onsetTimeMonth: "5",
+                        onsetFrequency: "5"
+                    }
+                ],
+                isVascularDiseases: "1",
+                vascularDiseasesTypes: "2,3",
+                isHemorrhage: "1",
+                hemorrhageTypes: [{
+                        typeName: "2",
+                        onsetTime: "2015－10",
+                        onsetFrequency: "4"
+                    },
+                    {
+                        typeName: "4",
+                        onsetTime: "2015－8",
+                        onsetFrequency: "3"
+                    }
+                ],
+                isBleeding: "1",
+                bleedingCauses: [{
+                        cause: "2",
+                        onsetTime: "2016-08"
+                    },
+                    {
+                        cause: "4",
+                        onsetTime: "2016-03"
+                    }
+                ]
+            }
+        }
+    },
+    components: {
+        Checkbox, Radio
     }
 }
 </script>
