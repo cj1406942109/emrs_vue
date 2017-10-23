@@ -63,7 +63,7 @@
         <label class="control-label col-md-2">主治医生<span class="required"> * </span></label>
         <div class="col-md-3">
             <select name="body_part_name" class="form-control" v-model="basicInfo.doctor">
-                <option value="" disabled selected>请选择主治医生</option>
+                <option :value="{}" disabled selected>请选择主治医生</option>
                 <option v-for="doctor in pagedata.doctorList" :key="doctor.id" :value="doctor">{{doctor.name}}</option>
             </select>
         </div>
@@ -72,7 +72,7 @@
         <label class="control-label col-md-2">记录者<span class="required"> * </span></label>
         <div class="col-md-3">
             <select name="body_part_name" class="form-control" v-model="basicInfo.recorder">
-                <option value="" disabled selected>请选择记录者</option>
+                <option :value="{}" disabled selected>请选择记录者</option>
                 <option v-for="recorder in pagedata.recorderList" :key="recorder.id" :value="recorder">{{recorder.name}}</option>
             </select>
         </div>
@@ -130,33 +130,13 @@ export default {
     props: {
         pagedata: {
             type: Object
+        },
+        basicInfo: {
+            type: Object
         }
     },
     data () {
         return {
-            basicInfo: {
-                admissionNum: "1234567890",
-                bedNum: "A楼310室10号床",
-                doctor: "",
-                recorder: "",
-                name: "李鹏",
-                medicalCardNum: "A32620985",
-                idNum: "42063019880722040",
-                cellphone1: "15424765412",
-                cellphone2: "17754234489",
-                telephone: "027-87563354",
-                gender: "0",
-                nationality: "",
-                birthProvince: "湖北省",
-                birthCity: "武汉市",
-                birthday: "1990-06-01",
-                profession: "",
-                addressProvince: "湖北省",
-                addressCity: "武汉市",
-                addressArea: "洪山区",
-                addressTown: "珞南街道",
-                address: "湖北省武汉市洪山区南湖山庄20栋3单元"
-            },
             //datePicker
             option: utils.datepickerOption,
             limit: [{

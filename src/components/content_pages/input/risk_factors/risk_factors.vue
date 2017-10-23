@@ -417,57 +417,13 @@ export default {
     props: {
         pagedata: {
             type: Object
+        },
+        riskFactors: {
+            type: Object
         }
     },
     data () {
-        return {
-            riskFactors: {
-                isSomking: "1",
-                smokingDuration: "10",
-                piecesPerDay: "3",
-                cigretteType: [],
-                cigretteTypeOthers: "斗烟",
-                isSmokingCessation: "1",
-                smokingCessationDuration: "3",
-                isDrinking: "1",
-                drinkingDuration: "15",
-                talesPerDay: "2",
-                wineType: [],
-                wineTypeOthers: "香槟",
-                isTemperance: "1",
-                temperanceDuration: "2",
-                drinkingAmount: "2",
-                paddyPotato: "2",
-                grainMixedBeans: "1",
-                potato: "1",
-                vegetables: "2",
-                fruits: "3",
-                livestockMeat: "1",
-                aquaticProducts: "2",
-                eggs: "2",
-                milkProducts: "2",
-                soybeansNuts: "1",
-                salt: "3",
-                sugar: "2",
-                oil: "1",
-                fatMeat: "100",
-                visceral: "20",
-                bloodType: "3",
-                isLongtermPsychologicalStress: "1",
-                isDepression: "1",
-                exerciseType: "2",
-                exerciseDuration: "2",
-                exerciseMode: [],
-                exerciseModeOthers: "游泳",
-                isCentralObesity: "1",
-                centralObesityDuration: "5",
-                height: "175",
-                weight: "80",
-                waistline: "75",
-                neckCircumference: "43",
-                hipline: "87"
-            }
-        }
+        return {}
     },
     components: {
         Checkbox, Radio

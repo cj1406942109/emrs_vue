@@ -461,108 +461,14 @@ export default {
     props: {
         pagedata: {
             type: Object
+        },
+        historyOfPresentIllness: {
+            type: Object
         }
     },
     data () {
         return {
-            historyOfPresentIllness: {
-                careCauses: [],
-                careCauseOthers: "气促",
-                chestPain: {
-                    timesPerDay: "1",
-                    timesPerWeek: "7",
-                    timesPerMonth: "30",
-                    timesPerYear: "365",
-                    onsetTime: [],
-                    onsetTimeOthers: "凌晨",
-                    diseaseBodyParts: [{
-                            bodyPartName: "1",
-                            bodyPartNameOthers: "",
-                            qualityOfPain: "1",
-                            qualityOfPainOthers: "",
-                            durationOfPain: "2",
-                            durationOfPainOthers: "",
-                            painDegree: "2"
-                        },
-                        {
-                            bodyPartName: "10",
-                            bodyPartNameOthers: "其他部位",
-                            qualityOfPain: "13",
-                            qualityOfPainOthers: "其他性质",
-                            durationOfPain: "6",
-                            durationOfPainOthers: "其他持续时间",
-                            painDegree: "3"
-                        }
-                    ],
-                    relievingFactors: "2",
-                    relievingFactorsOthers: "",
-                    precipitatingFactors: [],
-                    precipitatingFactorsOthers: "其他诱因",
-                    radiationSites: [],
-                    radiationSitesOthers: "其他放射部位",
-                    simultaneousPhenomena: [],
-                    simultaneousPhenomenonOthers: "其他伴随症状"
-                },
-                chestDistress: {
-                    timesPerDay: "1",
-                    timesPerWeek: "7",
-                    timesPerMonth: "20",
-                    timesPerYear: "365",
-                    onsetTime: ["2","4","5"],
-                    onsetTimeOthers: "凌晨凌晨",
-                    diseaseBodyParts: [{
-                            bodyPartName: "1",
-                            bodyPartNameOthers: "",
-                            qualityOfPain: "1",
-                            qualityOfPainOthers: "",
-                            durationOfPain: "2",
-                            durationOfPainOthers: "",
-                            painDegree: "2"
-                        },
-                        {
-                            bodyPartName: "10",
-                            bodyPartNameOthers: "其他部位",
-                            qualityOfPain: "13",
-                            qualityOfPainOthers: "其他性质",
-                            durationOfPain: "6",
-                            durationOfPainOthers: "其他持续时间",
-                            painDegree: "3"
-                        }
-                    ],
-                    relievingFactors: "4",
-                    relievingFactorsOthers: "",
-                    precipitatingFactors: [],
-                    precipitatingFactorsOthers: "其他诱因",
-                    radiationSites: [],
-                    radiationSitesOthers: "其他放射部位",
-                    simultaneousPhenomena: [],
-                    simultaneousPhenomenonOthers: "其他伴随症状"
-                },
-                dyspnea: {
-                    timesPerDay: "1",
-                    timesPerWeek: "7",
-                    timesPerMonth: "30",
-                    timesPerYear: "365",
-                    onsetTime: [],
-                    onsetTimeOthers: "凌晨"
-                },
-                palpitation: {
-                    timesPerDay: "1",
-                    timesPerWeek: "7",
-                    timesPerMonth: "30",
-                    timesPerYear: "365",
-                    onsetTime: [],
-                    onsetTimeOthers: "凌晨"
-                },
-                abnormalEcg: {
-                    timesPerDay: "1",
-                    timesPerWeek: "7",
-                    timesPerMonth: "30",
-                    timesPerYear: "365",
-                    onsetTime: [],
-                    onsetTimeOthers: "凌晨"
-                }
-            },
+            
             className: "col-md-11 col-md-offset-1"
         }
     },    

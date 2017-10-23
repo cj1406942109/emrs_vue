@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="portlet-body">
-                                            <router-view name="tab1" :pagedata="pagedata"></router-view>
+                                            <router-view name="tab1" :pagedata="pagedata" :basicInfo="mr.basicInfo"></router-view>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                                     <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><router-link :to="tab.href" data-toggle="tab">{{tab.title}}</router-link></li>                                               
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <router-view name="tab2" :pagedata="pagedata"></router-view>
+                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors"></router-view>
                                                 </div>
                                             </div>
                                         </div>
@@ -87,7 +87,7 @@
                                     <div class="col-md-2 button-next  col-md-offset-2" v-show="currentStep!=2" @click="nextStep">
                                         <a href="javascript:;" class="btn btn-block green"> 继续 <i class="fa fa-angle-right"></i></a>
                                     </div>
-                                    <div class="col-md-2 button-submit" v-show="currentStep===2">
+                                    <div class="col-md-2 button-submit" v-show="currentStep===2" @click="submitForm">
                                         <a href="javascript:;" class="btn btn-block green"> 提交 <i class="fa fa-check"></i></a>
                                     </div>
                                 </div>
@@ -110,6 +110,194 @@ export default {
     },
     data () {
         return {
+            mr: {
+                basicInfo: {
+                    admissionNum: "",
+                    bedNum: "",
+                    doctor: {},
+                    recorder: {},
+                    name: "",
+                    medicalCardNum: "",
+                    idNum: "",
+                    cellphone1: "",
+                    cellphone2: "",
+                    telephone: "",
+                    gender: "",
+                    nationality: "",
+                    birthProvince: "",
+                    birthCity: "",
+                    birthday: "",
+                    profession: "",
+                    addressProvince: "",
+                    addressCity: "",
+                    addressArea: "",
+                    addressTown: "",
+                    address: ""
+                },
+                historyOfPresentIllness: {
+                    careCauses: [],
+                    careCauseOthers: "",
+                    chestPain: {
+                        timesPerDay: "",
+                        timesPerWeek: "",
+                        timesPerMonth: "",
+                        timesPerYear: "",
+                        onsetTime: [],
+                        onsetTimeOthers: "",
+                        diseaseBodyParts: [],
+                        relievingFactors: "",
+                        relievingFactorsOthers: "",
+                        precipitatingFactors: [],
+                        precipitatingFactorsOthers: "",
+                        radiationSites: [],
+                        radiationSitesOthers: "",
+                        simultaneousPhenomena: [],
+                        simultaneousPhenomenonOthers: ""
+                    },
+                    chestDistress: {
+                        timesPerDay: "",
+                        timesPerWeek: "",
+                        timesPerMonth: "",
+                        timesPerYear: "",
+                        onsetTime: [],
+                        onsetTimeOthers: "",
+                        diseaseBodyParts: [],
+                        relievingFactors: "",
+                        relievingFactorsOthers: "",
+                        precipitatingFactors: [],
+                        precipitatingFactorsOthers: "",
+                        radiationSites: [],
+                        radiationSitesOthers: "",
+                        simultaneousPhenomena: [],
+                        simultaneousPhenomenonOthers: ""
+                    },
+                    dyspnea: {
+                        timesPerDay: "",
+                        timesPerWeek: "",
+                        timesPerMonth: "",
+                        timesPerYear: "",
+                        onsetTime: [],
+                        onsetTimeOthers: ""
+                    },
+                    palpitation: {
+                        timesPerDay: "",
+                        timesPerWeek: "",
+                        timesPerMonth: "",
+                        timesPerYear: "",
+                        onsetTime: [],
+                        onsetTimeOthers: ""
+                    },
+                    abnormalEcg: {
+                        timesPerDay: "",
+                        timesPerWeek: "",
+                        timesPerMonth: "",
+                        timesPerYear: "",
+                        onsetTime: [],
+                        onsetTimeOthers: ""
+                    }
+                },
+                anamnesis: {
+                    isLipidAbnormality: "",
+                    lipidAbnormalityType: "",
+                    lipidAbnormalityDuration: "",
+                    isLipidAbnormalityUnderTreatment: "",
+                    lipidAbnormalityDrugName: "",
+                    isEssentialHypertension: "",
+                    essentialHypertensionDuration: "",
+                    maximumValue: "",
+                    ordinaryValue: "",
+                    isEssentialHypertensionUnderTreatment: "",
+                    essentialHypertensionDrugName: "",
+                    isDysglycemia: "",
+                    dysglycemiaDuration: "",
+                    dysglycemiaType: "",
+                    isDiabetesMellitus: "",
+                    isDiabetesMellitusUnderTreatment: "",
+                    diabetesMellitusTreatmentMethod: [],
+                    diabetesMellitusOralDrugName: "",
+                    isGout: "",
+                    goutDuration: "",
+                    serumUricAcidLevel: "",
+                    isRenalInsufficiency: "",
+                    renalInsufficiencyDuration: "",
+                    maximumCr: "",
+                    recentCr: "",
+                    renalInsufficiencyEtiology: "",
+                    isOldMyocardialInfarction: "",
+                    oldMyocardialInfarctionOnsetTimeYear: "",
+                    oldMyocardialInfarctionOnsetTimeMonth: "",
+                    oldMyocardialInfarctionOnsetFrequency: "",
+                    oldMyocardialInfarctionLocation: [],
+                    oldMyocardialInfarctionLocationOthers: "",
+                    isPciHistory: "",
+                    isCabgHistory: "",
+                    isCasGt50History: "",
+                    isAtrialFibrillation: "",
+                    isOtherHeartDiseaseHistory: "",
+                    otherHeartDiseaseType: [],
+                    otherHeartDiseaseTypeOthers: "",
+                    isDeepVenousThrombosis: "",
+                    deepVenousThrombosisOnsetTimeYear: "",
+                    deepVenousThrombosisOnsetTimeMonth: "",
+                    deepVenousThrombosisInducements: [],
+                    deepVenousThrombosisSymptoms: [],
+                    deepVenousThrombosisDiagnosisResult: "",
+                    isOldIschemicStroke: "",
+                    oldIschemicStrokeTypes: [],
+                    isVascularDiseases: "",
+                    vascularDiseasesTypes: [],
+                    isHemorrhage: "",
+                    hemorrhageTypes: [],
+                    isBleeding: "",
+                    bleedingCauses: []
+                },
+                riskFactors: {
+                    isSomking: "",
+                    smokingDuration: "",
+                    piecesPerDay: "",
+                    cigretteType: [],
+                    cigretteTypeOthers: "",
+                    isSmokingCessation: "",
+                    smokingCessationDuration: "",
+                    isDrinking: "",
+                    drinkingDuration: "",
+                    talesPerDay: "",
+                    wineType: [],
+                    wineTypeOthers: "",
+                    isTemperance: "",
+                    temperanceDuration: "",
+                    drinkingAmount: "",
+                    paddyPotato: "",
+                    grainMixedBeans: "",
+                    potato: "",
+                    vegetables: "",
+                    fruits: "",
+                    livestockMeat: "",
+                    aquaticProducts: "",
+                    eggs: "",
+                    milkProducts: "",
+                    soybeansNuts: "",
+                    salt: "",
+                    sugar: "",
+                    oil: "",
+                    fatMeat: "",
+                    visceral: "",
+                    bloodType: "",
+                    isLongtermPsychologicalStress: "",
+                    isDepression: "",
+                    exerciseType: "",
+                    exerciseDuration: "",
+                    exerciseMode: [],
+                    exerciseModeOthers: "",
+                    isCentralObesity: "",
+                    centralObesityDuration: "",
+                    height: "",
+                    weight: "",
+                    waistline: "",
+                    neckCircumference: "",
+                    hipline: ""
+                }
+            },
             steps: [
                 {
                     value: 1,
@@ -169,6 +357,9 @@ export default {
         },
         changeActiveTab (index) {
             this.activeTab = index+1;
+        },
+        submitForm () {
+            console.log(this.mr);
         }
     },
     created () {

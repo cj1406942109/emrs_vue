@@ -585,96 +585,13 @@ export default {
     props: {
         pagedata: {
             type: Object
+        },
+        anamnesis: {
+            type: Object
         }
     },
     data () {
-        return {
-            anamnesis: {
-                isLipidAbnormality: "1",
-                lipidAbnormalityType: "2",
-                lipidAbnormalityDuration: "3",
-                isLipidAbnormalityUnderTreatment: "2",
-                lipidAbnormalityDrugName: "辛伐他丁",
-                isEssentialHypertension: "1",
-                essentialHypertensionDuration: "5",
-                maximumValue: "170/100",
-                ordinaryValue: "150/95",
-                isEssentialHypertensionUnderTreatment: "2",
-                essentialHypertensionDrugName: "美托洛尔",
-                isDysglycemia: "1",
-                dysglycemiaDuration: "1",
-                dysglycemiaType: "1",
-                isDiabetesMellitus: "1",
-                isDiabetesMellitusUnderTreatment: "2",
-                diabetesMellitusTreatmentMethod: [],
-                diabetesMellitusOralDrugName: "达美康",
-                isGout: "1",
-                goutDuration: "3",
-                serumUricAcidLevel: "442",
-                isRenalInsufficiency: "1",
-                renalInsufficiencyDuration: "1",
-                maximumCr: "186",
-                recentCr: "160",
-                renalInsufficiencyEtiology: "高血压",
-                isOldMyocardialInfarction: "1",
-                oldMyocardialInfarctionOnsetTimeYear: "2017",
-                oldMyocardialInfarctionOnsetTimeMonth: "3",
-                oldMyocardialInfarctionOnsetFrequency: "5",
-                oldMyocardialInfarctionLocation: [],
-                oldMyocardialInfarctionLocationOthers: "其他部位",
-                isPciHistory: "1",
-                isCabgHistory: "1",
-                isCasGt50History: "1",
-                isAtrialFibrillation: "1",
-                isOtherHeartDiseaseHistory: "1",
-                otherHeartDiseaseType: [],
-                otherHeartDiseaseTypeOthers: "心脏肿瘤",
-                isDeepVenousThrombosis: "1",
-                deepVenousThrombosisOnsetTimeYear: "2016",
-                deepVenousThrombosisOnsetTimeMonth: "12",
-                deepVenousThrombosisInducements: [],
-                deepVenousThrombosisSymptoms: [],
-                deepVenousThrombosisDiagnosisResult: "2",
-                isOldIschemicStroke: "1",
-                oldIschemicStrokeTypes: [{
-                        typeName: "3",
-                        onsetTimeYear: "2016",
-                        onsetTimeMonth: "8",
-                        onsetFrequency: "3"
-                    },
-                    {
-                        typeName: "3",
-                        onsetTimeYear: "2015",
-                        onsetTimeMonth: "5",
-                        onsetFrequency: "5"
-                    }
-                ],
-                isVascularDiseases: "1",
-                vascularDiseasesTypes: [],
-                isHemorrhage: "1",
-                hemorrhageTypes: [{
-                        typeName: "2",
-                        onsetTime: "2015－10",
-                        onsetFrequency: "4"
-                    },
-                    {
-                        typeName: "4",
-                        onsetTime: "2015－8",
-                        onsetFrequency: "3"
-                    }
-                ],
-                isBleeding: "1",
-                bleedingCauses: [{
-                        cause: "2",
-                        onsetTime: "2016-08"
-                    },
-                    {
-                        cause: "4",
-                        onsetTime: "2016-03"
-                    }
-                ]
-            }
-        }
+        return {}
     },    
     components: {
         Checkbox, Radio, vRepeater
