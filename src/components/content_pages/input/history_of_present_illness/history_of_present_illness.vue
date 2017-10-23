@@ -65,8 +65,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <v-repeater :array="historyOfPresentIllness.chestPain.diseaseBodyParts" :row="{bodyPartName: '',bodyPartNameOthers: '',qualityOfPain: '',qualityOfPainOthers: '', durationOfPain: '', durationOfPainOthers:'', painDegree:''}">
-                                    <label class="control-label col-md-2 bold" slot="header">部位</label>
+                                <v-repeater :className="'col-md-11 col-md-offset-1'" :array="historyOfPresentIllness.chestPain.diseaseBodyParts" :row="{bodyPartName: '',bodyPartNameOthers: '',qualityOfPain: '',qualityOfPainOthers: '', durationOfPain: '', durationOfPainOthers:'', painDegree:''}">
+                                    <label class="control-label col-md-1 bold" slot="header">部位</label>
                                     <template v-for="(item,index) in historyOfPresentIllness.chestPain.diseaseBodyParts" :slot="index">
                                         <div class="mt-repeater-input" :key="item.id">  
                                             <label class="control-label">部位名</label>
@@ -207,8 +207,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <v-repeater :array="historyOfPresentIllness.chestDistress.diseaseBodyParts" :row="{bodyPartName: '',bodyPartNameOthers: '',qualityOfPain: '',qualityOfPainOthers: '', durationOfPain: '', durationOfPainOthers:'', painDegree:''}">
-                                    <label class="control-label col-md-2 bold" slot="header">部位</label>
+                                <v-repeater :className="'col-md-11 col-md-offset-1'" :array="historyOfPresentIllness.chestDistress.diseaseBodyParts" :row="{bodyPartName: '',bodyPartNameOthers: '',qualityOfPain: '',qualityOfPainOthers: '', durationOfPain: '', durationOfPainOthers:'', painDegree:''}">
+                                    <label class="control-label col-md-1 bold" slot="header">部位</label>
                                     <template v-for="(item,index) in historyOfPresentIllness.chestDistress.diseaseBodyParts" :slot="index">
                                         <div class="mt-repeater-input" :key="item.id">  
                                             <label class="control-label">部位名</label>
@@ -562,7 +562,8 @@ export default {
                     onsetTime: [],
                     onsetTimeOthers: "凌晨"
                 }
-            }
+            },
+            className: "col-md-11 col-md-offset-1"
         }
     },    
     components: {

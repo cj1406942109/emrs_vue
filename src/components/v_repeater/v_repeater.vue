@@ -5,7 +5,7 @@
         <a href="javascript:;" class="btn btn-info" @click="addRow(array, row)"><i class="fa fa-plus"></i> 添加</a>
         <span class="help-block">  </span>
     </div>
-    <div class="col-md-10 col-md-offset-2">
+    <div :class="className">
         <div >
             <div class="mt-repeater-item" v-for="(item,index) in array" :key="item.id"> 
                 <slot :name="index"></slot>
@@ -32,6 +32,10 @@ export default {
         },
         row: {
             type: Object
+        },
+        className: {
+            type: String,
+            default: "col-md-10 col-md-offset-2"
         }
     },
     methods: {
