@@ -28,13 +28,13 @@
                             </div>
                             <div v-if="anamnesis.isLipidAbnormality=='1'">
                                 <div class="col-md-3">
-                                    <input type="text" name="lipid_abnormality_duration" class="form-control input-inline" v-model="anamnesis.lipidAbnormalityDuration">
+                                    <input class="form-control input-inline" v-model="anamnesis.lipidAbnormalityDuration">
                                     <span class="help-inline"> 年 </span>
                                     <span class="help-block"> 填写病史 </span>
                                 </div>
                                 <label class="control-label col-md-1">类型</label>
                                 <div class="col-md-2">
-                                    <select name="blood_type" class="form-control" v-model="anamnesis.lipidAbnormalityType">
+                                    <select class="form-control" v-model="anamnesis.lipidAbnormalityType">
                                         <option value="" disabled selected>选择类型</option>
                                         <option v-for="lipidAbnormalityType in pagedata.lipidAbnormalityTypes" :key="lipidAbnormalityType.id" :value="lipidAbnormalityType.id">{{lipidAbnormalityType.text}}</option>
                                     </select>
@@ -52,7 +52,7 @@
                                 <span class="help-block"> &nbsp;</span>                  
                             </div>
                             <div class="col-md-2" v-if="anamnesis.isLipidAbnormalityUnderTreatment=='2'">
-                                <input type="text" name="lipid_abnormality_drug_name" class="form-control input-inline" v-model="anamnesis.lipidAbnormalityDrugName">
+                                <input class="form-control input-inline" v-model="anamnesis.lipidAbnormalityDrugName">
                                 <span class="help-block"> 填写长期用药药名 </span>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 </div>              
                             </div>
                             <div class="col-md-4" v-if="anamnesis.isEssentialHypertension=='1'">
-                                <input type="text" name="essential_hypertension_duration" class="form-control input-inline" v-model="anamnesis.essentialHypertensionDuration">
+                                <input class="form-control input-inline" v-model="anamnesis.essentialHypertensionDuration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写病史 </span>
                             </div>
@@ -94,21 +94,21 @@
                                 <span class="help-block"> &nbsp;</span>                                
                             </div>
                             <div class="col-md-2" v-if="anamnesis.isEssentialHypertensionUnderTreatment=='2'">
-                                <input type="text" name="lipid_abnormality_drug_name" class="form-control input-inline" v-model="anamnesis.essentialHypertensionDrugName">
+                                <input class="form-control input-inline" v-model="anamnesis.essentialHypertensionDrugName">
                                 <span class="help-block"> 填写长期用药药名 </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">血压最高值</label>
                             <div class="col-md-4">
-                                <input type="text" placeholder="___/___" name="maximum_value" class="form-control input-inline" v-model="anamnesis.maximumValue">
+                                <input placeholder="___/___" class="form-control input-inline" v-model="anamnesis.maximumValue">
                                 <span class="help-inline"> mmHg </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">血压平时值</label>
                             <div class="col-md-4">
-                                <input type="text" placeholder="___/___" name="ordinary_value" class="form-control input-inline" v-model="anamnesis.ordinaryValue">
+                                <input placeholder="___/___" class="form-control input-inline" v-model="anamnesis.ordinaryValue">
                                 <span class="help-inline"> mmHg </span>
                             </div>
                         </div>
@@ -136,13 +136,13 @@
                             </div>
                             <div v-if="anamnesis.isDysglycemia=='1'">
                                 <div class="col-md-3">
-                                    <input type="text" name="dysglycemia_duration" class="form-control input-inline" v-model="anamnesis.dysglycemiaDuration">
+                                    <input class="form-control input-inline" v-model="anamnesis.dysglycemiaDuration">
                                     <span class="help-inline"> 年 </span>
                                     <span class="help-block"> 填写病史 </span>
                                 </div>
                                 <label class="control-label col-md-1">类型</label>
                                 <div class="col-md-2">
-                                    <select name="blood_type" class="form-control" v-model="anamnesis.dysglycemiaType">
+                                    <select class="form-control" v-model="anamnesis.dysglycemiaType">
                                         <option value="" disabled selected>选择类型</option>
                                         <option v-for="dysglycemiaType in pagedata.dysglycemiaTypes" :key="dysglycemiaType.id" :value="dysglycemiaType.id">{{dysglycemiaType.text}}</option>
                                     </select>
@@ -181,7 +181,7 @@
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-4" v-if="anamnesis.diabetesMellitusTreatmentMethod.indexOf('3')>=0">
-                                    <input type="text" name="diabetes_mellitus_oral_drug_name" class="form-control input-inline" v-model="anamnesis.diabetesMellitusOralDrugName">
+                                    <input class="form-control input-inline" v-model="anamnesis.diabetesMellitusOralDrugName">
                                     <span class="help-block"> 填写口服药药名 </span>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@
                                 <span class="help-block"> &nbsp;</span>          
                             </div>
                             <div class="col-md-4" v-if="anamnesis.isGout=='1'">
-                                <input type="text" name="gout_duration" class="form-control input-inline" v-model="anamnesis.goutDuration">
+                                <input class="form-control input-inline" v-model="anamnesis.goutDuration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写病史 </span>
                             </div>
@@ -216,7 +216,7 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">血清尿酸</label>
                             <div class="col-md-6">
-                                <input type="text" name="serum_uric_acid_level" class="form-control input-inline" v-model="anamnesis.serumUricAcidLevel">
+                                <input class="form-control input-inline" v-model="anamnesis.serumUricAcidLevel">
                                 <span class="help-inline">mmol/L</span>
                             </div>
                         </div>
@@ -233,12 +233,12 @@
                                         <span class="help-block"> &nbsp;</span>                                        
                                     </div>
                                     <div class="col-md-4" v-if="anamnesis.isRenalInsufficiency=='1'">
-                                        <input type="text" name="renal_insufficiency_duration" class="form-control input-inline" v-model="anamnesis.renalInsufficiencyDuration">
+                                        <input class="form-control input-inline" v-model="anamnesis.renalInsufficiencyDuration">
                                         <span class="help-inline"> 年 </span>
                                         <span class="help-block"> 填写病史 </span>
                                     </div>
                                     <div class="col-md-4" v-if="anamnesis.isRenalInsufficiency=='1'">
-                                        <input type="text" name="renal_insufficiency_etiology" class="form-control" v-model="anamnesis.renalInsufficiencyEtiology">
+                                        <input class="form-control" v-model="anamnesis.renalInsufficiencyEtiology">
                                         <span class="help-block"> 填写病因 </span>
                                     </div>
                                 </div>                                
@@ -247,14 +247,14 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">最高Cr</label>
                             <div class="col-md-6">
-                                <input type="text" name="maximum_Cr" class="form-control input-inline" v-model="anamnesis.maximumCr">
+                                <input class="form-control input-inline" v-model="anamnesis.maximumCr">
                                 <span class="help-inline">mmol/L</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">近期Cr</label>
                             <div class="col-md-6">
-                                <input type="text" name="recent_Cr" class="form-control input-inline" v-model="anamnesis.recentCr">
+                                <input class="form-control input-inline" v-model="anamnesis.recentCr">
                                 <span class="help-inline">mmol/L</span>
                             </div>
                         </div>
@@ -280,11 +280,11 @@
                                 <span class="help-block"> &nbsp;</span>                                
                             </div>
                             <div class="col-md-8" v-if="anamnesis.isOldMyocardialInfarction=='1'">
-                                <input type="text" name="old_myocardial_infarction_onset_time_year" class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeYear">
+                                <input class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeYear">
                                 <span class="help-inline"> 年 </span>
-                                <input type="text" name="old_myocardial_infarction_onset_time_month" class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeMonth">
+                                <input class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeMonth">
                                 <span class="help-inline"> 月前，发生 </span>
-                                <input type="text" name="old_myocardial_infarction_onset_frequency" class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetFrequency">
+                                <input class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetFrequency">
                                 <span class="help-inline"> 次 </span>
                             </div>
                         </div>
@@ -295,7 +295,7 @@
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-3" v-if="anamnesis.oldMyocardialInfarctionLocation.indexOf('7')>='0'">
-                                <input type="text" class="form-control" name="old_myocardial_infarction_location_others" v-model="anamnesis.oldMyocardialInfarctionLocationOthers">
+                                <input class="form-control" v-model="anamnesis.oldMyocardialInfarctionLocationOthers">
                                 <span class="help-block"> 填写其他部位 </span>
                             </div>
                         </div>
@@ -351,7 +351,7 @@
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-3" v-if="anamnesis.otherHeartDiseaseType.indexOf('8')>='0'">
-                                <input type="text" name="other_heart_disease_type_others" class="form-control" v-model="anamnesis.otherHeartDiseaseTypeOthers">
+                                <input class="form-control" v-model="anamnesis.otherHeartDiseaseTypeOthers">
                                 <span class="help-block">填写其他类型</span>
                             </div>
                         </div>
@@ -376,9 +376,9 @@
                                 </div>
                             </div>
                             <div class="col-md-8" v-if="anamnesis.isDeepVenousThrombosis=='1'">
-                                <input type="text" name="deep_venou_thrombosis_onset_time_year" class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeYear">
+                                <input class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeYear">
                                 <span class="help-inline"> 年 </span>
-                                <input type="text" name="deep_venou_thrombosis_onset_time_month" class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeMonth">
+                                <input class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeMonth">
                                 <span class="help-inline"> 月前 </span>
                             </div>
                         </div>
@@ -390,7 +390,7 @@
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="anamnesis.deepVenousThrombosisInducements.indexOf('5')>='0'">
-                                    <input type="text" class="form-control" name="deep_venou_thrombosis_inducements_others" v-model="anamnesis.deepVenousThrombosisInducementsOthers">
+                                    <input class="form-control" v-model="anamnesis.deepVenousThrombosisInducementsOthers">
                                     <span class="help-block"> 填写其他诱因 </span>
                                 </div>
                             </div>
@@ -433,41 +433,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mt-repeater" v-if="anamnesis.isOldIschemicStroke=='1'">
-                            <label class="control-label col-md-2 bold">类型</label>
-                            <div class="col-md-4">
-                                <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加类型</a>
-                                <span class="help-block">  </span>
-                            </div>
-                            <div class="col-md-offset-2 col-md-10">
-                                <div data-repeater-list="old_ischemic_stroke" id="old_ischemic_stroke_repeater">
-                                    <div data-repeater-item class="mt-repeater-item">
-                                        <div class="mt-repeater-input">
-                                            <select name="type_name" class="form-control">
-                                                <option value="" disabled selected>选择</option>
-                                                <option v-for="typeName in pagedata.oldIschemicStrokeTypes" :key="typeName.id" :value="typeName.id">{{typeName.text}}</option>
-                                            </select>
-                                        </div>
-                                        <div class="mt-repeater-input">
-                                            <input type="text" name="onset_time_year" class="form-control input-inline">
-                                            <span class="help-inline"> 年 </span>
-                                        </div>                         
-                                        <div class="mt-repeater-input"> 
-                                            <input type="text" name="onset_time_month" class="form-control input-inline">
-                                            <span class="help-inline"> 月前，发生 </span>              
-                                        </div>                         
-                                        <div class="mt-repeater-input"> 
-                                            <input type="text" name="onset_frequency" class="form-control input-inline">
-                                            <span class="help-inline"> 次 </span>              
-                                        </div>                                        
-                                        <div class="mt-repeater-input">
-                                            <a href="javascript:;" data-repeater-delete class="btn btn-danger">
-                                                <i class="fa fa-close"></i> 删除</a>
-                                        </div>
+                        <div class="form-group" v-if="anamnesis.isOldIschemicStroke=='1'">
+                            <v-repeater :array="anamnesis.oldIschemicStrokeTypes" :row="{typeName: '',onsetTimeYear: '',onsetTimeMonth: '',onsetFrequency: ''}">
+                                <label class="control-label col-md-2 bold" slot="header">类型</label>
+                                <template v-for="(item,index) in anamnesis.oldIschemicStrokeTypes" :slot="index">
+                                    <div class="mt-repeater-input" :key="item.id">  
+                                        <label class="control-label">类型</label>
+                                        <select class="form-control" v-model="item.typeName">
+                                            <option value="" disabled selected>选择</option>
+                                            <option v-for="oldIschemicStrokeType in pagedata.oldIschemicStrokeTypes" :key="oldIschemicStrokeType.id" :value="oldIschemicStrokeType.id">{{oldIschemicStrokeType.text}}</option>
+                                        </select>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="mt-repeater-input" :key="item.id">
+                                        <label class="control-label">（）年</label>
+                                        <input class="form-control" placeholder="填写年份" v-model="item.onsetTimeYear">
+                                    </div> 
+                                    <div class="mt-repeater-input" :key="item.id">
+                                        <label class="control-label">（）月前，</label>
+                                        <input class="form-control" placeholder="填写月份" v-model="item.onsetTimeMonth">              
+                                    </div>
+                                    <div class="mt-repeater-input" :key="item.id">
+                                        <label class="control-label">发生（）次</label>
+                                        <input class="form-control" placeholder="填写次数" v-model="item.onsetFrequency">              
+                                    </div>
+                                </template>
+                            </v-repeater>
+                        </div> 
                     </div>
                 </div>
                 <!-- 既往缺血性卒中部分结束 -->
@@ -516,37 +507,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mt-repeater" v-if="anamnesis.isHemorrhage=='1'">
-                            <label class="control-label col-md-2 bold">类型</label>
-                            <div class="col-md-4">
-                                <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加类型</a>
-                                <span class="help-block">  </span>
-                            </div>
-                            <div class="col-md-offset-2 col-md-10">
-                                <div data-repeater-list="hemorrhage" id="hemorrhage_repeater">
-                                    <div data-repeater-item class="mt-repeater-item">
-                                        <div class="mt-repeater-input"> 
-                                            <select name="type_name" class="form-control">
-                                                <option value="" disabled selected>选择</option>
-                                                <option v-for="typeName in pagedata.hemorrhageTypes" :key="typeName.id" :value="typeName.id">{{typeName.text}}</option>
-                                            </select>
-                                        </div>                                        
-                                        <div class="mt-repeater-input"> 
-                                            <input type="text" name="onset_time" class="form-control input-inline">              
-                                            <span class="help-inline"> 发生时间 </span>
-                                        </div>                                        
-                                        <div class="mt-repeater-input"> 
-                                            <input type="text" name="onset_frequency" class="form-control input-inline">              
-                                            <span class="help-inline"> 发生次数 </span>
-                                        </div>                                        
-                                        <div class="mt-repeater-input">
-                                            <a href="javascript:;" data-repeater-delete class="btn btn-danger">
-                                                <i class="fa fa-close"></i> 删除</a>
-                                        </div>
+                        <div class="form-group" v-if="anamnesis.isHemorrhage=='1'">
+                            <v-repeater :array="anamnesis.hemorrhageTypes" :row="{typeName: '',onsetTime: '',onsetFrequency: ''}">
+                                <label class="control-label col-md-2 bold" slot="header">类型</label>
+                                <template v-for="(item,index) in anamnesis.hemorrhageTypes" :slot="index">
+                                    <div class="mt-repeater-input" :key="item.id">  
+                                        <label class="control-label">类型</label>
+                                        <select class="form-control" v-model="item.typeName">
+                                            <option value="" disabled selected>选择</option>
+                                            <option v-for="hemorrhageType in pagedata.hemorrhageTypes" :key="hemorrhageType.id" :value="hemorrhageType.id">{{hemorrhageType.text}}</option>
+                                        </select>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="mt-repeater-input" :key="item.id">
+                                        <label class="control-label">发生时间</label>
+                                        <input class="form-control" v-model="item.onsetTime">              
+                                    </div> 
+                                    <div class="mt-repeater-input" :key="item.id">
+                                        <label class="control-label">发生次数</label>
+                                        <input class="form-control" v-model="item.onsetFrequency">              
+                                    </div>
+                                </template>
+                            </v-repeater>
+                        </div>                        
                     </div>
                 </div>
                 <!-- 出血病史部分结束 -->
@@ -567,33 +549,24 @@
                                     <label><radio value="1" v-model="anamnesis.isBleeding">有</radio></label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group mt-repeater" v-if="anamnesis.isBleeding=='1'">
-                            <label class="control-label col-md-2 bold">病因</label>
-                            <div class="col-md-4">
-                                <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add"><i class="fa fa-plus"></i> 添加病因</a>
-                                <span class="help-block">  </span>
-                            </div>
-                            <div class="col-md-offset-2 col-md-10">
-                                <div data-repeater-list="bleeding" id="bleeding_repeater">
-                                    <div data-repeater-item class="mt-repeater-item">
-                                        <div class="mt-repeater-input"> 
-                                            <select name="type_name" class="form-control">
-                                                <option value="" disabled selected>选择</option>
-                                                <option v-for="cause in pagedata.bleedingCauses" :key="cause.id" :value="cause.id">{{cause.text}}</option>
-                                            </select>
-                                        </div>                                        
-                                        <div class="mt-repeater-input"> 
-                                            <input type="text" name="onset_time" class="form-control input-inline">              
-                                            <span class="help-inline"> 发生时间 </span>
-                                        </div>                                                                                                                      
-                                        <div class="mt-repeater-input">
-                                            <a href="javascript:;" data-repeater-delete class="btn btn-danger">
-                                                <i class="fa fa-close"></i> 删除</a>
-                                        </div>                                                                            
+                        </div>                        
+                        <div class="form-group" v-if="anamnesis.isBleeding=='1'">
+                            <v-repeater :array="anamnesis.bleedingCauses" :row="{cause: '',onsetTime: ''}">
+                                <label class="control-label col-md-2 bold" slot="header">病因</label>
+                                <template v-for="(item,index) in anamnesis.bleedingCauses" :slot="index">
+                                    <div class="mt-repeater-input" :key="item.id">  
+                                        <label class="control-label">病因</label>
+                                        <select class="form-control" v-model="item.cause">
+                                            <option value="" disabled selected>选择</option>
+                                            <option v-for="cause in pagedata.bleedingCauses" :key="cause.id" :value="cause.id">{{cause.text}}</option>
+                                        </select>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="mt-repeater-input" :key="item.id">
+                                        <label class="control-label">发生时间</label>
+                                        <input class="form-control" v-model="item.onsetTime">              
+                                    </div> 
+                                </template>
+                            </v-repeater>
                         </div>
                     </div>
                 </div>
@@ -606,7 +579,7 @@
 
 <script>
 import {Checkbox, Radio} from 'vue-checkbox-radio';
-import 'jquery.repeater';
+import vRepeater from '@/components/v_repeater/v_repeater';
 export default {
     name: 'anamnesis',
     props: {
@@ -703,20 +676,8 @@ export default {
             }
         }
     },    
-    mounted() {
-        $('.mt-repeater').repeater({
-            show: function () {
-                $(this).slideDown();                                
-            },
-            hide: function (deleteElement) {
-                if(confirm('确认删除该栏？')) {
-                    $(this).slideUp(deleteElement);
-                }
-            },
-        });
-    },
     components: {
-        Checkbox, Radio
+        Checkbox, Radio, vRepeater
     }
 }
 </script>

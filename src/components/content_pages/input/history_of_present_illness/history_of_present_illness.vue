@@ -5,7 +5,6 @@
                 <span class="caption-subject bold font-dark uppercase">现病史</span>
             </div>
         </div>
-        {{historyOfPresentIllness}}
         <div class="porlet-body">
             <div class="form-group">
                 <label class="control-label bold col-md-1">就诊原因</label>
@@ -65,63 +64,53 @@
                                     <span class="help-block"> 填写其他发病时间 </span>
                                 </div>
                             </div>
-                            <div class="form-group mt-repeater">
-                                <label class="control-label bold col-md-1">部位</label>
-                                <div class="col-md-4">
-                                    <a href="javascript:;" class="btn btn-info" @click="addBodyPart('chestPain')"><i class="fa fa-plus"></i> 添加部位</a>
-                                    <span class="help-block">  </span>
-                                </div>
-                                <div class="col-md-11 col-md-offset-1">
-                                    <div >
-                                        <div class="mt-repeater-item" v-for="(bodyPart,index) in historyOfPresentIllness.chestPain.diseaseBodyParts" :key="bodyPart.id">
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">部位名</label>
-                                                <select class="form-control" v-model="bodyPart.bodyPartName">
-                                                    <option value="" disabled selected>选择部位</option>
-                                                    <option v-for="bodyPart in pagedata.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" v-if="bodyPart.bodyPartName=='10'">
-                                                <label class="control-label">&nbsp;</label>
-                                                <input class="form-control" placeholder="其他部位" v-model="bodyPart.bodyPartNameOthers">
-                                            </div>
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">性质</label>
-                                                <select class="form-control" v-model="bodyPart.qualityOfPain">
-                                                    <option value="" selected disabled>选择性质</option>
-                                                    <option v-for="quality in pagedata.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" v-if="bodyPart.qualityOfPain=='13'">
-                                                <label class="control-label">&nbsp;</label>
-                                                <input class="form-control" placeholder="其他性质" v-model="bodyPart.qualityOfPainOthers">
-                                            </div>
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">持续时间</label>
-                                                <select class="form-control" v-model="bodyPart.durationOfPain">
-                                                    <option value="" disabled selected>选择持续时间</option>
-                                                    <option v-for="duration in pagedata.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" v-if="bodyPart.durationOfPain=='6'">
-                                                <label class="control-label">&nbsp;</label>
-                                                <input class="form-control" placeholder="其他持续时间" v-model="bodyPart.durationOfPainOthers">
-                                            </div>
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">程度</label>
-                                                <select class="form-control" v-model="bodyPart.painDegree">
-                                                    <option value="" disabled selected>请选择程度</option>
-                                                    <option v-for="degree in pagedata.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" @click="removeBodyPart('chestPain', index)">
-                                                <a href="javascript:;" class="btn btn-danger mt-repeater-delete">
-                                                    <i class="fa fa-close"></i> 删除</a>
-                                            </div>
+                            <div class="form-group">
+                                <v-repeater :array="historyOfPresentIllness.chestPain.diseaseBodyParts" :row="{bodyPartName: '',bodyPartNameOthers: '',qualityOfPain: '',qualityOfPainOthers: '', durationOfPain: '', durationOfPainOthers:'', painDegree:''}">
+                                    <label class="control-label col-md-2 bold" slot="header">部位</label>
+                                    <template v-for="(item,index) in historyOfPresentIllness.chestPain.diseaseBodyParts" :slot="index">
+                                        <div class="mt-repeater-input" :key="item.id">  
+                                            <label class="control-label">部位名</label>
+                                            <select class="form-control" v-model="item.bodyPartName">
+                                                <option value="" disabled selected>选择部位</option>
+                                                <option v-for="bodyPart in pagedata.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
+                                            </select>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>                            
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='10'">
+                                            <label class="control-label">&nbsp;</label>
+                                            <input class="form-control" placeholder="其他部位" v-model="item.bodyPartNameOthers">
+                                        </div> 
+                                        <div class="mt-repeater-input" :key="item.id">
+                                            <label class="control-label">性质</label>
+                                            <select class="form-control" v-model="item.qualityOfPain">
+                                                <option value="" selected disabled>选择性质</option>
+                                                <option v-for="quality in pagedata.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
+                                            </select> 
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.qualityOfPain=='13'">
+                                            <label class="control-label">&nbsp;</label>
+                                            <input class="form-control" placeholder="其他性质" v-model="item.qualityOfPainOthers">
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id">
+                                            <label class="control-label">持续时间</label>
+                                            <select class="form-control" v-model="item.durationOfPain">
+                                                <option value="" disabled selected>选择持续时间</option>
+                                                <option v-for="duration in pagedata.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.durationOfPain=='6'">
+                                            <label class="control-label">&nbsp;</label>
+                                            <input class="form-control" placeholder="其他持续时间" v-model="item.durationOfPainOthers">
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id">
+                                            <label class="control-label">程度</label>
+                                            <select class="form-control" v-model="item.painDegree">
+                                                <option value="" disabled selected>请选择程度</option>
+                                                <option v-for="degree in pagedata.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
+                                            </select>
+                                        </div>
+                                    </template>
+                                </v-repeater>
+                            </div>                                                      
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">缓解因素</label>
                                 <div class="col-md-3">
@@ -217,63 +206,53 @@
                                     <span class="help-block"> 填写其他发病时间 </span>
                                 </div>
                             </div>
-                            <div class="form-group mt-repeater">
-                                <label class="control-label bold col-md-1">部位</label>
-                                <div class="col-md-4">
-                                    <a href="javascript:;" class="btn btn-info" @click="addBodyPart('chestDistress')"><i class="fa fa-plus"></i> 添加部位</a>
-                                    <span class="help-block">  </span>
-                                </div>
-                                <div class="col-md-11 col-md-offset-1">
-                                    <div >
-                                        <div class="mt-repeater-item" v-for="(bodyPart,index) in historyOfPresentIllness.chestDistress.diseaseBodyParts">
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">部位名</label>
-                                                <select class="form-control" v-model="bodyPart.bodyPartName">
-                                                    <option value="" disabled selected>选择部位</option>
-                                                    <option v-for="bodyPart in pagedata.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" v-if="bodyPart.bodyPartName=='10'">
-                                                <label class="control-label">&nbsp;</label>
-                                                <input class="form-control" placeholder="其他部位" v-model="bodyPart.bodyPartNameOthers">
-                                            </div>
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">性质</label>
-                                                <select class="form-control" v-model="bodyPart.qualityOfPain">
-                                                    <option value="" selected disabled>选择性质</option>
-                                                    <option v-for="quality in pagedata.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" v-if="bodyPart.qualityOfPain=='13'">
-                                                <label class="control-label">&nbsp;</label>
-                                                <input class="form-control" placeholder="其他性质" v-model="bodyPart.qualityOfPainOthers">
-                                            </div>
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">持续时间</label>
-                                                <select class="form-control" v-model="bodyPart.durationOfPain">
-                                                    <option value="" disabled selected>选择持续时间</option>
-                                                    <option v-for="duration in pagedata.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" v-if="bodyPart.durationOfPain=='6'">
-                                                <label class="control-label">&nbsp;</label>
-                                                <input class="form-control" placeholder="其他持续时间" v-model="bodyPart.durationOfPainOthers">
-                                            </div>
-                                            <div class="mt-repeater-input">
-                                                <label class="control-label">程度</label>
-                                                <select class="form-control" v-model="bodyPart.painDegree">
-                                                    <option value="" disabled selected>请选择程度</option>
-                                                    <option v-for="degree in pagedata.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-repeater-input" @click="removeBodyPart('chestDistress', index)">
-                                                <a href="javascript:;" class="btn btn-danger mt-repeater-delete">
-                                                    <i class="fa fa-close"></i> 删除</a>
-                                            </div>
+                            <div class="form-group">
+                                <v-repeater :array="historyOfPresentIllness.chestDistress.diseaseBodyParts" :row="{bodyPartName: '',bodyPartNameOthers: '',qualityOfPain: '',qualityOfPainOthers: '', durationOfPain: '', durationOfPainOthers:'', painDegree:''}">
+                                    <label class="control-label col-md-2 bold" slot="header">部位</label>
+                                    <template v-for="(item,index) in historyOfPresentIllness.chestDistress.diseaseBodyParts" :slot="index">
+                                        <div class="mt-repeater-input" :key="item.id">  
+                                            <label class="control-label">部位名</label>
+                                            <select class="form-control" v-model="item.bodyPartName">
+                                                <option value="" disabled selected>选择部位</option>
+                                                <option v-for="bodyPart in pagedata.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
+                                            </select>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='10'">
+                                            <label class="control-label">&nbsp;</label>
+                                            <input class="form-control" placeholder="其他部位" v-model="item.bodyPartNameOthers">
+                                        </div> 
+                                        <div class="mt-repeater-input" :key="item.id">
+                                            <label class="control-label">性质</label>
+                                            <select class="form-control" v-model="item.qualityOfPain">
+                                                <option value="" selected disabled>选择性质</option>
+                                                <option v-for="quality in pagedata.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
+                                            </select> 
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.qualityOfPain=='13'">
+                                            <label class="control-label">&nbsp;</label>
+                                            <input class="form-control" placeholder="其他性质" v-model="item.qualityOfPainOthers">
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id">
+                                            <label class="control-label">持续时间</label>
+                                            <select class="form-control" v-model="item.durationOfPain">
+                                                <option value="" disabled selected>选择持续时间</option>
+                                                <option v-for="duration in pagedata.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.durationOfPain=='6'">
+                                            <label class="control-label">&nbsp;</label>
+                                            <input class="form-control" placeholder="其他持续时间" v-model="item.durationOfPainOthers">
+                                        </div>
+                                        <div class="mt-repeater-input" :key="item.id">
+                                            <label class="control-label">程度</label>
+                                            <select class="form-control" v-model="item.painDegree">
+                                                <option value="" disabled selected>请选择程度</option>
+                                                <option v-for="degree in pagedata.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
+                                            </select>
+                                        </div>
+                                    </template>
+                                </v-repeater>
+                            </div>                            
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">缓解因素</label>
                                 <div class="col-md-3">
@@ -476,6 +455,7 @@
 
 <script>
 import {Checkbox, Radio} from 'vue-checkbox-radio';
+import vRepeater from '@/components/v_repeater/v_repeater';
 export default {
     name: 'history_of_present_illness',
     props: {
@@ -584,25 +564,9 @@ export default {
                 }
             }
         }
-    },
-    methods: {        
-        addBodyPart (name) {
-            this.historyOfPresentIllness[name].diseaseBodyParts.push({
-                bodyPartName: "",
-                bodyPartNameOthers: "",
-                qualityOfPain: "",
-                qualityOfPainOthers: "",
-                durationOfPain: "",
-                durationOfPainOthers: "",
-                painDegree: ""
-            });
-        },
-        removeBodyPart (name, index) {
-            this.historyOfPresentIllness[name].diseaseBodyParts.splice(index, 1);
-        }
     },    
     components: {
-        Checkbox, Radio
+        Checkbox, Radio, vRepeater
     }
 }
 </script>
