@@ -40,9 +40,9 @@
         <label class="control-label col-md-2">性别<span class="required"> * </span></label>
         <div class="col-md-4">
             <div>
-                <label><radio value="1" v-model="basicInfo.gender" name="gender">男</radio></label>
-                <label><radio value="0" v-model="basicInfo.gender" name="gender">女</radio></label>
-            </div>            
+                <label><radio value="男" v-model="basicInfo.gender" name="gender">男</radio></label>
+                <label><radio value="女" v-model="basicInfo.gender" name="gender">女</radio></label>
+            </div>
         </div>
     </div>            
     <div class="form-group">

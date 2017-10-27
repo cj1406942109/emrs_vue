@@ -70,7 +70,7 @@
                                                     <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><router-link :to="tab.href" data-toggle="tab">{{tab.title}}</router-link></li>                                               
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors"></router-view>
+                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory"></router-view>
                                                 </div>
                                             </div>
                                         </div>
@@ -297,7 +297,57 @@ export default {
                     waistline: "",
                     neckCircumference: "",
                     hipline: ""
-                }
+                },
+                familyHistory: {
+                    prematureChd: {
+                        isPrematureChd: "",
+                        onsetMembers: [{
+                                onsetMember: "1",
+                                gender: "1",
+                                onsetAge: "50",
+                                prematureChdType: "1"
+                            }
+                        ]
+                    },
+                    myocardialInfarction: {
+                        isMyocardialInfarction: "",
+                        onsetMembers: [{
+                                onsetMember: "1",
+                                gender: "1",
+                                onsetAge: "50"
+                            }
+                        ]
+                    },
+                    suddenDeath: {
+                        isSuddenDeath: "",
+                        onsetMembers: [{
+                                onsetMember: "1",
+                                gender: "1",
+                                onsetAge: "50",
+                                etiology: "1",
+                                etiologyOthers: ""
+                            }
+                        ]
+                    },
+                    ischemicStroke: {
+                        isIschemicStroke: "",
+                        onsetMembers: [{
+                                onsetMember: "1",
+                                gender: "1",
+                                onsetAge: "50"
+                            }
+                        ]
+                    },
+                    hemorrhagicStroke: {
+                        isHemorrhagicStroke: "",
+                        onsetMembers: [{
+                                onsetMember: "1",
+                                gender: "1",
+                                onsetAge: "50"
+                            }
+                        ]
+                    }
+                },
             },
             steps: [
                 {
