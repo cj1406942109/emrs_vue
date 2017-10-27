@@ -71,6 +71,10 @@
           .multiselect__tag
             margin-top 3px
             margin-bottom 0
-          
+    .input-inline
+        max-width 100%
+    
+
+        
 </style>
 

@@ -75,7 +75,7 @@ export default {
             //目前只实现二级菜单
             menu: [
                 {
-                    title: '智能医疗',
+                    title: 'Intelligent Medical',
                     icon: 'icon-home',
                     href: '',
                     isOpen: false,
@@ -84,24 +84,6 @@ export default {
                             title: '主页',
                             icon: 'icon-bar-chart',
                             href: '/home/index'
-                        }
-                    ]
-                },
-                {
-                    title: '电子病历系统',
-                    icon: 'icon-briefcase',
-                    href: '',
-                    isOpen: false,
-                    submenu: [
-                        {
-                            title: '病历查询',
-                            icon: 'icon-question',
-                            href: '/home/query'
-                        },
-                        {
-                            title: '病历录入',
-                            icon: 'icon-note',
-                            href: '/home/input/basic_info'
                         }
                     ]
                 }

@@ -8,23 +8,23 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" method="post">
-                <h3 class="form-title">登录到我的账户</h3>
+                <h3 class="form-title">Login to your account</h3>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     <span>输入用户名或密码</span>
                 </div>
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <label class="control-label visible-ie8 visible-ie9">Username</label>
                     <div class="input-icon">
                         <i class="fa fa-user"></i>
-                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username" /> </div>
+                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" /> </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <label class="control-label visible-ie8 visible-ie9">Password</label>
                     <div class="input-icon">
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" /> </div>
+                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" /> </div>
                 </div>
                 <div class="form-actions">
                     <!-- <label class="rememberme mt-checkbox mt-checkbox-outline">
@@ -32,7 +32,7 @@
                         <span></span>
                     </label> -->
                     <label for=""></label>
-                    <button type="button" class="btn green pull-right" @click="login">登录</button>
+                    <button type="button" class="btn green pull-right" @click="login">Login</button>
                 </div>                
             </form>
             <!-- END LOGIN FORM -->            
@@ -42,7 +42,7 @@
         <div class="copyright">
             2017 &copy; Intelligent Medical By
             <a target="_blank" href="http://www.iss.whu.edu.cn">ISS, WHU</a> &nbsp;|&nbsp;
-            <a href="http://libingteam.com" title="" target="_blank">李兵Team</a>
+            <a href="http://libingteam.com" title="" target="_blank">LiBingTeam</a>
         </div>
   </div>
 
