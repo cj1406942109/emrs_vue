@@ -26,7 +26,7 @@
                                 </div>                                 
                             </div>
                             <div class="col-md-4" v-if="riskFactors.isSomking=='1'">
-                                <input type="text" name="smoking_duration" class="form-control input-inline" v-model="riskFactors.duration">
+                                <input class="form-control input-inline" v-model="riskFactors.duration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写烟龄 </span>
                             </div>
@@ -34,7 +34,7 @@
                         <div class="form-group" v-if="riskFactors.isSomking=='1'">
                             <label class="control-label bold col-md-2">平均吸烟</label>
                             <div class="col-md-4">
-                                <input type="text" name="pieces_per_day" class="form-control input-inline" v-model="riskFactors.piecesPerDay">
+                                <input class="form-control input-inline" v-model="riskFactors.piecesPerDay">
                                 <span class="help-inline"> 支/日 </span>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-4" v-show="riskFactors.cigretteType.indexOf('5')>= 0">
-                                <input type="text" class="form-control" name="cigrette_type_others" v-model="riskFactors.cigretteTypeOthers">
+                                <input class="form-control" v-model="riskFactors.cigretteTypeOthers">
                                 <span class="help-block"> 填写其他类型 </span>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 <span class="help-block"> &nbsp;</span>                                   
                             </div>
                             <div class="col-md-4" v-show="riskFactors.isSmokingCessation=='1'">
-                                <input type="text" name="smoking_cessation_duration" class="form-control input-inline" v-model="riskFactors.smokingCessationDuration">
+                                <input class="form-control input-inline" v-model="riskFactors.smokingCessationDuration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写戒烟时长 </span>
                             </div>
@@ -85,7 +85,7 @@
                                 </div> 
                             </div>
                             <div class="col-md-4" v-if="riskFactors.isDrinking=='1'">
-                                <input type="text" name="drinking_duration" class="form-control input-inline" v-model="riskFactors.duration">
+                                <input class="form-control input-inline" v-model="riskFactors.duration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写酒龄 </span>
                             </div>
@@ -93,7 +93,7 @@
                         <div class="form-group" v-if="riskFactors.isDrinking=='1'">
                             <label class="control-label bold col-md-2">平均饮酒</label>
                             <div class="col-md-4">
-                                <input type="text" name="tales_per_day" class="form-control input-inline" v-model="riskFactors.talesPerDay">
+                                <input class="form-control input-inline" v-model="riskFactors.talesPerDay">
                                 <span class="help-inline"> 两/日 </span>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-4" v-show="riskFactors.wineType.indexOf('5')>= 0">
-                                <input type="text" class="form-control" name="wine_type_others" v-model="riskFactors.wineTypeOthers">
+                                <input class="form-control" v-model="riskFactors.wineTypeOthers">
                                 <span class="help-block"> 填写其他类型 </span>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-4" v-if="riskFactors.isTemperance=='1'">
-                                <input type="text" name="temperance_duration" class="form-control input-inline" v-model="riskFactors.temperanceDuration">
+                                <input class="form-control input-inline" v-model="riskFactors.temperanceDuration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 戒酒时长 </span>
                             </div>
@@ -138,7 +138,7 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">饮水</label>
                             <div class="col-md-2">
-                                <select name="drinking_amount" class="form-control" v-model="riskFactors.drinkingAmount">
+                                <select class="form-control" v-model="riskFactors.drinkingAmount">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="drinkingAmount in pagedata.dietHabitDrinkingAmouts" :key="drinkingAmount.id" :value="drinkingAmount.id">{{drinkingAmount.text}}</option>
                                 </select>
@@ -147,21 +147,21 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">谷薯类</label>
                             <div class="col-md-2">
-                                <select name="paddy_potato" class="form-control" v-model="riskFactors.paddyPotato">
+                                <select class="form-control" v-model="riskFactors.paddyPotato">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="paddyPotato in pagedata.dietHabitPaddyPotatoes" :key="paddyPotato.id" :value="paddyPotato.id">{{paddyPotato.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">全谷物和杂豆</label>
                             <div class="col-md-2">
-                                <select name="grain_mixed_beans" class="form-control" v-model="riskFactors.grainMixedBeans">
+                                <select class="form-control" v-model="riskFactors.grainMixedBeans">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="grainMixedBeans in pagedata.dietHabitGrainMixedBeans" :key="grainMixedBeans.id" :value="grainMixedBeans.id">{{grainMixedBeans.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">薯类</label>
                             <div class="col-md-2">
-                                <select name="potato" class="form-control" v-model="riskFactors.potato">
+                                <select class="form-control" v-model="riskFactors.potato">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="potato in pagedata.dietHabitPotatoes" :key="potato.id" :value="potato.id">{{potato.text}}</option>
                                 </select>
@@ -170,14 +170,14 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">蔬菜类</label>
                             <div class="col-md-2">
-                                <select name="vegetables" class="form-control" v-model="riskFactors.vegetables">
+                                <select class="form-control" v-model="riskFactors.vegetables">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="vegetables in pagedata.dietHabitVegetables" :key="vegetables.id" :value="vegetables.id">{{vegetables.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">水果类</label>
                             <div class="col-md-2">
-                                <select name="fruits" class="form-control" v-model="riskFactors.fruits">
+                                <select class="form-control" v-model="riskFactors.fruits">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="fruits in pagedata.dietHabitFruits" :key="fruits.id" :value="fruits.id">{{fruits.text}}</option>
                                 </select>
@@ -186,21 +186,21 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">畜禽肉</label>
                             <div class="col-md-2">
-                                <select name="livestock_meat" class="form-control" v-model="riskFactors.livestockMeat">
+                                <select class="form-control" v-model="riskFactors.livestockMeat">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="livestockMeat in pagedata.dietHabitLivestockMeats" :key="livestockMeat.id" :value="livestockMeat.id">{{livestockMeat.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">水产品</label>
                             <div class="col-md-2">
-                                <select name="aquatic_products" class="form-control" v-model="riskFactors.aquaticProducts">
+                                <select class="form-control" v-model="riskFactors.aquaticProducts">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="aquaticProducts in pagedata.dietHabitAquaticProducts" :key="aquaticProducts.id" :value="aquaticProducts.id">{{aquaticProducts.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">蛋类</label>
                             <div class="col-md-2">
-                                <select name="eggs" class="form-control" v-model="riskFactors.eggs">
+                                <select class="form-control" v-model="riskFactors.eggs">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="eggs in pagedata.dietHabitEggs" :key="eggs.id" :value="eggs.id">{{eggs.text}}</option>
                                 </select>
@@ -209,14 +209,14 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">奶及奶制品</label>
                             <div class="col-md-2">
-                                <select name="milk_products" class="form-control" v-model="riskFactors.milkProducts">
+                                <select class="form-control" v-model="riskFactors.milkProducts">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="milkProducts in pagedata.dietHabitMilkProducts" :key="milkProducts.id" :value="milkProducts.id">{{milkProducts.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">大豆及坚果类</label>
                             <div class="col-md-2">
-                                <select name="soybeans_nuts" class="form-control" v-model="riskFactors.soybeansNuts">
+                                <select class="form-control" v-model="riskFactors.soybeansNuts">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="soybeansNuts in pagedata.dietHabitSoybeansNuts" :key="soybeansNuts.id" :value="soybeansNuts.id">{{soybeansNuts.text}}</option>
                                 </select>
@@ -225,21 +225,21 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">食盐</label>
                             <div class="col-md-2">
-                                <select name="salt" class="form-control" v-model="riskFactors.salt">
+                                <select class="form-control" v-model="riskFactors.salt">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="salt in pagedata.dietHabitSalts" :key="salt.id" :value="salt.id">{{salt.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">糖</label>
                             <div class="col-md-2">
-                                <select name="sugar" class="form-control" v-model="riskFactors.sugar">
+                                <select class="form-control" v-model="riskFactors.sugar">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="sugar in pagedata.dietHabitSugar" :key="sugar.id" :value="sugar.id">{{sugar.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">油</label>
                             <div class="col-md-2">
-                                <select name="oil" class="form-control" v-model="riskFactors.oil">
+                                <select class="form-control" v-model="riskFactors.oil">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="oil in pagedata.dietHabitOils" :key="oil.id" :value="oil.id">{{oil.text}}</option>
                                 </select>
@@ -248,12 +248,12 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">肥肉</label>
                             <div class="col-md-3">
-                                <input type="text" name="fat_meat" class="form-control input-inline" v-model="riskFactors.fatMeat">
+                                <input class="form-control input-inline" v-model="riskFactors.fatMeat">
                                 <span class="help-inline"> g/周 </span>
                             </div>
                             <label class="control-label bold col-md-2">内脏</label>
                             <div class="col-md-3">
-                                <input type="text" name="visceral" class="form-control input-inline" v-model="riskFactors.visceral">
+                                <input class="form-control input-inline" v-model="riskFactors.visceral">
                                 <span class="help-inline"> g/周 </span>
                             </div>
                         </div>
@@ -272,7 +272,7 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-6">血型性格</label>
                             <div class="col-md-2">
-                                <select name="blood_type" class="form-control" v-model="riskFactors.bloodType">
+                                <select class="form-control" v-model="riskFactors.bloodType">
                                     <option value="" disabled selected>选择血型</option>
                                     <option v-for="bloodType in pagedata.bloodTypes" :key="bloodType.id" :value="bloodType.id">{{bloodType.text}}</option>
                                 </select>
@@ -311,7 +311,7 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">类型</label>
                             <div class="col-md-2">
-                                <select name="exercise_type" class="form-control" v-model="riskFactors.exerciseType">
+                                <select class="form-control" v-model="riskFactors.exerciseType">
                                     <option value="" disabled selected>选择血型</option>
                                     <option v-for="exerciseType in pagedata.exerciseTypes" :key="exerciseType.id" :value="exerciseType.id">{{exerciseType.text}}</option>
                                 </select>
@@ -320,7 +320,7 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">每次时长</label>
                             <div class="col-md-2">
-                                <select name="exercise_duration" class="form-control" v-model="riskFactors.exerciseDuration">
+                                <select class="form-control" v-model="riskFactors.exerciseDuration">
                                     <option value="" disabled selected>选择血型</option>
                                     <option v-for="exerciseDuration in pagedata.exerciseDuration" :key="exerciseDuration.id" :value="exerciseDuration.id">{{exerciseDuration.text}}</option>
                                 </select>
@@ -333,7 +333,7 @@
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-3" v-show="riskFactors.exerciseMode.indexOf('3')>=0">
-                                <input type="text" class="form-control" name="exercise_mode_others" v-model="riskFactors.exerciseModeOthers">
+                                <input class="form-control" v-model="riskFactors.exerciseModeOthers">
                                 <span class="help-block"> 填写其他方式 </span>
                             </div>
                         </div>
@@ -359,7 +359,7 @@
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-4" v-show="riskFactors.isCentralObesity=='1'">
-                                <input type="text" name="central_obesity_duration" class="form-control input-inline" v-model="riskFactors.centralObesityDuration">
+                                <input class="form-control input-inline" v-model="riskFactors.centralObesityDuration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写病史 </span>
 
@@ -368,35 +368,41 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">身高</label>
                             <div class="col-md-4">
-                                <input name="height" class="form-control input-inline" v-model="riskFactors.height">
+                                <input class="form-control input-inline" v-model="riskFactors.height">
                                 <span class="help-inline"> cm </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">体重</label>
                             <div class="col-md-4">
-                                <input name="weight" class="form-control input-inline" v-model="riskFactors.weight">
+                                <input class="form-control input-inline" v-model="riskFactors.weight">
                                 <span class="help-inline"> kg </span>
+                            </div>
+                            <label class="control-label bold col-md-1">BMI</label>
+                            <div class="col-md-4">
+                                <input readonly class="form-control input-inline" v-model="riskFactors.BMI">
+                                <span class="help-inline"> kg/m<sup>2</sup> </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">腰围</label>
                             <div class="col-md-4">
-                                <input name="waistline" class="form-control input-inline" v-model="riskFactors.waistline">
+                                <input class="form-control input-inline" v-model="riskFactors.waistline">
                                 <span class="help-inline"> cm </span>
+                                <span class="help-block"> 男性≥102cm,女性≥88cm（腰围/臀围：男性>1.0，女性>0.9）</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">颈围</label>
                             <div class="col-md-4">
-                                <input name="neck_circumference" class="form-control input-inline" v-model="riskFactors.neckCircumference">
+                                <input class="form-control input-inline" v-model="riskFactors.neckCircumference">
                                 <span class="help-inline"> cm </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">臀围</label>
                             <div class="col-md-4">
-                                <input name="hipline" class="form-control input-inline" v-model="riskFactors.hipline">
+                                <input class="form-control input-inline" v-model="riskFactors.hipline">
                                 <span class="help-inline"> cm </span>
                             </div>
                         </div>
@@ -424,6 +430,20 @@ export default {
     },
     data () {
         return {}
+    },
+    computed: {
+        BMI: function(){
+            if(this.riskFactors.height!="" && this.riskFactors.weight!="") {
+                return parseFloat(10000*this.riskFactors.weight/this.riskFactors.height/this.riskFactors.height).toFixed(2);
+            }else {
+                return "";
+            }
+        }
+    },
+    watch: {
+        BMI: function(val) {
+            this.riskFactors.BMI = val;
+        }
     },
     components: {
         Checkbox, Radio

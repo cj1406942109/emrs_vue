@@ -293,6 +293,7 @@ export default {
                     centralObesityDuration: "",
                     height: "",
                     weight: "",
+                    BMI:"",
                     waistline: "",
                     neckCircumference: "",
                     hipline: ""
