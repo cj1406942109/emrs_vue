@@ -100,15 +100,19 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">血压最高值</label>
-                            <div class="col-md-4">
-                                <input placeholder="___/___" class="form-control input-inline" v-model="anamnesis.maximumValue">
+                            <div class="col-md-6">
+                                <input placeholder="收缩压（高压）" class="form-control input-inline" v-model="anamnesis.maximumBP.SBP">
+                                <span class="help-inline"> / </span>
+                                <input placeholder="舒张压（低压）" class="form-control input-inline" v-model="anamnesis.maximumBP.DBP">
                                 <span class="help-inline"> mmHg </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">血压平时值</label>
-                            <div class="col-md-4">
-                                <input placeholder="___/___" class="form-control input-inline" v-model="anamnesis.ordinaryValue">
+                            <div class="col-md-6">
+                                <input placeholder="收缩压（高压）" class="form-control input-inline" v-model="anamnesis.ordinaryBP.SBP">
+                                <span class="help-inline"> / </span>
+                                <input placeholder="舒张压（低压）" class="form-control input-inline" v-model="anamnesis.ordinaryBP.DBP">
                                 <span class="help-inline"> mmHg </span>
                             </div>
                         </div>
@@ -134,12 +138,7 @@
                                 </div>                         
                                 <span class="help-block"> &nbsp;</span>                  
                             </div>
-                            <div v-if="anamnesis.isDysglycemia=='1'">
-                                <div class="col-md-3">
-                                    <input class="form-control input-inline" v-model="anamnesis.dysglycemiaDuration">
-                                    <span class="help-inline"> 年 </span>
-                                    <span class="help-block"> 填写病史 </span>
-                                </div>
+                            <div v-if="anamnesis.isDysglycemia=='1'">                                
                                 <label class="control-label col-md-1">类型</label>
                                 <div class="col-md-2">
                                     <select class="form-control" v-model="anamnesis.dysglycemiaType">
@@ -158,6 +157,20 @@
                                             <label><radio value="0" v-model="anamnesis.isDiabetesMellitus">否</radio></label>
                                             <label><radio value="1" v-model="anamnesis.isDiabetesMellitus">是</radio></label>
                                         </div>                                        
+                                    </div>
+                                    <div v-if="anamnesis.isDiabetesMellitus=='1'">  
+                                        <div class="col-md-3">
+                                            <input class="form-control input-inline" v-model="anamnesis.diabetesMellitusDuration">
+                                            <span class="help-inline"> 年 </span>
+                                            <span class="help-block"> 填写病史 </span>
+                                        </div>
+                                        <label class="control-label col-md-1">类型</label>
+                                        <div class="col-md-2">
+                                            <select class="form-control" v-model="anamnesis.diabetesMellitusType">
+                                                <option value="" disabled selected>选择类型</option>
+                                                <option v-for="diabetesMellitusType in pagedata.diabetesMellitusTypes" :key="diabetesMellitusType.id" :value="diabetesMellitusType.id">{{diabetesMellitusType.text}}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

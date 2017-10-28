@@ -70,7 +70,7 @@
                                                     <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><router-link :to="tab.href" data-toggle="tab">{{tab.title}}</router-link></li>                                               
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory"></router-view>
+                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory" :physicalExamination="mr.physicalExamination"></router-view>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,14 +204,16 @@ export default {
                     lipidAbnormalityDrugName: "",
                     isEssentialHypertension: "",
                     essentialHypertensionDuration: "",
-                    maximumValue: "",
-                    ordinaryValue: "",
+                    maximumBP: {SBP:'120',DBP:'78'},
+                    ordinaryBP: {SBP:'',DBP:''},
                     isEssentialHypertensionUnderTreatment: "",
                     essentialHypertensionDrugName: "",
                     isDysglycemia: "",
                     dysglycemiaDuration: "",
                     dysglycemiaType: "",
                     isDiabetesMellitus: "",
+                    diabetesMellitusDuration: "",
+                    diabetesMellitusType: "",
                     isDiabetesMellitusUnderTreatment: "",
                     diabetesMellitusTreatmentMethod: [],
                     diabetesMellitusOralDrugName: "",
@@ -347,6 +349,28 @@ export default {
                             }
                         ]
                     }
+                },
+                physicalExamination: {
+                    bodyTemperature: "37.5",
+                    respiratoryRate: "75",
+                    isBreathSoundsNormal: "0",
+                    breathSoundsType: "",
+                    breathSoundsPart: "",
+                    isLungWetRales: "1",
+                    lungWetRalesRange: "2",
+                    lungWetRalesPart: "2",
+                    heartRate: "90",
+                    cardiacRhythm: "3",
+                    heartSoundS1Result: "3",
+                    isS3S4GallopRhythm: "1",
+                    pulse: "58",
+                    BP: {SBP:'',DBP:''},
+                    isEarLobeLongitudinalCrack: "1",
+                    earLobeLongitudinalCrackParts: [],
+                    isSkinYellowPigmentTumor: "1",
+                    skinYellowPigmentTumorParts: [],
+                    isAlopecia: "1",
+                    alopeciaParts: []
                 },
             },
             steps: [
