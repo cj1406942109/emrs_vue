@@ -70,7 +70,7 @@
                                                     <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><router-link :to="tab.href" data-toggle="tab">{{tab.title}}</router-link></li>                                               
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory" :physicalExamination="mr.physicalExamination" :routineExamination="mr.routineExamination"></router-view>
+                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory" :physicalExamination="mr.physicalExamination" :routineExamination="mr.routineExamination" :admissionDiagnosis="mr.admissionDiagnosis" :dischargeDiagnosis="mr.dischargeDiagnosis"></router-view>
                                                 </div>
                                             </div>
                                         </div>
@@ -427,15 +427,45 @@ export default {
                     lymphocyte: "3.2",
                     monocyte: "0.33",
                     isQualitativePlatelet: "1",
-                    PLT: "157",
-                    MPV: "10.2",
-                    PDW: "12.9",
+                    PCPLT: "157",
+                    PCMPV: "10.2",
+                    PCPDW: "12.9",
                     PARADP: "69",
                     PAREpinephrine: "70",
                     PARArachidonicAcid: "72",
                     PARCollagen: "73",
                     PARRistocetin: "68"
                 },
+                admissionDiagnosis: {
+                    isSilentMyocardialIschemia: "1",
+                    isCoronaryMicrovascularDisease: "1",
+                    isMyocardialInfarction: "1",
+                    myocardialInfarctionType: "",
+                    myocardialInfarctionPart: "前壁",
+                    isAngina: "",
+                    anginaType: "",
+                    anginaCcs: "",
+                    isIschemicCardiomyopathy: "1",
+                    isSuddenCoronaryDeath: "1",
+                    isChestPainOfUnknownOrigin: "1",
+                    isDiagnosisOthers: "1",
+                    diagnosisOthers: "主动脉夹层"
+                },
+                dischargeDiagnosis: {
+                    isSilentMyocardialIschemia: "1",
+                    isCoronaryMicrovascularDisease: "1",
+                    isMyocardialInfarction: "1",
+                    myocardialInfarctionType: "",
+                    myocardialInfarctionPart: "前壁",
+                    isAngina: "",
+                    anginaType: "",
+                    anginaCcs: "",
+                    isIschemicCardiomyopathy: "1",
+                    isSuddenCoronaryDeath: "1",
+                    isChestPainOfUnknownOrigin: "1",
+                    isDiagnosisOthers: "1",
+                    diagnosisOthers: "主动脉夹层"
+                }
             },
             steps: [
                 {
