@@ -47,11 +47,11 @@
                                         <input class="form-control input-inline" v-model="routineExamination.HDL">
                                         <span class="help-inline"> mmol/L </span>
                                     </div>
-                                    <label class="control-label col-md-2">非HDL(TC) - (HDL-C)</label>            
+                                    <label class="control-label col-md-2">非HDL</label>            
                                     <div class="col-md-4">
                                         <input class="form-control input-inline" readonly v-model="routineExamination.notHDL">
                                         <span class="help-inline"> mmol/L </span>
-                                        <span class="help-block">  </span>
+                                        <span class="help-block"> [TC] - [HDL-C] </span>
                                     </div>
                                 </div>                        
                                 <div class="form-group">

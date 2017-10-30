@@ -204,8 +204,8 @@ export default {
                     lipidAbnormalityDrugName: "",
                     isEssentialHypertension: "",
                     essentialHypertensionDuration: "",
-                    maximumBP: {SBP:'120',DBP:'78'},
-                    ordinaryBP: {SBP:'',DBP:''},
+                    maximumBP: { SBP: '', DBP: '' },
+                    ordinaryBP: { SBP: '', DBP: '' },
                     isEssentialHypertensionUnderTreatment: "",
                     essentialHypertensionDrugName: "",
                     isDysglycemia: "",
@@ -295,7 +295,7 @@ export default {
                     centralObesityDuration: "",
                     height: "",
                     weight: "",
-                    BMI:"",
+                    BMI: "",
                     waistline: "",
                     neckCircumference: "",
                     hipline: ""
@@ -303,323 +303,287 @@ export default {
                 familyHistory: {
                     prematureChd: {
                         isPrematureChd: "",
-                        onsetMembers: [{
-                                onsetMember: "1",
-                                gender: "1",
-                                onsetAge: "50",
-                                prematureChdType: "1"
-                            }
-                        ]
+                        onsetMembers: []
                     },
                     myocardialInfarction: {
                         isMyocardialInfarction: "",
-                        onsetMembers: [{
-                                onsetMember: "1",
-                                gender: "1",
-                                onsetAge: "50"
-                            }
-                        ]
+                        onsetMembers: []
                     },
                     suddenDeath: {
                         isSuddenDeath: "",
-                        onsetMembers: [{
-                                onsetMember: "1",
-                                gender: "1",
-                                onsetAge: "50",
-                                etiology: "1",
-                                etiologyOthers: ""
-                            }
-                        ]
+                        onsetMembers: []
                     },
                     ischemicStroke: {
                         isIschemicStroke: "",
-                        onsetMembers: [{
-                                onsetMember: "1",
-                                gender: "1",
-                                onsetAge: "50"
-                            }
-                        ]
+                        onsetMembers: []
                     },
                     hemorrhagicStroke: {
                         isHemorrhagicStroke: "",
-                        onsetMembers: [{
-                                onsetMember: "1",
-                                gender: "1",
-                                onsetAge: "50"
-                            }
-                        ]
+                        onsetMembers: []
                     }
                 },
                 physicalExamination: {
-                    bodyTemperature: "37.5",
-                    respiratoryRate: "75",
-                    isBreathSoundsNormal: "0",
+                    bodyTemperature: "",
+                    respiratoryRate: "",
+                    isBreathSoundsNormal: "",
                     breathSoundsType: "",
                     breathSoundsPart: "",
-                    isLungWetRales: "1",
-                    lungWetRalesRange: "2",
-                    lungWetRalesPart: "2",
-                    heartRate: "90",
-                    cardiacRhythm: "3",
-                    heartSoundS1Result: "3",
-                    isS3S4GallopRhythm: "1",
-                    pulse: "58",
-                    BP: {SBP:'',DBP:''},
-                    isEarLobeLongitudinalCrack: "1",
+                    isLungWetRales: "",
+                    lungWetRalesRange: "",
+                    lungWetRalesPart: "",
+                    heartRate: "",
+                    cardiacRhythm: "",
+                    heartSoundS1Result: "",
+                    isS3S4GallopRhythm: "",
+                    pulse: "",
+                    BP: { SBP: '', DBP: '' },
+                    isEarLobeLongitudinalCrack: "",
                     earLobeLongitudinalCrackParts: [],
-                    isSkinYellowPigmentTumor: "1",
+                    isSkinYellowPigmentTumor: "",
                     skinYellowPigmentTumorParts: [],
-                    isAlopecia: "1",
+                    isAlopecia: "",
                     alopeciaParts: []
                 },
                 routineExamination: {
-                    TC: "4.23",
-                    TG: "1.7",
-                    LDL: "2.24",
-                    HDL: "2.69",
-                    notHDL: "1.540",
+                    TC: "",
+                    TG: "",
+                    LDL: "",
+                    HDL: "",
+                    notHDL: "",
                     APOA1: "",
                     APOB: "",
-                    bloodGlucoseFasting: "3.76",
-                    isSerumMyocardialNecrosisMarkers: "1",
-                    myocardialCK: "160",
-                    myocardialCKMB: "32",
-                    myocardialCTnI: "0.6",
-                    myocardialMb: "80",
-                    isInflammatoryMarkers: "1",
-                    inflammationHsCRP: "2.3",
-                    inflammationIL6: "16.20",
-                    inflammationIL1Beta: "90.51",
-                    inflammationTNFAlpha: "7.1",
-                    heartFailureNTproBNP: "172",
-                    electrolyteNa: "150",
-                    electrolyteK: "4.7",
-                    electrolyteCa: "2.25",
-                    electrolyteCl: "100",
-                    isLiverFunction: "1",
-                    totalProtein: "78",
-                    albumin: "50",
-                    totalBilirubin: "15.2",
-                    directBilirubin: "5.7",
-                    indirectBilirubin: "10.2",
-                    ALT: "21",
-                    AST: "33",
-                    isRenalFunction: "1",
-                    Cr: "100",
-                    UA: "213",
-                    BUN: "5.6",
-                    GFR: "150",
-                    isHepatorenalDisease: "1",
-                    APTT: "19.1",
-                    PT: "11.2",
-                    TT: "10.8",
-                    FIB: "2.71",
-                    dDimer: "398",
-                    INR: "2.3",
-                    isINRStable: "1",
-                    redBloodCellCount: "4.3",
-                    redBloodCellSpecificVolume: "35",
-                    HGB: "150",
-                    leukocyteCount: "5.66",
-                    neutrophil: "1.6",
-                    eosinophil: "0.45",
-                    basophil: "0.08",
-                    lymphocyte: "3.2",
-                    monocyte: "0.33",
-                    isQualitativePlatelet: "1",
-                    PCPLT: "157",
-                    PCMPV: "10.2",
-                    PCPDW: "12.9",
-                    PARADP: "69",
-                    PAREpinephrine: "70",
-                    PARArachidonicAcid: "72",
-                    PARCollagen: "73",
-                    PARRistocetin: "68"
+                    bloodGlucoseFasting: "",
+                    isSerumMyocardialNecrosisMarkers: "",
+                    myocardialCK: "",
+                    myocardialCKMB: "",
+                    myocardialCTnI: "",
+                    myocardialMb: "",
+                    isInflammatoryMarkers: "",
+                    inflammationHsCRP: "",
+                    inflammationIL6: "",
+                    inflammationIL1Beta: "",
+                    inflammationTNFAlpha: "",
+                    heartFailureNTproBNP: "",
+                    electrolyteNa: "",
+                    electrolyteK: "",
+                    electrolyteCa: "",
+                    electrolyteCl: "",
+                    isLiverFunction: "",
+                    totalProtein: "",
+                    albumin: "",
+                    totalBilirubin: "",
+                    directBilirubin: "",
+                    indirectBilirubin: "",
+                    ALT: "",
+                    AST: "",
+                    isRenalFunction: "",
+                    Cr: "",
+                    UA: "",
+                    BUN: "",
+                    GFR: "",
+                    isHepatorenalDisease: "",
+                    APTT: "",
+                    PT: "",
+                    TT: "",
+                    FIB: "",
+                    dDimer: "",
+                    INR: "",
+                    isINRStable: "",
+                    redBloodCellCount: "",
+                    redBloodCellSpecificVolume: "",
+                    HGB: "",
+                    leukocyteCount: "",
+                    neutrophil: "",
+                    eosinophil: "",
+                    basophil: "",
+                    lymphocyte: "",
+                    monocyte: "",
+                    isQualitativePlatelet: "",
+                    PCPLT: "",
+                    PCMPV: "",
+                    PCPDW: "",
+                    PARADP: "",
+                    PAREpinephrine: "",
+                    PARArachidonicAcid: "",
+                    PARCollagen: "",
+                    PARRistocetin: ""
                 },
                 specialExamination: {
                     ecg: {
                         pathologicalQWave: {
-                            isPathologicalQWave: "1",
+                            isPathologicalQWave: "",
                             qWaveLeads: []
                         },
                         stSegmentChange: {
-                            isStSegmentChange: "1",
+                            isStSegmentChange: "",
                             stSegmentDepression: {
-                                isStSegmentDepression: "1",
+                                isStSegmentDepression: "",
                                 changeDetail: []
                             },
                             stSegmentElevation: {
-                                isStSegmentElevation: "1",
+                                isStSegmentElevation: "",
                                 changeDetail: []
                             }
                         },
                         tWaveChange: {
-                            isTWaveChange: "1",
+                            isTWaveChange: "",
                             changeDetail: []
                         },
                         arrhythmia: {
-                            isArrhythmia: "1",
+                            isArrhythmia: "",
                             arrhythmiaTypes: [],
                             arrhythmiaTypeOthers: ""
                         },
-                        isResultNormal: "0",
-                        findings: "存在ST段异常，疑似冠心病"
+                        isResultNormal: "",
+                        findings: ""
                     },
                     exerciseEcg: {
-                        exerciseDuration: "20",
-                        isExerciseAngina: "1",
-                        maximumBP: {SBP:'',DBP:''},
-                        minimumBP: {SBP:'',DBP:''},
+                        exerciseDuration: "",
+                        isExerciseAngina: "",
+                        maximumBP: { SBP: '', DBP: '' },
+                        minimumBP: { SBP: '', DBP: '' },
                         stSegmentChange: {
-                            isStSegmentChange: "1",
+                            isStSegmentChange: "",
                             stSegmentDepression: {
-                                isStSegmentDepression: "1",
-                                duration: "2",
+                                isStSegmentDepression: "",
+                                duration: "",
                                 changeDetail: []
                             },
                             stSegmentElevation: {
-                                isStSegmentElevation: "0",
-                                duration: "2",
+                                isStSegmentElevation: "",
+                                duration: "",
                                 changeDetail: []
                             }
                         },
                         tWaveChange: {
-                            isTWaveChange: "1",
-                            duration: "2",
+                            isTWaveChange: "",
+                            duration: "",
                             changeDetail: []
                         },
-                        result: "4",
-                        findings: "运动ECG出现st段改变和t波异常，结果呈阳性，疑似冠心病"
+                        result: "",
+                        findings: ""
                     },
                     holterEcg: {
-                        totalHeartbeats: "118529",
-                        averageHeartRate: "120",
-                        maximalHeartRate: "140",
-                        maximalHeartRateOccurrenceTime: "12:00",
-                        minimalHeartRate: "100",
-                        minimalHeartRateOccurrenceTime: "2:00",
+                        totalHeartbeats: "",
+                        averageHeartRate: "",
+                        maximalHeartRate: "",
+                        maximalHeartRateOccurrenceTime: "",
+                        minimalHeartRate: "",
+                        minimalHeartRateOccurrenceTime: "",
                         arrhythmia: {
-                            isArrhythmia: "1",
-                            frequentness: "5",
-                            totalAbnormalHeartbeats: "2001",
+                            isArrhythmia: "",
+                            frequentness: "",
+                            totalAbnormalHeartbeats: "",
                             arrhythmiaTypes: [{
-                                    arrhythmiaType: "10",
-                                    arrhythmiaTypeOthers: "",
-                                    duration: "5"
-                                }
-                            ]
+                                arrhythmiaType: "",
+                                arrhythmiaTypeOthers: "",
+                                duration: ""
+                            }]
                         },
                         pathologicalQWave: {
-                            isPathologicalQWave: "1",
-                            frequentness: "3",
+                            isPathologicalQWave: "",
+                            frequentness: "",
                             qWaveLeadsDetail: [{
-                                    time: "8:00",
-                                    qWaveLeads: []
-                                }
-                            ]
+                                time: "",
+                                qWaveLeads: []
+                            }]
                         },
                         stSegmentChange: {
-                            isStSegmentChange: "1",
+                            isStSegmentChange: "",
                             stSegmentDepression: {
-                                isStSegmentDepression: "1",
-                                frequentness: "4",
+                                isStSegmentDepression: "",
+                                frequentness: "",
                                 changesDetail: []
                             },
                             stSegmentElevation: {
-                                isStSegmentElevation: "0",
-                                frequentness: "3",
-                                changesDetail: [{
-                                    duration: "1",
-                                    leads: [{lead:'1', amplitude:'3'},{lead:'1', amplitude:'3'}] 
-                                },{
-                                    duration: "1",
-                                    leads: [{lead:'2', amplitude:'4'}] 
-                                }]
+                                isStSegmentElevation: "",
+                                frequentness: "",
+                                changesDetail: []
                             }
 
                         },
                         tWaveChange: {
-                            isTWaveChange: "1",
-                            frequentness: "2",
+                            isTWaveChange: "",
+                            frequentness: "",
                             changesDetail: []
                         },
-                        findings: "24小时心电图出现st段和病理性Q波，疑似冠心病"
+                        findings: ""
                     },
                     ucg: {
-                        LVD: "46",
-                        EDV: "81",
-                        LVS: "10",
-                        ESV: "35",
-                        LAD: "25",
-                        LVPW: "10",
-                        IVST: "10.5",
-                        isLVEFLtFortyPercent: "1",
-                        ratioEToA: "63",
-                        EF: "0.65",
-                        isLocalMotionAbnormality: "1",
+                        LVD: "",
+                        EDV: "",
+                        LVS: "",
+                        ESV: "",
+                        LAD: "",
+                        LVPW: "",
+                        IVST: "",
+                        isLVEFLtFortyPercent: "",
+                        ratioEToA: "",
+                        EF: "",
+                        isLocalMotionAbnormality: "",
                         localMotionAbnormalityParts: [],
-                        isVntricularAneurysm: "1",
+                        isVntricularAneurysm: "",
                         vntricularAneurysmParts: [],
-                        isLeftVentricularThrombosis: "1",
+                        isLeftVentricularThrombosis: "",
                         leftVentricularThrombosisParts: [],
-                        findings: "心脏大小和功能存在异常",                        
+                        findings: "",
                     },
                     pci: {
-                        num: "103",
-                        date: "2016-10-11",
-                        type: "3",
-                        thrombolysisInterval: "20",
-                        onsetIntervalDay: "1",
-                        onsetIntervalHour: "10",
-                        stayTimePrehospital: "30",
-                        stayTimeEmergencyCall: "20",
-                        stayTimeCCU: "60",
-                        stayTimeConduitRoom: "180",
+                        num: "",
+                        date: "",
+                        type: "",
+                        thrombolysisInterval: "",
+                        onsetIntervalDay: "",
+                        onsetIntervalHour: "",
+                        stayTimePrehospital: "",
+                        stayTimeEmergencyCall: "",
+                        stayTimeCCU: "",
+                        stayTimeConduitRoom: "",
                         contrastMedia: [],
-                        contrastMediaOthers: "碘普罗胺",
-                        coronaryDistributionType: "1",
-                        isCoronaryMalformations: "1",
-                        isGrade3Lesions: "1",
-                        isBloodFlowTIMIGrade0to2: "1",
-                        isCTO: "1",
-                        isCollateralCirculation: "1",
+                        contrastMediaOthers: "",
+                        coronaryDistributionType: "",
+                        isCoronaryMalformations: "",
+                        isGrade3Lesions: "",
+                        isBloodFlowTIMIGrade0to2: "",
+                        isCTO: "",
+                        isCollateralCirculation: "",
                         pciPaths: [],
-                        implantedBracketCountLAD: "1",
-                        implantedBracketCountLCX: "0",
-                        implantedBracketCountRCA: "1",
-                        implantedBracketCountLM: "1",
+                        implantedBracketCountLAD: "",
+                        implantedBracketCountLCX: "",
+                        implantedBracketCountRCA: "",
+                        implantedBracketCountLM: "",
                         segmentalLesions: []
-                    }   
+                    }
                 },
                 admissionDiagnosis: {
-                    isSilentMyocardialIschemia: "1",
-                    isCoronaryMicrovascularDisease: "1",
-                    isMyocardialInfarction: "1",
+                    isSilentMyocardialIschemia: "",
+                    isCoronaryMicrovascularDisease: "",
+                    isMyocardialInfarction: "",
                     myocardialInfarctionType: "",
-                    myocardialInfarctionPart: "前壁",
+                    myocardialInfarctionPart: "",
                     isAngina: "",
                     anginaType: "",
                     anginaCcs: "",
-                    isIschemicCardiomyopathy: "1",
-                    isSuddenCoronaryDeath: "1",
-                    isChestPainOfUnknownOrigin: "1",
-                    isDiagnosisOthers: "1",
-                    diagnosisOthers: "主动脉夹层"
+                    isIschemicCardiomyopathy: "",
+                    isSuddenCoronaryDeath: "",
+                    isChestPainOfUnknownOrigin: "",
+                    isDiagnosisOthers: "",
+                    diagnosisOthers: ""
                 },
                 dischargeDiagnosis: {
-                    isSilentMyocardialIschemia: "1",
-                    isCoronaryMicrovascularDisease: "1",
-                    isMyocardialInfarction: "1",
+                    isSilentMyocardialIschemia: "",
+                    isCoronaryMicrovascularDisease: "",
+                    isMyocardialInfarction: "",
                     myocardialInfarctionType: "",
-                    myocardialInfarctionPart: "前壁",
+                    myocardialInfarctionPart: "",
                     isAngina: "",
                     anginaType: "",
                     anginaCcs: "",
-                    isIschemicCardiomyopathy: "1",
-                    isSuddenCoronaryDeath: "1",
-                    isChestPainOfUnknownOrigin: "1",
-                    isDiagnosisOthers: "1",
-                    diagnosisOthers: "主动脉夹层"
+                    isIschemicCardiomyopathy: "",
+                    isSuddenCoronaryDeath: "",
+                    isChestPainOfUnknownOrigin: "",
+                    isDiagnosisOthers: "",
+                    diagnosisOthers: ""
                 }
             },
             steps: [
@@ -667,16 +631,18 @@ export default {
             ],
             activeTab: 1,
             isFormValid: false,     //表单是否合法
-            isAlert: false          //是否显示出错信息
+            isAlert: false,          //是否显示出错信息
+            lastStepRoute: 'history_of_present_illness'
         }
     },
     methods: {
         nextStep () {
             this.currentStep++;
-            this.$router.push('history_of_present_illness');
+            this.$router.push(this.lastStepRoute);
         },
         lastStep () {
             this.currentStep--;
+            this.lastStepRoute = this.$route.path;
             this.$router.push('basic_info');
         },
         changeActiveTab (index) {

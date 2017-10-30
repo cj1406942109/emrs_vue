@@ -155,7 +155,7 @@
             </div>
             <div v-if="physicalExamination.isSkinYellowPigmentTumor=='1'">
                 <label class="control-label col-md-2">部位（多选）</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div><label v-for="part in pagedata.skinYellowPigmentTumorParts" :key="part.id"><checkbox v-model="physicalExamination.skinYellowPigmentTumorParts" :value="part.id">{{part.text}}</checkbox></label></div>
                 </div>
             </div>

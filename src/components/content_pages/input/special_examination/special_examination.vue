@@ -45,7 +45,7 @@
                             <div class="col-md-11 col-md-offset-1" v-if="specialExamination.ecg.stSegmentChange.isStSegmentChange=='1'">
                                 <div class="form-group">
                                     <label class="control-label col-md-2">ST段压低</label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div>
                                             <label><radio value="0" v-model="specialExamination.ecg.stSegmentChange.stSegmentDepression.isStSegmentDepression">无</radio></label>
                                             <label><radio value="1" v-model="specialExamination.ecg.stSegmentChange.stSegmentDepression.isStSegmentDepression">有</radio></label>
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">ST段抬高</label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div>
                                             <label><radio value="0" v-model="specialExamination.ecg.stSegmentChange.stSegmentElevation.isStSegmentElevation">无</radio></label>
                                             <label><radio value="1" v-model="specialExamination.ecg.stSegmentChange.stSegmentElevation.isStSegmentElevation">有</radio></label>
@@ -156,7 +156,7 @@
                                         </div>
                                         <div class="col-md-2" v-if="specialExamination.ecg.arrhythmia.arrhythmiaTypes.indexOf('11')>='0'">
                                             <input class="form-control" v-model="specialExamination.ecg.arrhythmia.arrhythmiaTypeOthers">
-                                            <span class="help-block"> 填写类型 </span>
+                                            <span class="help-block"> 填写其他类型 </span>
                                         </div>
                                     </div>
                                 </div>
@@ -236,7 +236,7 @@
                             <div class="col-md-11 col-md-offset-1" v-if="specialExamination.exerciseEcg.stSegmentChange.isStSegmentChange=='1'">
                                 <div class="form-group">
                                     <label class="control-label col-md-2">ST段压低</label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div>
                                             <label><radio value="0" v-model="specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression.isStSegmentDepression">无</radio></label>
                                             <label><radio value="1" v-model="specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression.isStSegmentDepression">有</radio></label>
@@ -272,7 +272,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">ST段抬高</label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div>
                                             <label><radio value="0" v-model="specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation.isStSegmentElevation">无</radio></label>
                                             <label><radio value="1" v-model="specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation.isStSegmentElevation">有</radio></label>
@@ -353,7 +353,7 @@
                         </div>         
                         <div class="form-group">
                             <label class="control-label bold col-md-1">运动ECG结果</label>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div>
                                     <label v-for="result in pagedata.ecgResults" :key="result.id"><radio :value="result.id" v-model="specialExamination.exerciseEcg.result">{{result.text}}</radio></label>
                                 </div>
@@ -425,7 +425,7 @@
                                     <input class="form-control input-inline" v-model="specialExamination.holterEcg.arrhythmia.frequentness">
                                     <span class="help-inline">次/天</span>
                                 </div>
-                                <label class="control-label col-md-1">异常心博总数</label>
+                                <label class="control-label col-md-2">异常心博总数</label>
                                 <div class="col-md-3">
                                     <input class="form-control input-inline" v-model="specialExamination.holterEcg.arrhythmia.totalAbnormalHeartbeats">
                                     <span class="help-inline">次/天</span>
@@ -500,7 +500,7 @@
                             <div class="col-md-11 col-md-offset-1" v-if="specialExamination.holterEcg.stSegmentChange.isStSegmentChange=='1'">
                                 <div class="form-group">
                                     <label class="control-label col-md-1">ST段压低</label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div>
                                             <label><radio value="0" v-model="specialExamination.holterEcg.stSegmentChange.stSegmentDepression.isStSegmentDepression">无</radio></label>
                                             <label><radio value="1" v-model="specialExamination.holterEcg.stSegmentChange.stSegmentDepression.isStSegmentDepression">有</radio></label>
@@ -548,7 +548,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-1">ST段抬高</label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div>
                                             <label><radio value="0" v-model="specialExamination.holterEcg.stSegmentChange.stSegmentElevation.isStSegmentElevation">无</radio></label>
                                             <label><radio value="1" v-model="specialExamination.holterEcg.stSegmentChange.stSegmentElevation.isStSegmentElevation">有</radio></label>
@@ -771,7 +771,7 @@
                             <div v-if="specialExamination.ucg.isLeftVentricularThrombosis=='1'">
                                 <label class="control-label col-md-1">部位（多选）</label>
                                 <div class="col-md-6">
-                                    <div><label v-for="ucgPart in pagedata.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.vntricularAneurysmParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
+                                    <div><label v-for="ucgPart in pagedata.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.leftVentricularThrombosisParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
                                 </div>                               
                             </div>
                         </div>
@@ -813,47 +813,29 @@
                             </div>
                             <div v-if="specialExamination.pci.type=='3'||specialExamination.pci.type=='4'">
                                 <label class="control-label col-md-2">PCI距溶栓</label>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <input class="form-control input-inline" v-model="specialExamination.pci.thrombolysisInterval">
                                     <span class="help-inline">小时（h）</span>
                                 </div>
                             </div>                                                                                                        
                         </div> 
-                        <div class="form-group"></div>
                         <div class="form-group">
-                            <label class="control-label bold col-md-1">发病后</label>
-                            <div class="col-md-3">
+                            <div class="col-md-11 col-md-offset-1">
+                                <label class="control-label bold">发病后</label>
                                 <input class="form-control input-inline" v-model="specialExamination.pci.onsetIntervalDay"> 
-                                <span class="help-inline">天（d）</span>
-                            </div>
-                            <div class="col-md-3">
+                                <label class="control-label bold">天</label>
                                 <input class="form-control input-inline" v-model="specialExamination.pci.onsetIntervalHour"> 
-                                <span class="help-inline">小时（h）</span>
-                            </div>
-                            <label class="control-label bold col-md-2">进行PCI，院前</label>
-                            <div class="col-md-3">
-                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimePrehospital"> 
-                                <span class="help-inline">min</span>
+                                <label class="control-label bold">小时进行PCI，院前</label>
+                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimePrehospital">
+                                <label class="control-label bold">分钟，急/门诊</label>
+                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimeEmergencyCall"> 
+                                <label class="control-label bold">分钟，CCU</label>
+                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimeCCU"> 
+                                <label class="control-label bold">分钟，导管室</label>
+                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimeConduitRoom"> 
+                                <label class="control-label bold">分钟。</label>
                             </div>
                         </div>       
-                        <div class="form-group">
-                            <label class="control-label bold col-md-1">急/门诊</label>
-                            <div class="col-md-3">
-                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimeEmergencyCall"> 
-                                <span class="help-inline">min</span>
-                            </div>
-                            <label class="control-label bold col-md-1">CCU</label>
-                            <div class="col-md-3">
-                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimeCCU"> 
-                                <span class="help-inline">min</span>
-                            </div>
-                            <label class="control-label bold col-md-1">导管室</label>
-                            <div class="col-md-3">
-                                <input class="form-control input-inline" v-model="specialExamination.pci.stayTimeConduitRoom"> 
-                                <span class="help-inline">min</span>
-                            </div>
-                        </div>     
-                        <div class="form-group"></div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">造影剂（多选）</label>
                             <div class="col-md-6">

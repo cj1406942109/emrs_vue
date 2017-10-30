@@ -46,6 +46,7 @@ const router = new Router({
                     redirect: 'basic_info'
                 }, {
                     path: 'basic_info',
+                    meta: { step: 1 },
                     components: {
                         tab1: basicInfo
                     }

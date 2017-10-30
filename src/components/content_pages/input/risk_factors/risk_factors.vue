@@ -44,7 +44,7 @@
                                 <div><label v-for="cigrette in pagedata.cigretteTypes" :key="cigrette.id"><checkbox v-model="riskFactors.cigretteType" :value="cigrette.id">{{cigrette.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
-                            <div class="col-md-4" v-show="riskFactors.cigretteType.indexOf('5')>= 0">
+                            <div class="col-md-3" v-show="riskFactors.cigretteType.indexOf('5')>= 0">
                                 <input class="form-control" v-model="riskFactors.cigretteTypeOthers">
                                 <span class="help-block"> 填写其他类型 </span>
                             </div>
@@ -103,7 +103,7 @@
                                 <div><label v-for="wine in pagedata.wineTypes" :key="wine.id"><checkbox v-model="riskFactors.wineType" :value="wine.id">{{wine.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
-                            <div class="col-md-4" v-show="riskFactors.wineType.indexOf('5')>= 0">
+                            <div class="col-md-3" v-show="riskFactors.wineType.indexOf('5')>= 0">
                                 <input class="form-control" v-model="riskFactors.wineTypeOthers">
                                 <span class="help-block"> 填写其他类型 </span>
                             </div>
@@ -382,14 +382,15 @@
                             <div class="col-md-4">
                                 <input readonly class="form-control input-inline" v-model="riskFactors.BMI">
                                 <span class="help-inline"> kg/m<sup>2</sup> </span>
+                                <span class="help-block"> BMI：（体重/身高<sup>2</sup>）</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">腰围</label>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <input class="form-control input-inline" v-model="riskFactors.waistline">
                                 <span class="help-inline"> cm </span>
-                                <span class="help-block"> 男性≥102cm,女性≥88cm（腰围/臀围：男性>1.0，女性>0.9）</span>
+                                <span class="help-block"> 腰围：男性≥102cm,女性≥88cm（腰围/臀围：男性>1.0，女性>0.9）</span>
                             </div>
                         </div>
                         <div class="form-group">

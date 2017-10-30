@@ -159,7 +159,7 @@
                                         </div>                                        
                                     </div>
                                     <div v-if="anamnesis.isDiabetesMellitus=='1'">  
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <input class="form-control input-inline" v-model="anamnesis.diabetesMellitusDuration">
                                             <span class="help-inline"> 年 </span>
                                             <span class="help-block"> 填写病史 </span>
@@ -290,15 +290,14 @@
                                     <label><radio value="0" v-model="anamnesis.isOldMyocardialInfarction">无</radio></label>
                                     <label><radio value="1" v-model="anamnesis.isOldMyocardialInfarction">有</radio></label>
                                 </div>                       
-                                <span class="help-block"> &nbsp;</span>                                
                             </div>
                             <div class="col-md-8" v-if="anamnesis.isOldMyocardialInfarction=='1'">
                                 <input class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeYear">
-                                <span class="help-inline"> 年 </span>
+                                <label class="control-label">年</label>
                                 <input class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetTimeMonth">
-                                <span class="help-inline"> 月前，发生 </span>
+                                <label class="control-label">月前，发生</label>
                                 <input class="form-control input-inline" v-model="anamnesis.oldMyocardialInfarctionOnsetFrequency">
-                                <span class="help-inline"> 次 </span>
+                                <label class="control-label">次</label>
                             </div>
                         </div>
                         <div class="form-group" v-if="anamnesis.isOldMyocardialInfarction=='1'">
@@ -307,7 +306,7 @@
                                 <div><label v-for="location in pagedata.oldMyocardialInfarctionLocations" :key="location.id"><checkbox v-model="anamnesis.oldMyocardialInfarctionLocation" :value="location.id">{{location.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
-                            <div class="col-md-3" v-if="anamnesis.oldMyocardialInfarctionLocation.indexOf('7')>='0'">
+                            <div class="col-md-2" v-if="anamnesis.oldMyocardialInfarctionLocation.indexOf('7')>='0'">
                                 <input class="form-control" v-model="anamnesis.oldMyocardialInfarctionLocationOthers">
                                 <span class="help-block"> 填写其他部位 </span>
                             </div>
@@ -363,7 +362,7 @@
                                 <div><label v-for="diseaseType in pagedata.otherHeartDiseaseTypes" :key="diseaseType.id"><checkbox v-model="anamnesis.otherHeartDiseaseType" :value="diseaseType.id">{{diseaseType.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
-                            <div class="col-md-3" v-if="anamnesis.otherHeartDiseaseType.indexOf('8')>='0'">
+                            <div class="col-md-2" v-if="anamnesis.otherHeartDiseaseType.indexOf('8')>='0'">
                                 <input class="form-control" v-model="anamnesis.otherHeartDiseaseTypeOthers">
                                 <span class="help-block">填写其他类型</span>
                             </div>
@@ -390,9 +389,9 @@
                             </div>
                             <div class="col-md-8" v-if="anamnesis.isDeepVenousThrombosis=='1'">
                                 <input class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeYear">
-                                <span class="help-inline"> 年 </span>
+                                <label class="control-label">年</label>
                                 <input class="form-control input-inline" v-model="anamnesis.deepVenousThrombosisOnsetTimeMonth">
-                                <span class="help-inline"> 月前 </span>
+                                <label class="control-label">月前</label>
                             </div>
                         </div>
                         <div v-if="anamnesis.isDeepVenousThrombosis=='1'">
