@@ -70,7 +70,7 @@
                                                     <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><router-link :to="tab.href" data-toggle="tab">{{tab.title}}</router-link></li>                                               
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory" :physicalExamination="mr.physicalExamination" :routineExamination="mr.routineExamination" :admissionDiagnosis="mr.admissionDiagnosis" :dischargeDiagnosis="mr.dischargeDiagnosis"></router-view>
+                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory" :physicalExamination="mr.physicalExamination" :routineExamination="mr.routineExamination" :specialExamination="mr.specialExamination" :admissionDiagnosis="mr.admissionDiagnosis" :dischargeDiagnosis="mr.dischargeDiagnosis"></router-view>
                                                 </div>
                                             </div>
                                         </div>
@@ -435,6 +435,161 @@ export default {
                     PARArachidonicAcid: "72",
                     PARCollagen: "73",
                     PARRistocetin: "68"
+                },
+                specialExamination: {
+                    ecg: {
+                        pathologicalQWave: {
+                            isPathologicalQWave: "1",
+                            qWaveLeads: []
+                        },
+                        stSegmentChange: {
+                            isStSegmentChange: "1",
+                            stSegmentDepression: {
+                                isStSegmentDepression: "1",
+                                changeDetail: []
+                            },
+                            stSegmentElevation: {
+                                isStSegmentElevation: "1",
+                                changeDetail: []
+                            }
+                        },
+                        tWaveChange: {
+                            isTWaveChange: "1",
+                            changeDetail: []
+                        },
+                        arrhythmia: {
+                            isArrhythmia: "1",
+                            arrhythmiaTypes: [],
+                            arrhythmiaTypeOthers: ""
+                        },
+                        isResultNormal: "0",
+                        findings: "存在ST段异常，疑似冠心病"
+                    },
+                    exerciseEcg: {
+                        exerciseDuration: "20",
+                        isExerciseAngina: "1",
+                        maximumBP: {SBP:'',DBP:''},
+                        minimumBP: {SBP:'',DBP:''},
+                        stSegmentChange: {
+                            isStSegmentChange: "1",
+                            stSegmentDepression: {
+                                isStSegmentDepression: "1",
+                                duration: "2",
+                                changeDetail: []
+                            },
+                            stSegmentElevation: {
+                                isStSegmentElevation: "0",
+                                duration: "2",
+                                changeDetail: []
+                            }
+                        },
+                        tWaveChange: {
+                            isTWaveChange: "1",
+                            duration: "2",
+                            changeDetail: []
+                        },
+                        result: "4",
+                        findings: "运动ECG出现st段改变和t波异常，结果呈阳性，疑似冠心病"
+                    },
+                    holterEcg: {
+                        totalHeartbeats: "118529",
+                        averageHeartRate: "120",
+                        maximalHeartRate: "140",
+                        maximalHeartRateOccurrenceTime: "12:00",
+                        minimalHeartRate: "100",
+                        minimalHeartRateOccurrenceTime: "2:00",
+                        arrhythmia: {
+                            isArrhythmia: "1",
+                            frequentness: "5",
+                            totalAbnormalHeartbeats: "2001",
+                            arrhythmiaTypes: [{
+                                    arrhythmiaType: "10",
+                                    arrhythmiaTypeOthers: "",
+                                    duration: "5"
+                                }
+                            ]
+                        },
+                        pathologicalQWave: {
+                            isPathologicalQWave: "1",
+                            frequentness: "3",
+                            qWaveLeadsDetail: [{
+                                    time: "8:00",
+                                    qWaveLeads: []
+                                }
+                            ]
+                        },
+                        stSegmentChange: {
+                            isStSegmentChange: "1",
+                            stSegmentDepression: {
+                                isStSegmentDepression: "1",
+                                frequentness: "4",
+                                changesDetail: []
+                            },
+                            stSegmentElevation: {
+                                isStSegmentElevation: "0",
+                                frequentness: "3",
+                                changesDetail: [{
+                                    duration: "1",
+                                    leads: [{lead:'1', amplitude:'3'},{lead:'1', amplitude:'3'}] 
+                                },{
+                                    duration: "1",
+                                    leads: [{lead:'2', amplitude:'4'}] 
+                                }]
+                            }
+
+                        },
+                        tWaveChange: {
+                            isTWaveChange: "1",
+                            frequentness: "2",
+                            changesDetail: []
+                        },
+                        findings: "24小时心电图出现st段和病理性Q波，疑似冠心病"
+                    },
+                    ucg: {
+                        LVD: "46",
+                        EDV: "81",
+                        LVS: "10",
+                        ESV: "35",
+                        LAD: "25",
+                        LVPW: "10",
+                        IVST: "10.5",
+                        isLVEFLtFortyPercent: "1",
+                        ratioEToA: "63",
+                        EF: "0.65",
+                        isLocalMotionAbnormality: "1",
+                        localMotionAbnormalityParts: [],
+                        isVntricularAneurysm: "1",
+                        vntricularAneurysmParts: [],
+                        isLeftVentricularThrombosis: "1",
+                        leftVentricularThrombosisParts: [],
+                        findings: "心脏大小和功能存在异常",                        
+                    },
+                    pci: {
+                        num: "103",
+                        date: "2016-10-11",
+                        type: "3",
+                        thrombolysisInterval: "20",
+                        onsetIntervalDay: "1",
+                        onsetIntervalHour: "10",
+                        stayTimePrehospital: "30",
+                        stayTimeEmergencyCall: "20",
+                        stayTimeCCU: "60",
+                        stayTimeConduitRoom: "180",
+                        contrastMedia: [],
+                        contrastMediaOthers: "碘普罗胺",
+                        coronaryDistributionType: "1",
+                        isCoronaryMalformations: "1",
+                        isGrade3Lesions: "1",
+                        isBloodFlowTIMIGrade0to2: "1",
+                        isCTO: "1",
+                        isCollateralCirculation: "1",
+                        pciPaths: [],
+                        implantedBracketCountLAD: "1",
+                        implantedBracketCountLCX: "0",
+                        implantedBracketCountRCA: "1",
+                        implantedBracketCountLM: "1",
+                        segmentalLesions: []
+                    }   
                 },
                 admissionDiagnosis: {
                     isSilentMyocardialIschemia: "1",
