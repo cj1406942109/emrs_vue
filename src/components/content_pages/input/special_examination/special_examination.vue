@@ -806,12 +806,12 @@
                         <div class="form-group">
                             <label class="control-label col-md-1">类型</label>
                             <div class="col-md-2">
-                                <select class="form-control" v-model="specialExamination.pci.type">
+                                <select class="form-control" v-model="specialExamination.pci.pciType">
                                     <option value="" disabled selected>选择</option>
                                     <option v-for="pciType in pagedata.pciTypes" :key="pciType.id" :value="pciType.id">{{pciType.text}}</option>
                                 </select>
                             </div>
-                            <div v-if="specialExamination.pci.type=='3'||specialExamination.pci.type=='4'">
+                            <div v-if="specialExamination.pci.pciType=='3'||specialExamination.pci.pciType=='4'">
                                 <label class="control-label col-md-2">PCI距溶栓</label>
                                 <div class="col-md-4">
                                     <input class="form-control input-inline" v-model="specialExamination.pci.thrombolysisInterval">
