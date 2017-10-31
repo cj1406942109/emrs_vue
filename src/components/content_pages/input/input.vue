@@ -474,19 +474,12 @@ export default {
                             isArrhythmia: "",
                             frequentness: "",
                             totalAbnormalHeartbeats: "",
-                            arrhythmiaTypes: [{
-                                arrhythmiaType: "",
-                                arrhythmiaTypeOthers: "",
-                                duration: ""
-                            }]
+                            arrhythmiaTypes: []
                         },
                         pathologicalQWave: {
                             isPathologicalQWave: "",
                             frequentness: "",
-                            qWaveLeadsDetail: [{
-                                time: "",
-                                qWaveLeads: []
-                            }]
+                            qWaveLeadsDetail: []
                         },
                         stSegmentChange: {
                             isStSegmentChange: "",

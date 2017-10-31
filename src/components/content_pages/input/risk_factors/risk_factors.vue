@@ -26,7 +26,7 @@
                                 </div>                                 
                             </div>
                             <div class="col-md-4" v-if="riskFactors.isSomking=='1'">
-                                <input class="form-control input-inline" v-model="riskFactors.duration">
+                                <input class="form-control input-inline" v-model="riskFactors.smokingDuration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写烟龄 </span>
                             </div>
@@ -85,7 +85,7 @@
                                 </div> 
                             </div>
                             <div class="col-md-4" v-if="riskFactors.isDrinking=='1'">
-                                <input class="form-control input-inline" v-model="riskFactors.duration">
+                                <input class="form-control input-inline" v-model="riskFactors.drinkingDuration">
                                 <span class="help-inline"> 年 </span>
                                 <span class="help-block"> 填写酒龄 </span>
                             </div>
@@ -312,7 +312,7 @@
                             <label class="control-label bold col-md-2">类型</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.exerciseType">
-                                    <option value="" disabled selected>选择血型</option>
+                                    <option value="" disabled selected>选择类型</option>
                                     <option v-for="exerciseType in pagedata.exerciseTypes" :key="exerciseType.id" :value="exerciseType.id">{{exerciseType.text}}</option>
                                 </select>
                             </div>
@@ -321,7 +321,7 @@
                             <label class="control-label bold col-md-2">每次时长</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.exerciseDuration">
-                                    <option value="" disabled selected>选择血型</option>
+                                    <option value="" disabled selected>选择时长</option>
                                     <option v-for="exerciseDuration in pagedata.exerciseDuration" :key="exerciseDuration.id" :value="exerciseDuration.id">{{exerciseDuration.text}}</option>
                                 </select>
                             </div>
