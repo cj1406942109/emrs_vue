@@ -110,18 +110,20 @@ export default {
             currentSubmenu: 0
         }
     },
-    created () {
-        var path = this.$route.path;
-        const vue = this;
-        vue.menu.forEach(function(menuItem, menuIndex) {
-            menuItem.submenu.forEach(function(submenuItem, submenuIndex) {
-                if(submenuItem.href == path) {
-                    vue.currentMenu = menuIndex;
-                    vue.currentSubmenu = submenuIndex;
-                    menuItem.isOpen = true;
-                }
-            })
-        });
+    mounted () {
+        this.$nextTick(function(){
+            var path = this.$route.path;
+            const vue = this;
+            vue.menu.forEach(function(menuItem, menuIndex) {
+                menuItem.submenu.forEach(function(submenuItem, submenuIndex) {
+                    if(submenuItem.href == path) {
+                        vue.currentMenu = menuIndex;
+                        vue.currentSubmenu = submenuIndex;
+                        menuItem.isOpen = true;
+                    }
+                })
+            });
+        })
     },
     methods: {        
         menuToggler (menuItem) {

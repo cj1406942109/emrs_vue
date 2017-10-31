@@ -524,7 +524,7 @@ export default {
                     pci: {
                         num: "",
                         date: "",
-                        type: "",
+                        pciType: "",
                         thrombolysisInterval: "",
                         onsetIntervalDay: "",
                         onsetIntervalHour: "",
