@@ -27,16 +27,10 @@
                 <div class="portlet-body form-horizontal">     
                     <h3>Patient Characteristics</h3>
                     <div class="form-group">
-                        <label class="control-label col-md-1 bold">Age</label>
-                        <div class="col-md-10">
+                        <label class="control-label col-md-3 bold">Age</label>
+                        <div class="col-md-9">
                             <input class="form-control input-inline" type="number" min="18" max="100" v-model="DAPTScore.age"></span>
                             <span class="help-inline">Must be between 18-100</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label bold col-md-10">Diabetes Mellitus</label>
-                        <div class="col-md-2">
-                            <div><label><checkbox v-model="DAPTScore.DM" :value="1"></checkbox></label></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -46,35 +40,23 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label bold col-md-10">Diabetes Mellitus</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="DAPTScore.DM" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label bold col-md-10">Prior Myocardial Infarction or Percutaneous Coronary Intervention</label>
                         <div class="col-md-2">
                             <div><label><checkbox v-model="DAPTScore.PMIPCI" :value="1"></checkbox></label></div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label bold col-md-10">History of Congestive Heart Failure or Left Ventricular Ejection Fraction < 30%</label>
+                        <label class="control-label bold col-md-10">History of CHF/LVEF < 30%</label>
                         <div class="col-md-2">
                             <div><label><checkbox v-model="DAPTScore.CHFLEVF" :value="2"></checkbox></label></div>
                         </div>
-                    </div>     
-                    <div class="form-group">
-                        <label class="control-label bold col-md-10">Hypertension</label>
-                        <div class="col-md-2">
-                            <div><label><checkbox v-model="DAPTScore.Hypertension" value="1"></checkbox></label></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label bold col-md-10">Renal Insufficiency</label>
-                        <div class="col-md-2">
-                            <div><label><checkbox v-model="DAPTScore.RI" value="1"></checkbox></label></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label bold col-md-10">Peripheral Arterial Disease</label>
-                        <div class="col-md-2">
-                            <div><label><checkbox v-model="DAPTScore.PAD" value="1"></checkbox></label></div>
-                        </div>
-                    </div>        
+                    </div>                            
                     <h3>Procedure Characteristics</h3>
                     <div class="form-group">
                         <label class="control-label bold col-md-10">Myocardial Infarction at Presentation</label>
@@ -83,9 +65,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label bold col-md-10">Stenting of Vein of Graft</label>
+                        <label class="control-label bold col-md-10">Vein Graft Stent</label>
                         <div class="col-md-2">
-                            <div><label><checkbox v-model="DAPTScore.SVG" :value="2"></checkbox></label></div>
+                            <div><label><checkbox v-model="DAPTScore.VGS" :value="2"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Paclitaxel-eluting Stent</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="DAPTScore.PES" :value="1"></checkbox></label></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -93,7 +81,14 @@
                         <div class="col-md-2">
                             <div><label><checkbox v-model="DAPTScore.SD" :value="1"></checkbox></label></div>
                         </div>
-                    </div>                 
+                    </div>    
+                    <div class="form-group">
+                        <label class="control-label col-md-3 font-red bold">DAPT Score</label>
+                         <div class="col-md-19">
+                            <input class="form-control input-inline bold" readonly :value="DAPTScoreResult.value"></span>
+                            <span class="help-inline font-red bold">{{DAPTScoreResult.desc}}</span>
+                        </div>
+                    </div>       
                 </div>
             </div>
         </div>
@@ -217,13 +212,13 @@
                                 <span class="help-inline font-red bold">{{BleedingScoreResult.desc}}</span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label class="control-label bold col-md-5 font-red">Risk of In-Hospital Major Bleeding</label>
                             <div class="col-md-7">
                                 <input class="form-control input-inline bold" readonly></span>
                                 <span class="help-inline font-red bold">Unknown</span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
         </div>
@@ -251,23 +246,27 @@ export default {
             },
             DAPTScore: {
                 age: '',
-                DM:'',
-                CS: '',
-                PMIPCI: '',
-                CHFLEVF: '',
-                Hypertension: '',
-                RI: '',
-                PAD: '',
-                MI: '',
-                SVG: '',
-                SD: ''
+                CS: 0,
+                DM: 0,
+                PMIPCI: 0,
+                CHFLEVF: 0,
+                MIP: 0,
+                VGS: 0,
+                PES: 0,
+                SD: 0
             }
         }
     },
     computed: {
         BleedingScoreResult: function() {
             let BleedingScore = this.BleedingScore;
-            if(BleedingScore.BH && BleedingScore.GFR && BleedingScore.HR && BleedingScore.SBP && BleedingScore.PVD && BleedingScore.DM && BleedingScore.SoCHF && BleedingScore.Sex) {
+            let status = true;
+            for (let ele in BleedingScore) {
+                if(typeof(BleedingScore[ele])!='number'){
+                    status = false;
+                };
+            }
+            if(status) {
                 let value = BleedingScore.BH + BleedingScore.GFR + BleedingScore.HR + BleedingScore.SBP + BleedingScore.PVD + BleedingScore.DM + BleedingScore.SoCHF + BleedingScore.Sex;
                 let desc = '';
                 if(value<21){
@@ -282,16 +281,57 @@ export default {
                     desc = 'Very High Risk';
                 }
                 return {
-                        value: value,
-                        desc: desc
-                    };
+                    value: value,
+                    desc: desc
+                };
             }else {
                 return {
                     value: '',
                     desc: 'Enter all fields above'
                 };
             }
-            // return this.BleedingScore.BH+this.BleedingScore.GFR+this.BleedingScore.HR+this.BleedingScore.SBP+this.BleedingScore.PVD+this.BleedingScore.DM+this.BleedingScore.SoCHF+this.BleedingScore.Sex;
+        },
+        DAPTScoreResult: function() {
+            let DAPTScore = this.DAPTScore;            
+            let status = true;
+            if(!(parseInt(DAPTScore.age)<=100 && parseInt(DAPTScore.age)>=18)){
+                status = false;
+            }
+            if(status){
+                let ageScore = 0;
+                if(DAPTScore.age>=75){
+                    ageScore = -2;
+                }else if(DAPTScore.age>=65){
+                    ageScore = -1;
+                }
+                let value = ageScore;
+                // + DAPTScore.CS + DAPTScore.DM + DAPTScore.PMIPCI + DAPTScore.CHFLEVF + DAPTScore.MIP + DAPTScore.VGS + DAPTScore.PES + DAPTScore.SD
+                for (let ele in DAPTScore) {
+                    if(ele!='age' && DAPTScore[ele]) {
+                        if(ele=='CHFLEVF'|| ele=='VGS'){
+                            value +=2;
+                        }else{
+                            value++;
+                        }
+                    }
+                }
+                let desc = '';
+                if(value>=2){
+                    desc = 'Long DAPT';
+                }else {
+                    desc = 'Standard DAPT';
+                }
+                return {
+                    value: value,
+                    desc: desc
+                };
+
+            } else {
+                return {
+                    value: '',
+                    desc: 'Enter all fields above correctly'
+                };
+            }
         }
     },
     mounted () {
