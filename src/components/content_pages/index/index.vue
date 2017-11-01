@@ -13,7 +13,7 @@
     </div>
     <h1 class="page-title"> Bleeding Score Calculator
         <small>statistics, charts, recent events and reports</small>
-    </h1> 
+    </h1>
     <div class="row">
         <div class="col-md-6">
             <div class="portlet box red">
@@ -23,13 +23,12 @@
                         <a href="javascript:;" class="collapse"> </a>
                     </div>
                 </div>
-                
                 <div class="portlet-body form-horizontal">     
                     <h3>Patient Characteristics</h3>
                     <div class="form-group">
                         <label class="control-label col-md-3 bold">Age</label>
                         <div class="col-md-9">
-                            <input class="form-control input-inline" type="number" min="18" max="100" v-model="DAPTScore.age"></span>
+                            <input class="form-control input-inline" type="number" min="18" max="100" v-model="DAPTScore.Age"></span>
                             <span class="help-inline">Must be between 18-100</span>
                         </div>
                     </div>
@@ -221,8 +220,149 @@
                         </div> -->
                     </div>
                 </div>
+        </div>        
+    </div>    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="portlet box yellow">
+                <div class="portlet-title">
+                    <div class="caption">HAS-BLED Score Calculator</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Hypertension: (uncontrolled, >160 mmHg systolic)</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.Hypertension" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Abnormal renal function: Dialysis, transplant, Cr >2.26 mg/dL or >200 µmol/L</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.ARF" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Abnormal liver function: Cirrhosis or Bilirubin >2x Normal or AST/ALT/AP >3x Normal</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.ALF" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Stroke: Prior history of stroke</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.PS" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Bleeding: Prior Major Bleeding or Predisposition to Bleeding</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.PMB" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Labile INR: (Unstable/high INR), Time in Therapeutic Range < 60%</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.LINR" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Elderly: Age > 65 years</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.Elderly" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Prior Alcohol or Drug Usage History (≥ 8 drinks/week)</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.PADU" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Medication Usage Predisposing to Bleeding: (Antiplatelet agents, NSAIDs)</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="HASBLED.MU" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-5 font-red">HAS-BLED Score</label>
+                        <div class="col-md-7">  
+                            <input class="form-control input-inline bold" readonly :value="HASBLEDResult.value"></span>
+                            <span class="help-inline font-red bold">{{HASBLEDResult.desc}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>        
+        <div class="col-md-6">
+            <div class="portlet box green-dark">
+                <div class="portlet-title">
+                    <div class="caption">CHA2DS2–VASc Score Calculator</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Congestive heart failure (or Left ventricular systolic dysfunction)</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="CHADSVAS.CHF" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Hypertension: blood pressure consistently above 140/90 mmHg (or treated hypertension on medication)</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="CHADSVAS.Hypertension" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label bold col-md-9">Age</label>
+                            <div class="col-md-2">
+                                <select class="form-control input-inline" v-model="CHADSVAS.Age">
+                                    <option value="" disabled selected>--select--</option>
+                                    <option :value="2"> ≥ 75 </option>
+                                    <option :value="1"> 65-74 </option>
+                                    <option :value="0"> < 65 </option>
+                                </select>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Diabetes Mellitus</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="CHADSVAS.DM" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Prior Stroke or TIA or thromboembolism</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="CHADSVAS.PS" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Vascular disease (e.g. peripheral artery disease, myocardial infarction, aortic plaque)</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="CHADSVAS.VD" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-10">Sex category (i.e. female sex)</label>
+                        <div class="col-md-2">
+                            <div><label><checkbox v-model="CHADSVAS.SC" :value="1"></checkbox></label></div>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="control-label bold col-md-5 font-red">CHA2DS2–VASc Score</label>
+                        <div class="col-md-7">
+                            <input class="form-control input-inline bold" readonly :value="CHADSVASResult.value"></span>
+                            <span class="help-inline font-red bold">{{CHADSVASResult.desc}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
   </div>
 </template>
 
@@ -245,7 +385,7 @@ export default {
                 Sex: ''
             },
             DAPTScore: {
-                age: '',
+                Age: '',
                 CS: 0,
                 DM: 0,
                 PMIPCI: 0,
@@ -254,10 +394,89 @@ export default {
                 VGS: 0,
                 PES: 0,
                 SD: 0
+            },
+            HASBLED: {
+                Hypertension: 0,
+                ARF: 0,
+                ALF: 0,
+                PS: 0,
+                PMB: 0,
+                LINR: 0,
+                Elderly: 0,
+                PADU: 0,
+                MU: 0
+            },
+            CHADSVAS: {
+                CHF: 0,
+                Hypertension: 0,
+                Age: '',
+                DM: 0,
+                PS: 0,
+                VD: 0,
+                SC: 0
             }
         }
     },
     computed: {
+        DAPTScoreResult: function() {
+            let DAPTScore = this.DAPTScore;            
+            let status = true;
+            if(!(parseInt(DAPTScore.Age)<=100 && parseInt(DAPTScore.Age)>=18)){
+                status = false;
+            }
+            if(status){
+                let ageScore = 0;
+                if(DAPTScore.Age>=75){
+                    ageScore = -2;
+                }else if(DAPTScore.Age>=65){
+                    ageScore = -1;
+                }
+                let value = ageScore;
+                // + DAPTScore.CS + DAPTScore.DM + DAPTScore.PMIPCI + DAPTScore.CHFLEVF + DAPTScore.MIP + DAPTScore.VGS + DAPTScore.PES + DAPTScore.SD
+                for (let ele in DAPTScore) {
+                    if(ele!='Age' && DAPTScore[ele]) {
+                        if(ele=='CHFLEVF'|| ele=='VGS'){
+                            value +=2;
+                        }else{
+                            value++;
+                        }
+                    }
+                }
+                let desc = '';
+                if(value>=2){
+                    desc = 'Long DAPT';
+                }else {
+                    desc = 'Standard DAPT';
+                }
+                return {
+                    value: value,
+                    desc: desc
+                };
+
+            } else {
+                return {
+                    value: '',
+                    desc: 'Enter all fields above correctly'
+                };
+            }
+        },
+        HASBLEDResult: function() {
+            let HASBLED = this.HASBLED;            
+            let value = 0;
+            for (let ele in HASBLED) {
+                if(HASBLED[ele]) {
+                    value++;
+                }
+            }
+            let desc = '';
+            if(value>=3){
+                desc = 'High Risk';
+            }
+            return {
+                value: value==0?'':value,
+                desc: desc
+            };            
+        },
         BleedingScoreResult: function() {
             let BleedingScore = this.BleedingScore;
             let status = true;
@@ -291,36 +510,46 @@ export default {
                 };
             }
         },
-        DAPTScoreResult: function() {
-            let DAPTScore = this.DAPTScore;            
+        CHADSVASResult: function () {
+            let CHADSVAS = this.CHADSVAS;            
             let status = true;
-            if(!(parseInt(DAPTScore.age)<=100 && parseInt(DAPTScore.age)>=18)){
+            if(CHADSVAS.Age == ''){
                 status = false;
             }
-            if(status){
-                let ageScore = 0;
-                if(DAPTScore.age>=75){
-                    ageScore = -2;
-                }else if(DAPTScore.age>=65){
-                    ageScore = -1;
-                }
-                let value = ageScore;
-                // + DAPTScore.CS + DAPTScore.DM + DAPTScore.PMIPCI + DAPTScore.CHFLEVF + DAPTScore.MIP + DAPTScore.VGS + DAPTScore.PES + DAPTScore.SD
-                for (let ele in DAPTScore) {
-                    if(ele!='age' && DAPTScore[ele]) {
-                        if(ele=='CHFLEVF'|| ele=='VGS'){
+            if(status){                
+                let value = CHADSVAS.Age;
+                for (let ele in CHADSVAS) {
+                    if(ele!='Age' && CHADSVAS[ele]) {
+                        if(ele=='PS'){
                             value +=2;
                         }else{
                             value++;
                         }
                     }
+                }                
+                let risk = 0;
+                if(value==0){
+                    risk=0;
+                }else if(value==1){
+                    risk=1.3;
+                }else if(value==2){
+                    risk=2.2;
+                }else if(value==3){
+                    risk=3.2;
+                }else if(value==4){
+                    risk=4.0;
+                }else if(value==5){
+                    risk=6.7;
+                }else if(value==6){
+                    risk=9.8;
+                }else if(value==7){
+                    risk=9.6;
+                }else if(value==8){
+                    risk=12.5;
+                }else if(value==9){
+                    risk=15.2;
                 }
-                let desc = '';
-                if(value>=2){
-                    desc = 'Long DAPT';
-                }else {
-                    desc = 'Standard DAPT';
-                }
+                let desc = '';                
                 return {
                     value: value,
                     desc: desc
@@ -329,10 +558,11 @@ export default {
             } else {
                 return {
                     value: '',
-                    desc: 'Enter all fields above correctly'
+                    desc: 'Enter all fields above'
                 };
             }
         }
+        
     },
     mounted () {
         utils.handleSidebarAndContentHeight();
