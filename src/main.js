@@ -23,13 +23,6 @@ import '@/assets/layout/css/custom.css';
 
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.min.js';
-// import '@/../static/plugins/bootstrap/js/bootstrap.min.js';
-
-// import '@/assets/global/js/app.js';
-// import '@/assets/layout/js/layout.js';
-// import '@/assets/layout/js/demo.js';
-
-import '@/directives/select.js';
 
 Vue.config.productionTip = false;
 Vue.use(Resource);
