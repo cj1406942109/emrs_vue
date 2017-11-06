@@ -299,7 +299,7 @@
         <div class="col-md-6">
             <div class="portlet box green-dark">
                 <div class="portlet-title">
-                    <div class="caption">CHA2DS2–VASc Score Calculator</div>
+                    <div class="caption">CHA<sub>2</sub>DS<sub>2</sub>–VASc Score Calculator</div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse"> </a>
                     </div>
@@ -353,12 +353,23 @@
                         </div>
                     </div>                    
                     <div class="form-group">
-                        <label class="control-label bold col-md-5 font-red">CHA2DS2–VASc Score</label>
+                        <label class="control-label bold col-md-5 font-red">CHA<sub>2</sub>DS<sub>2</sub>–VASc Score</label>
                         <div class="col-md-7">
                             <input class="form-control input-inline bold" readonly :value="CHADSVASResult.value"></span>
                             <span class="help-inline font-red bold">{{CHADSVASResult.desc}}</span>
                         </div>
                     </div>
+                    <div v-if="CHADSVASResult.desc===''">
+                        <div class="form-group">
+                            <label class="control-label bold col-md-5 font-red" style="padding-top: 0">Stroke Risk</label>
+                            <label class="bold col-md-7">{{CHADSVASResult.risk}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label bold col-md-5 font-red" style="padding-top: 0">Anticoagulation Therapy</label>
+                            <label class="bold col-md-7">{{CHADSVASResult.therapy}}</label>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -435,7 +446,7 @@ export default {
                 // + DAPTScore.CS + DAPTScore.DM + DAPTScore.PMIPCI + DAPTScore.CHFLEVF + DAPTScore.MIP + DAPTScore.VGS + DAPTScore.PES + DAPTScore.SD
                 for (let ele in DAPTScore) {
                     if(ele!='Age' && DAPTScore[ele]) {
-                        if(ele=='CHFLEVF'|| ele=='VGS'){
+                        if(ele==='CHFLEVF'|| ele==='VGS'){
                             value +=2;
                         }else{
                             value++;
@@ -473,7 +484,7 @@ export default {
                 desc = 'High Risk';
             }
             return {
-                value: value==0?'':value,
+                value: value===0?'':value,
                 desc: desc
             };            
         },
@@ -513,46 +524,70 @@ export default {
         CHADSVASResult: function () {
             let CHADSVAS = this.CHADSVAS;            
             let status = true;
-            if(CHADSVAS.Age == ''){
+            if(CHADSVAS.Age === ''){
                 status = false;
             }
             if(status){                
                 let value = CHADSVAS.Age;
                 for (let ele in CHADSVAS) {
                     if(ele!='Age' && CHADSVAS[ele]) {
-                        if(ele=='PS'){
+                        if(ele==='PS'){
                             value +=2;
                         }else{
                             value++;
                         }
                     }
                 }                
-                let risk = 0;
-                if(value==0){
-                    risk=0;
-                }else if(value==1){
-                    risk=1.3;
-                }else if(value==2){
-                    risk=2.2;
-                }else if(value==3){
-                    risk=3.2;
-                }else if(value==4){
-                    risk=4.0;
-                }else if(value==5){
-                    risk=6.7;
-                }else if(value==6){
-                    risk=9.8;
-                }else if(value==7){
-                    risk=9.6;
-                }else if(value==8){
-                    risk=12.5;
-                }else if(value==9){
-                    risk=15.2;
+                let risk = '';
+                if(CHADSVAS.SC===0){
+                    if(value===0){
+                        risk='Low';
+                    }else if(value===1){
+                        risk='Moderate';
+                    }else{
+                        risk='High';
+                    }
+                }else{
+                    if(value===1){
+                        risk='Low';
+                    }else{
+                        risk='High';
+                    }
                 }
-                let desc = '';                
+                let therapy = '';
+                if(risk==='Low'){
+                    therapy='No anticoagulant therapy';
+                }else if(risk==='Moderate'){
+                    therapy='Oral anticoagulant should be considered';
+                }else if(risk==='High'){
+                    therapy='Oral anticoagulant is recommended';
+                }
+                // if(value===0){
+                //     risk=0;
+                // }else if(value===1){
+                //     risk=1.3;
+                // }else if(value===2){
+                //     risk=2.2;
+                // }else if(value===3){
+                //     risk=3.2;
+                // }else if(value===4){
+                //     risk=4.0;
+                // }else if(value===5){
+                //     risk=6.7;
+                // }else if(value===6){
+                //     risk=9.8;
+                // }else if(value===7){
+                //     risk=9.6;
+                // }else if(value===8){
+                //     risk=12.5;
+                // }else if(value===9){
+                //     risk=15.2;
+                // }
                 return {
                     value: value,
-                    desc: desc
+                    desc: '',
+                    risk: risk,
+                    therapy: therapy
                 };
 
             } else {
