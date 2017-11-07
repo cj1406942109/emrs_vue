@@ -15,6 +15,9 @@ const router = new Router({
             path: '/login',
             name: 'login',
             component: login
+        }, {
+            path: '/logout',
+            name: 'logout'
         },
         {
             path: '/home',
@@ -33,9 +36,31 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
-        next();
+        let user = JSON.parse(localStorage.getItem('user'));
+        if(user) {
+            console.log(user);
+            if(user.expireTime > new Date().getTime()) {
+                next();
+            } else {
+                localStorage.clear('user');
+                next({
+                    path: '/login'
+                })
+            }
+        } else {
+            next({
+                path: '/login'
+            })
+        }
     } else {
-        next();
+        if(to.name == 'logout') {
+            localStorage.clear('user');
+            next({
+                path: '/login'
+            });
+        } else {
+            next();
+        }
     }
 });
 

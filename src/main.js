@@ -4,7 +4,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import Resource from 'vue-resource';
-
+import VeeValidate from 'vee-validate';
 import 'font-awesome/css/font-awesome.min.css';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,7 +26,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 Vue.config.productionTip = false;
 Vue.use(Resource);
-
+Vue.use(VeeValidate);
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

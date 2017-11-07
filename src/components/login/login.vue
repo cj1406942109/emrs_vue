@@ -9,30 +9,34 @@
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" method="post">
                 <h3 class="form-title">Login to your account</h3>
-                <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button>
-                    <span>输入用户名或密码</span>
+                <div class="alert alert-danger" :class="{'display-hide':!alert.show}" style="padding: 10px;">
+                    <button class="close" type="button" @click="hideAlert"></button>
+                    <span>{{alert.text}}</span>
                 </div>
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">Username</label>
-                    <div class="input-icon">
+                    <label class="control-label visible-ie8 visible-ie9">Username</label>                    
+                    <div class="input-icon" :class="{ 'control': true }">
                         <i class="fa fa-user"></i>
-                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" /> </div>
+                        <input v-validate="'required|email'" :class="{'input': true, 'border-red': errors.has('username') }" name="username" class="form-control" type="text" placeholder="Email" v-model="user.name">
+                        <span v-show="errors.has('username')" class="help-block font-red">{{ errors.first('username') }}</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
-                    <div class="input-icon">
+                    <div class="input-icon" :class="{ 'control': true }">
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" /> </div>
-                </div>
+                        <input v-validate="'required|alpha_dash|min:6|max:16'" :class="{'input': true, 'border-red': errors.has('password') }" name="password" class="form-control" type="password" placeholder="Password" v-model="user.password" @keyup.13="login">
+                        <span v-show="errors.has('password')" class="help-block font-red">{{ errors.first('password') }}</span>
+                    </div>
+                </div>                
                 <div class="form-actions">
                     <!-- <label class="rememberme mt-checkbox mt-checkbox-outline">
                         <input type="checkbox" name="remember" value="1">记住密码
                         <span></span>
                     </label> -->
                     <label for=""></label>
-                    <button type="button" class="btn green pull-right" @click="login">Login</button>
+                    <button type="button" class="btn green pull-right" @click="login" :disabled="logining">{{buttonText}}</button>
                 </div>                
             </form>
             <!-- END LOGIN FORM -->            
@@ -49,25 +53,72 @@
 </template>
 
 <script>
-    import '@/../static/plugins/backstretch/jquery.backstretch.min';
-    import bg1 from './bg/1.jpg';
-    import bg2 from './bg/2.jpg';
-    import bg3 from './bg/3.jpg';
-    import bg4 from './bg/4.jpg';
-    export default {
-        created () {
-            $.backstretch([bg1, bg2, bg3, bg4], {
-                    fade: 1000,
-                    duration: 8000
-                }
-            );
-        },
-        methods: {
-            login () {
-                this.$router.push('/home');
+import '@/../static/plugins/backstretch/jquery.backstretch.min';
+import bg1 from './bg/1.jpg';
+import bg2 from './bg/2.jpg';
+import bg3 from './bg/3.jpg';
+import bg4 from './bg/4.jpg';
+import config from '@/config';
+export default {
+    data () {
+        return {
+            user: {
+                name: '',
+                password: ''
+            },
+            formValid: false,
+            alert: {
+                show: false,
+                text: ''
+            },
+            logining: false
+        }
+    },
+    created () {
+        $.backstretch([bg1, bg2, bg3, bg4], {
+                fade: 1000,
+                duration: 8000
             }
+        );
+    },
+    computed: {
+        buttonText: function(){
+            return this.logining?'Logining':'Login';
+        }
+    },
+    methods: {
+        login () {
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    this.logining = true;
+                    this.$http.post(config.apiHost + '/user/checkLogin', {phoneOrEmail: this.user.name, password: this.user.password}).then(response => {
+                        this.logining = false;
+                        let responseData = response.body;
+                        console.log(responseData);
+                        if (responseData.status) {
+                            let user = responseData.data;                    
+                            this.$set(user, 'expireTime', new Date().getTime()+30*60*1000);     //设置会话过期时间
+                            localStorage.setItem('user', JSON.stringify(user));
+                            this.$router.push('/home');
+                        } else {
+                            this.alert.show = true;
+                            this.alert.text = 'Incorrect username or password.';
+                        }
+                    }, response => {
+                        this.logining = false;
+                        this.alert.show = true;
+                        this.alert.text = 'Login error, please retry.';
+                    });   
+                } else {
+                    return;
+                }
+            });           
+        },
+        hideAlert () {
+            this.alert.show = false;
         }
     }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -78,6 +129,7 @@
             text-align center
         .content
             background url(./bg-white-lock.png) repeat
+            background-color rgba(255,255,255,0.1)
             width 360px
             margin 0 auto
             padding 20px 30px 15px 30px
