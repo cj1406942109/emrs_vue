@@ -42,7 +42,7 @@
                                 <div class="progress-bar progress-bar-success" role="progressbar" :style="{width:currentStep*50+'%'}"></div>
                             </div>
                             <div class="tab-content">
-                                <div class="alert" :class="[isFormValid?'alert-danger':'alert-success']" v-show="isAlert">
+                                <div class="alert" :class="[isFormValid?'alert-danger':'alert-success']" v-show="showAlert">
                                     <button class="close" data-dismiss="alert"></button> <span v-if="isFormValid">表单填写错误，请重新检查字段填写要求！</span><span v-else>表单格式验证成功！</span>
                                 </div>
                                 <div class="tab-pane active" id="tab1" v-show="currentStep==1">
@@ -53,7 +53,8 @@
                                             </div>
                                         </div>
                                         <div class="portlet-body">
-                                            <router-view name="tab1" :pagedata="pagedata" :basicInfo="mr.basicInfo"></router-view>
+                                            <!-- <router-view name="tab1" :pagedata="pagedata" :basicInfo="mr.basicInfo"></router-view> -->
+                                            <basic-info :pagedata="pagedata" :basicInfo="mr.basicInfo"></basic-info>
                                         </div>
                                     </div>
                                 </div>
@@ -67,10 +68,18 @@
                                         <div class="portlet-body">
                                             <div class="tabbable-custom">
                                                 <ul class="nav nav-tabs">
-                                                    <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><router-link :to="tab.href" data-toggle="tab">{{tab.title}}</router-link></li>                                               
+                                                    <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><a href="javascript:;" data-toggle="tab">{{tab.title}}</a></li>                                               
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <router-view name="tab2" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness" :anamnesis="mr.anamnesis" :riskFactors="mr.riskFactors" :familyHistory="mr.familyHistory" :physicalExamination="mr.physicalExamination" :routineExamination="mr.routineExamination" :specialExamination="mr.specialExamination" :admissionDiagnosis="mr.admissionDiagnosis" :dischargeDiagnosis="mr.dischargeDiagnosis"></router-view>
+                                                    <history-of-present-illness :activeTab="activeTab" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness"></history-of-present-illness>
+                                                    <anamnesis :activeTab="activeTab" :pagedata="pagedata" :anamnesis="mr.anamnesis"></anamnesis>
+                                                    <risk-factors :activeTab="activeTab" :pagedata="pagedata" :riskFactors="mr.riskFactors"></risk-factors>
+                                                    <family-history :activeTab="activeTab" :pagedata="pagedata" :familyHistory="mr.familyHistory"></family-history>
+                                                    <physical-examination :activeTab="activeTab" :pagedata="pagedata" :physicalExamination="mr.physicalExamination"></physical-examination>
+                                                    <routine-examination :activeTab="activeTab" :pagedata="pagedata" :routineExamination="mr.routineExamination"></routine-examination>
+                                                    <special-examination :activeTab="activeTab" :pagedata="pagedata" :specialExamination="mr.specialExamination"></special-examination>
+                                                    <admission-diagnosis :activeTab="activeTab" :pagedata="pagedata" :admissionDiagnosis="mr.admissionDiagnosis"></admission-diagnosis>
+                                                    <discharge-diagnosis :activeTab="activeTab" :pagedata="pagedata" :dischargeDiagnosis="mr.dischargeDiagnosis"></discharge-diagnosis>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,6 +112,17 @@
 
 <script>
 import utils from '@/utils/utils';
+import basicInfo from '@/components/content_pages/input/basic_info/basic_info';
+import historyOfPresentIllness from '@/components/content_pages/input/history_of_present_illness/history_of_present_illness';
+import anamnesis from '@/components/content_pages/input/anamnesis/anamnesis';
+import riskFactors from '@/components/content_pages/input/risk_factors/risk_factors';
+import familyHistory from '@/components/content_pages/input/family_history/family_history';
+import physicalExamination from '@/components/content_pages/input/physical_examination/physical_examination';
+import routineExamination from '@/components/content_pages/input/routine_examination/routine_examination';
+import specialExamination from '@/components/content_pages/input/special_examination/special_examination';
+import admissionDiagnosis from '@/components/content_pages/input/admission_diagnosis/admission_diagnosis';
+import dischargeDiagnosis from '@/components/content_pages/input/discharge_diagnosis/discharge_diagnosis';
+
 export default {
     name: 'input',
     props: {
@@ -145,7 +165,8 @@ export default {
                         onsetTime: [],
                         onsetTimeOthers: "",
                         diseaseBodyParts: [],
-                        relievingFactors: "",
+                        relievingFactors: [],
+                        relievingDuration: "",
                         relievingFactorsOthers: "",
                         precipitatingFactors: [],
                         precipitatingFactorsOthers: "",
@@ -594,65 +615,60 @@ export default {
             currentStep: 1,
             detailTabs: [
                 {
-                    href: 'history_of_present_illness',
+                    href: '#tab_2_1',
                     title: '现病史'
                 },{
-                    href: 'anamnesis',
+                    href: '#tab_2_2',
                     title: '既往病史'
                 },{
-                    href: 'risk_factors',
+                    href: '#tab_2_3',
                     title: '危险因素'
                 },{
-                    href: 'family_history',
+                    href: '#tab_2_4',
                     title: '家族史'
                 },{
-                    href: 'physical_examination',
+                    href: '#tab_2_5',
                     title: '体格检查'
                 },{
-                    href: 'routine_examination',
+                    href: '#tab_2_6',
                     title: '常规检查'
                 },{
-                    href: 'special_examination',
+                    href: '#tab_2_7',
                     title: '特殊检查'
                 },{
-                    href: 'admission_diagnosis',
+                    href: '#tab_2_8',
                     title: '入院诊断'
                 },{
-                    href: 'discharge_diagnosis',
+                    href: '#tab_2_9',
                     title: '出院诊断'
                 }
             ],
             activeTab: 1,
             isFormValid: false,     //表单是否合法
-            isAlert: false,          //是否显示出错信息
-            lastStepRoute: 'history_of_present_illness'
+            showAlert: false,          //是否显示出错信息
         }
     },
     methods: {
         nextStep () {
             this.currentStep++;
-            this.$router.push(this.lastStepRoute);
         },
         lastStep () {
             this.currentStep--;
-            this.lastStepRoute = this.$route.path;
-            this.$router.push('basic_info');
         },
         changeActiveTab (index) {
             this.activeTab = index+1;
+            console.log(this.activeTab);
         },
         submitForm () {
             console.log(this.mr);
         }
-    },
-    created () {
-        if(JSON.stringify(this.detailTabs).indexOf(this.$route.path.split('/home/input/')[1])>0 && this.currentStep!=2) {
-            this.$router.push('basic_info');
-        };
-    },
+    },    
     mounted () {
         utils.handleSidebarAndContentHeight();
         utils.handleGoTop();
+    },
+    components: {
+        basicInfo, historyOfPresentIllness, anamnesis, riskFactors, familyHistory, physicalExamination, routineExamination,specialExamination, admissionDiagnosis, dischargeDiagnosis
     }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-pane active portlet">
+  <div class="tab-pane portlet" :class="{active:activeTab==9}">
     <div class="portlet-title">
         <div class="caption">
             <span class="caption-subject bold font-dark uppercase">出院诊断</span>
@@ -130,6 +130,9 @@ export default {
         },
         dischargeDiagnosis: {
             type: Object
+        },
+        activeTab: {
+            type: Number
         }
     },
     data () {

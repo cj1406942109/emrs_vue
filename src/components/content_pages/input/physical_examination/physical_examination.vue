@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-pane active portlet">
+  <div class="tab-pane portlet" :class="{active:activeTab==5}">
     <div class="portlet-title">
         <div class="caption">
             <span class="caption-subject bold font-dark uppercase">体格检查</span>
@@ -189,6 +189,9 @@ export default {
         },
         physicalExamination: {
             type: Object
+        },
+        activeTab: {
+            type: Number
         }
     },
     data () {

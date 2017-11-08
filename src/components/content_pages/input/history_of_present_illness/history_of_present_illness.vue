@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-pane active portlet">
+    <div class="tab-pane portlet" :class="{active: activeTab==1}">
         <div class="portlet-title">
             <div class="caption">
                 <span class="caption-subject bold font-dark uppercase">现病史</span>
@@ -113,16 +113,18 @@
                             </div>                                                      
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">缓解因素</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="historyOfPresentIllness.chestPain.relievingFactors">
-                                        <option value="" disabled selected>请选择缓解因素</option>
-                                        <option v-for="factor in pagedata.relievingFactors" :key="factor.id" :value="factor.id">{{factor.text}}</option>
-                                    </select>
-                                    <span class="help-block"> &nbsp;</span>
+                                <div class="col-md-4">
+                                    <div><label v-for="factor in pagedata.relievingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestPain.relievingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
+                                    <span class="help-block"> &nbsp;</span>                                    
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestPain.relievingFactors.indexOf('5')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.relievingFactors.indexOf('5')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestPain.relievingFactorsOthers">
                                     <span class="help-block"> 填写其他缓解因素 </span>
+                                </div>
+                                <label class="control-label col-md-1">时间</label>
+                                <div class="col-md-3">
+                                    <input class="form-control input-inline" v-model="historyOfPresentIllness.chestPain.relievingDuration">
+                                    <span class="help-inline"> mins </span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -464,6 +466,9 @@ export default {
         },
         historyOfPresentIllness: {
             type: Object
+        },
+        activeTab: {
+            type: Number
         }
     },
     data () {

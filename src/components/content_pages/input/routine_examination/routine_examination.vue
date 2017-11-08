@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-pane active portlet">
+  <div class="tab-pane portlet" :class="{active:activeTab==6}">
     <div class="portlet-title">
         <div class="caption">
             <span class="caption-subject bold font-dark uppercase">常规检查</span>
@@ -517,6 +517,9 @@ export default {
         },
         routineExamination: {
             type: Object
+        },
+        activeTab: {
+            type: Number
         }
     },
     data () {

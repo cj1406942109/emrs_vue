@@ -101,7 +101,7 @@ export default {
                         {
                             title: '病历录入',
                             icon: 'icon-note',
-                            href: '/home/input/basic_info'
+                            href: '/home/input'
                         }
                     ]
                 }

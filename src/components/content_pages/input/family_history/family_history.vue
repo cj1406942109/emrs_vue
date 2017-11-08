@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-pane active portlet">
+    <div class="tab-pane portlet" :class="{active:activeTab==4}">
         <div class="portlet-title">
             <div class="caption">
                 <span class="caption-subject bold font-dark uppercase">家族史</span>
@@ -274,6 +274,9 @@ export default {
         },
         familyHistory: {
             type: Object
+        },
+        activeTab: {
+            type: Number
         }
     },
     data () {
