@@ -133,7 +133,7 @@
                                     <div><label v-for="factor in pagedata.precipitatingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestPain.precipitatingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestPain.precipitatingFactors.indexOf('11')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.precipitatingFactors.indexOf('12')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestPain.precipitatingFactorsOthers">
                                     <span class="help-block"> 填写其他诱因 </span>
                                 </div>
@@ -144,7 +144,7 @@
                                     <div><label v-for="site in pagedata.radiationSites" :key="site.id"><checkbox v-model="historyOfPresentIllness.chestPain.radiationSites" :value="site.id">{{site.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestPain.radiationSites.indexOf('7')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.radiationSites.indexOf('7')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestPain.radiationSitesOthers">
                                     <span class="help-block"> 填写其他放射部位 </span>
                                 </div>
@@ -155,7 +155,7 @@
                                     <div><label v-for="phenomenon in pagedata.simultaneousPhenomena" :key="phenomenon.id"><checkbox v-model="historyOfPresentIllness.chestPain.simultaneousPhenomena" :value="phenomenon.id">{{phenomenon.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestPain.simultaneousPhenomena.indexOf('21')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.simultaneousPhenomena.indexOf('21')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestPain.simultaneousPhenomenaOthers">
                                     <span class="help-block"> 填写其他伴随症状 </span>
                                 </div>
@@ -257,17 +257,30 @@
                             </div>                            
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">缓解因素</label>
+                                <div class="col-md-4">
+                                    <div><label v-for="factor in pagedata.relievingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestDistress.relievingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
+                                    <span class="help-block"> &nbsp;</span>                                    
+                                </div>
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.relievingFactors.indexOf('5')>=0">
+                                    <input class="form-control" v-model="historyOfPresentIllness.chestPain.relievingFactorsOthers">
+                                    <span class="help-block"> 填写其他缓解因素 </span>
+                                </div>
+                                <label class="control-label col-md-1">时间</label>
                                 <div class="col-md-3">
+                                    <input class="form-control input-inline" v-model="historyOfPresentIllness.chestDistress.relievingDuration">
+                                    <span class="help-inline"> mins </span>
+                                </div>
+                                <!-- <div class="col-md-3">
                                     <select class="form-control" v-model="historyOfPresentIllness.chestDistress.relievingFactors">
                                         <option value="" disabled selected>请选择缓解因素</option>
                                         <option v-for="factor in pagedata.relievingFactors" :key="factor.id" :value="factor.id">{{factor.text}}</option>
                                     </select>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestDistress.relievingFactors.indexOf('5')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.relievingFactors.indexOf('5')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestDistress.relievingFactorsOthers">
                                     <span class="help-block"> 填写其他缓解因素 </span>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">诱因（多选）</label>
@@ -275,7 +288,7 @@
                                     <div><label v-for="factor in pagedata.precipitatingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestDistress.precipitatingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestDistress.precipitatingFactors.indexOf('11')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.precipitatingFactors.indexOf('12')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestDistress.precipitatingFactorsOthers">
                                     <span class="help-block"> 填写其他诱因 </span>
                                 </div>
@@ -286,7 +299,7 @@
                                     <div><label v-for="site in pagedata.radiationSites" :key="site.id"><checkbox v-model="historyOfPresentIllness.chestDistress.radiationSites" :value="site.id">{{site.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestDistress.radiationSites.indexOf('7')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.radiationSites.indexOf('7')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestDistress.radiationSitesOthers">
                                     <span class="help-block"> 填写其他放射部位 </span>
                                 </div>
@@ -297,7 +310,7 @@
                                     <div><label v-for="phenomenon in pagedata.simultaneousPhenomena" :key="phenomenon.id"><checkbox v-model="historyOfPresentIllness.chestDistress.simultaneousPhenomena" :value="phenomenon.id">{{phenomenon.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
-                                <div class="col-md-3" v-if="historyOfPresentIllness.chestDistress.simultaneousPhenomena.indexOf('21')>=0">
+                                <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.simultaneousPhenomena.indexOf('21')>=0">
                                     <input class="form-control" v-model="historyOfPresentIllness.chestDistress.simultaneousPhenomenaOthers">
                                     <span class="help-block"> 填写其他伴随症状 </span>
                                 </div>
