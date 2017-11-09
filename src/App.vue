@@ -71,6 +71,18 @@
           .multiselect__tag
             margin-top 3px
             margin-bottom 0
-          
+    //修改vue-dialog样式
+    .vue-dialog      
+      .dialog-content
+        .dialog-c-title
+          padding 0 0 20px 0
+          font-size 18px
+      .vue-dialog-buttons
+          padding 10px
+          justify-content flex-end
+          button
+            flex 0!important
+            margin-right 5px
+            border-radius: none!important
 </style>
 

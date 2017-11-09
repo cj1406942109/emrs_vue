@@ -31,7 +31,7 @@
                     <div class="form-wizard">
                         <div class="form-body">
                             <ul class="nav nav-pills nav-justified steps">
-                                <li v-for="step in steps" :key="step.id" :class="{active:currentStep===step.value, done: currentStep>step.value}">
+                                <li v-for="step in steps" :key="step.id" :class="{active:currentStep===step.value, done: currentStep>step.value || isDone}">
                                     <a :href="step.href" data-toggle="tab" class="step">
                                         <span class="number">{{step.value}}</span>
                                         <span class="desc"><i class="fa fa-check"></i>{{step.title}}</span>
@@ -93,19 +93,20 @@
                                     <div class="col-md-2 button-previous" v-show="currentStep>1" @click="lastStep">
                                         <a href="javascript:;" class="btn btn-block default"><i class="fa fa-angle-left"></i> 返回 </a>
                                     </div>
-                                    <div class="col-md-2 button-next  col-md-offset-2" v-show="currentStep!=2" @click="nextStep">
+                                    <div class="col-md-2 button-next  col-md-offset-2" v-show="currentStep<steps.length" @click="nextStep">
                                         <a href="javascript:;" class="btn btn-block green"> 继续 <i class="fa fa-angle-right"></i></a>
                                     </div>
-                                    <div class="col-md-2 button-submit" v-show="currentStep===2" @click="submitForm">
+                                    <div class="col-md-2 button-submit" v-show="currentStep===steps.length" @click="submitForm">
                                         <a href="javascript:;" class="btn btn-block green"> 提交 <i class="fa fa-check"></i></a>
                                     </div>
                                 </div>
-                            </div>
+                            </div>     
                         </div>
                     </div>
                 </form>
             </div>
-        </div>        
+        </div>    
+        <v-dialog @closed="isDone=false;"></v-dialog>
         <div class="clearfix"></div>        
     </div>
 </template>
@@ -614,6 +615,7 @@ export default {
                 }
             ],
             currentStep: 1,
+            isDone: false,
             detailTabs: [
                 {
                     href: '#tab_2_1',
@@ -661,9 +663,26 @@ export default {
             console.log(this.activeTab);
         },
         submitForm () {
-            console.log(this.mr);
+            this.isDone = true;
+            this.$modal.show('dialog', {
+                title: '提示信息',
+                text: '是否提交病历内容？',
+                buttons: [
+                    { 
+                        title: '取消',
+                        class: 'btn btn-danger',
+                    },
+                    { 
+                        title: '确定', 
+                        class: 'btn btn-success',
+                        handler: () => {
+                            console.log(this.mr); 
+                        } 
+                    },
+                ]
+            });            
         }
-    },    
+    },
     mounted () {
         utils.handleSidebarAndContentHeight();
         utils.handleGoTop();
