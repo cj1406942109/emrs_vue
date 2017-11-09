@@ -48,7 +48,7 @@
                         <span :class="{arrow: menuItem.submenu && menuItem.submenu.length > 0, open: menuItem.isOpen}"></span>
                     </router-link>
                     <ul class="sub-menu" :class="{hide:!menuItem.isOpen, show:menuItem.isOpen}">
-                        <li @click.prevent.stop="submenuToggler(menuIndex, submenuIndex)" v-for="(submenuItem, submenuIndex) in menuItem.submenu" :key="submenuItem.id" class="nav-item" :class="{active: currentSubmenu==submenuIndex}">
+                        <li @click.prevent.stop="submenuToggler(menuIndex, submenuIndex)" v-for="(submenuItem, submenuIndex) in menuItem.submenu" :key="submenuItem.id" class="nav-item" :class="{active: currentSubmenu==submenuIndex&&currentMenu==menuIndex}">
                             <router-link :to="submenuItem.href" class="nav-link">
                                 <i :class="submenuItem.icon"></i>
                                 <span class="title">{{submenuItem.title}}</span>
