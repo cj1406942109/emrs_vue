@@ -1,10 +1,13 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import Vuex from 'vuex';
+import store from '@/store';
 import App from './App';
 import router from './router';
-import Resource from 'vue-resource';
-import VModal from 'vue-js-modal';
+import SweetModal from 'sweet-modal-vue/src/plugin.js';
+import VeeValidate, { Validator } from 'vee-validate';
+import zh_CN from 'vee-validate/dist/locale/zh_CN';
 
 import 'font-awesome/css/font-awesome.min.css';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
@@ -30,16 +33,19 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 // import '@/assets/layout/js/layout.js';
 // import '@/assets/layout/js/demo.js';
 
-import '@/directives/select.js';
-
 Vue.config.productionTip = false;
-Vue.use(Resource);
-Vue.use(VModal, { dialog: true });
+Vue.use(Vuex);
+Vue.use(SweetModal);
+Validator.localize('zh_CN', zh_CN);
+Vue.use(VeeValidate, {
+    locale: 'zh_CN'
+});
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
+    store,
     template: '<App/>',
     components: { App }
 })

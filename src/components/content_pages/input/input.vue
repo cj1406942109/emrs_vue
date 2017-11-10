@@ -11,7 +11,6 @@
                 </li>
             </ul>
         </div>
-        
         <h1 class="page-title"> 电子病历系统
             <small>病历录入、病历查询</small>
         </h1>
@@ -52,9 +51,9 @@
                                                 <span class="bold uppercase">请填写患者病历基本信息</span>
                                             </div>
                                         </div>
-                                        <div class="portlet-body">
-                                            <!-- <router-view name="tab1" :pagedata="pagedata" :basicInfo="mr.basicInfo"></router-view> -->
-                                            <basic-info :pagedata="pagedata" :basicInfo="mr.basicInfo"></basic-info>
+                                        <div class="portlet-body" v-if="mr">
+                                            <!-- <router-view name="tab1" :basicInfo="mr.basicInfo"></router-view> -->
+                                            <basic-info :basicInfo="mr.basicInfo"></basic-info>
                                         </div>
                                     </div>
                                 </div>
@@ -69,17 +68,17 @@
                                             <div class="tabbable-custom">
                                                 <ul class="nav nav-tabs">
                                                     <li @click="changeActiveTab(index)" v-for="(tab,index) in detailTabs" :key="tab.id" :class="{active:index+1==activeTab}"><a href="javascript:;" data-toggle="tab">{{tab.title}}</a></li>                                               
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <history-of-present-illness :activeTab="activeTab" :pagedata="pagedata" :historyOfPresentIllness="mr.historyOfPresentIllness"></history-of-present-illness>
-                                                    <anamnesis :activeTab="activeTab" :pagedata="pagedata" :anamnesis="mr.anamnesis"></anamnesis>
-                                                    <risk-factors :activeTab="activeTab" :pagedata="pagedata" :riskFactors="mr.riskFactors"></risk-factors>
-                                                    <family-history :activeTab="activeTab" :pagedata="pagedata" :familyHistory="mr.familyHistory"></family-history>
-                                                    <physical-examination :activeTab="activeTab" :pagedata="pagedata" :physicalExamination="mr.physicalExamination"></physical-examination>
-                                                    <routine-examination :activeTab="activeTab" :pagedata="pagedata" :routineExamination="mr.routineExamination"></routine-examination>
-                                                    <special-examination :activeTab="activeTab" :pagedata="pagedata" :specialExamination="mr.specialExamination"></special-examination>
-                                                    <admission-diagnosis :activeTab="activeTab" :pagedata="pagedata" :admissionDiagnosis="mr.admissionDiagnosis"></admission-diagnosis>
-                                                    <discharge-diagnosis :activeTab="activeTab" :pagedata="pagedata" :dischargeDiagnosis="mr.dischargeDiagnosis"></discharge-diagnosis>
+                                                </ul>                                                
+                                                <div class="tab-content" v-if="mr">
+                                                    <history-of-present-illness :activeTab="activeTab" :historyOfPresentIllness="mr.historyOfPresentIllness"></history-of-present-illness>
+                                                    <anamnesis :activeTab="activeTab" :anamnesis="mr.anamnesis"></anamnesis>
+                                                    <risk-factors :activeTab="activeTab" :riskFactors="mr.riskFactors"></risk-factors>
+                                                    <family-history :activeTab="activeTab" :familyHistory="mr.familyHistory"></family-history>
+                                                    <physical-examination :activeTab="activeTab" :physicalExamination="mr.physicalExamination"></physical-examination>
+                                                    <routine-examination :activeTab="activeTab" :routineExamination="mr.routineExamination"></routine-examination>
+                                                    <special-examination :activeTab="activeTab" :specialExamination="mr.specialExamination"></special-examination>
+                                                    <admission-diagnosis :activeTab="activeTab" :admissionDiagnosis="mr.admissionDiagnosis"></admission-diagnosis>
+                                                    <discharge-diagnosis :activeTab="activeTab" :dischargeDiagnosis="mr.dischargeDiagnosis"></discharge-diagnosis>
                                                 </div>
                                             </div>
                                         </div>
@@ -96,7 +95,7 @@
                                     <div class="col-md-2 button-next  col-md-offset-2" v-show="currentStep<steps.length" @click="nextStep">
                                         <a href="javascript:;" class="btn btn-block green"> 继续 <i class="fa fa-angle-right"></i></a>
                                     </div>
-                                    <div class="col-md-2 button-submit" v-show="currentStep===steps.length" @click="submitForm">
+                                    <div class="col-md-2 button-submit" v-show="currentStep===steps.length" @click="$refs.formSubmitConfirm.open();">
                                         <a href="javascript:;" class="btn btn-block green"> 提交 <i class="fa fa-check"></i></a>
                                     </div>
                                 </div>
@@ -106,13 +105,26 @@
                 </form>
             </div>
         </div>    
-        <v-dialog @closed="isDone=false;"></v-dialog>
-        <div class="clearfix"></div>        
+        <sweet-modal icon="error" ref="formError">
+            表单内容填写有误，请重新检查字段填写要求！
+        </sweet-modal>
+        <sweet-modal icon="warning" ref="formSubmitConfirm" @close="isDone=false;" @open="isDone=true;">
+            是否提交病历内容？
+            <sweet-button class="btn red" slot="button" v-on:click="$refs.formSubmitConfirm.close()">取消</sweet-button>
+            <sweet-button class="btn green" slot="button" v-on:click="submitForm">确定</sweet-button>
+        </sweet-modal>
+        <sweet-modal ref="formSubmitting" icon="success" :blocking="true" :hide-close-button="false">
+            病历内容已提交，即将自动跳转到病历详情页！
+        </sweet-modal>
+        <div class="clearfix"></div>
     </div>
 </template>
 
 <script>
+import SweetButton from 'sweet-modal-vue/docs/components/Button';
+import config from '@/config';
 import utils from '@/utils/utils';
+import mrApi from '@/api/mr';
 import basicInfo from '@/components/content_pages/input/basic_info/basic_info';
 import historyOfPresentIllness from '@/components/content_pages/input/history_of_present_illness/history_of_present_illness';
 import anamnesis from '@/components/content_pages/input/anamnesis/anamnesis';
@@ -126,482 +138,480 @@ import dischargeDiagnosis from '@/components/content_pages/input/discharge_diagn
 
 export default {
     name: 'input',
-    props: {
-        pagedata: {}
-    },
     data () {
         return {
-            mr: {
-                basicInfo: {
-                    admissionNum: "",
-                    bedNum: "",
-                    doctor: {},
-                    recorder: {},
-                    name: "",
-                    medicalCardNum: "",
-                    idNum: "",
-                    cellphone1: "",
-                    cellphone2: "",
-                    telephone: "",
-                    gender: "",
-                    nationality: "",
-                    birthProvince: "",
-                    birthCity: "",
-                    birthday: "",
-                    profession: "",
-                    addressProvince: "",
-                    addressCity: "",
-                    addressArea: "",
-                    addressTown: "",
-                    address: ""
-                },
-                historyOfPresentIllness: {
-                    careCauses: [],
-                    careCauseOthers: "",
-                    chestPain: {
-                        timesPerDay: "",
-                        timesPerWeek: "",
-                        timesPerMonth: "",
-                        timesPerYear: "",
-                        onsetTime: [],
-                        onsetTimeOthers: "",
-                        diseaseBodyParts: [],
-                        relievingFactors: [],
-                        relievingDuration: "",
-                        relievingFactorsOthers: "",
-                        precipitatingFactors: [],
-                        precipitatingFactorsOthers: "",
-                        radiationSites: [],
-                        radiationSitesOthers: "",
-                        simultaneousPhenomena: [],
-                        simultaneousPhenomenonOthers: ""
-                    },
-                    chestDistress: {
-                        timesPerDay: "",
-                        timesPerWeek: "",
-                        timesPerMonth: "",
-                        timesPerYear: "",
-                        onsetTime: [],
-                        onsetTimeOthers: "",
-                        diseaseBodyParts: [],
-                        relievingFactors: [],
-                        relievingDuration: "",
-                        relievingFactorsOthers: "",
-                        precipitatingFactors: [],
-                        precipitatingFactorsOthers: "",
-                        radiationSites: [],
-                        radiationSitesOthers: "",
-                        simultaneousPhenomena: [],
-                        simultaneousPhenomenonOthers: ""
-                    },
-                    dyspnea: {
-                        timesPerDay: "",
-                        timesPerWeek: "",
-                        timesPerMonth: "",
-                        timesPerYear: "",
-                        onsetTime: [],
-                        onsetTimeOthers: ""
-                    },
-                    palpitation: {
-                        timesPerDay: "",
-                        timesPerWeek: "",
-                        timesPerMonth: "",
-                        timesPerYear: "",
-                        onsetTime: [],
-                        onsetTimeOthers: ""
-                    },
-                    abnormalEcg: {
-                        timesPerDay: "",
-                        timesPerWeek: "",
-                        timesPerMonth: "",
-                        timesPerYear: "",
-                        onsetTime: [],
-                        onsetTimeOthers: ""
-                    }
-                },
-                anamnesis: {
-                    isLipidAbnormality: "",
-                    lipidAbnormalityType: "",
-                    lipidAbnormalityDuration: "",
-                    isLipidAbnormalityUnderTreatment: "",
-                    lipidAbnormalityDrugName: "",
-                    isEssentialHypertension: "",
-                    essentialHypertensionDuration: "",
-                    maximumBP: { SBP: '', DBP: '' },
-                    ordinaryBP: { SBP: '', DBP: '' },
-                    isEssentialHypertensionUnderTreatment: "",
-                    essentialHypertensionDrugName: "",
-                    isDysglycemia: "",
-                    dysglycemiaDuration: "",
-                    dysglycemiaType: "",
-                    isDiabetesMellitus: "",
-                    diabetesMellitusDuration: "",
-                    diabetesMellitusType: "",
-                    isDiabetesMellitusUnderTreatment: "",
-                    diabetesMellitusTreatmentMethod: [],
-                    diabetesMellitusOralDrugName: "",
-                    isGout: "",
-                    goutDuration: "",
-                    serumUricAcidLevel: "",
-                    isRenalInsufficiency: "",
-                    renalInsufficiencyDuration: "",
-                    maximumCr: "",
-                    recentCr: "",
-                    renalInsufficiencyEtiology: "",
-                    isOldMyocardialInfarction: "",
-                    oldMyocardialInfarctionOnsetTimeYear: "",
-                    oldMyocardialInfarctionOnsetTimeMonth: "",
-                    oldMyocardialInfarctionOnsetFrequency: "",
-                    oldMyocardialInfarctionLocation: [],
-                    oldMyocardialInfarctionLocationOthers: "",
-                    isPciHistory: "",
-                    isCabgHistory: "",
-                    isCasGt50History: "",
-                    isAtrialFibrillation: "",
-                    isOtherHeartDiseaseHistory: "",
-                    otherHeartDiseaseType: [],
-                    otherHeartDiseaseTypeOthers: "",
-                    isDeepVenousThrombosis: "",
-                    deepVenousThrombosisOnsetTimeYear: "",
-                    deepVenousThrombosisOnsetTimeMonth: "",
-                    deepVenousThrombosisInducements: [],
-                    deepVenousThrombosisSymptoms: [],
-                    deepVenousThrombosisDiagnosisResult: "",
-                    isOldIschemicStroke: "",
-                    oldIschemicStrokeTypes: [],
-                    isVascularDiseases: "",
-                    vascularDiseasesTypes: [],
-                    isHemorrhage: "",
-                    hemorrhageTypes: [],
-                    isBleeding: "",
-                    bleedingCauses: []
-                },
-                riskFactors: {
-                    isSomking: "",
-                    smokingDuration: "",
-                    piecesPerDay: "",
-                    cigretteType: [],
-                    cigretteTypeOthers: "",
-                    isSmokingCessation: "",
-                    smokingCessationDuration: "",
-                    isDrinking: "",
-                    drinkingDuration: "",
-                    talesPerDay: "",
-                    wineType: [],
-                    wineTypeOthers: "",
-                    isTemperance: "",
-                    temperanceDuration: "",
-                    drinkingAmount: "",
-                    paddyPotato: "",
-                    grainMixedBeans: "",
-                    potato: "",
-                    vegetables: "",
-                    fruits: "",
-                    livestockMeat: "",
-                    aquaticProducts: "",
-                    eggs: "",
-                    milkProducts: "",
-                    soybeansNuts: "",
-                    salt: "",
-                    sugar: "",
-                    oil: "",
-                    fatMeat: "",
-                    visceral: "",
-                    bloodType: "",
-                    isLongtermPsychologicalStress: "",
-                    isDepression: "",
-                    exerciseType: "",
-                    exerciseDuration: "",
-                    exerciseMode: [],
-                    exerciseModeOthers: "",
-                    isCentralObesity: "",
-                    centralObesityDuration: "",
-                    height: "",
-                    weight: "",
-                    BMI: "",
-                    waistline: "",
-                    neckCircumference: "",
-                    hipline: ""
-                },
-                familyHistory: {
-                    prematureChd: {
-                        isPrematureChd: "",
-                        onsetMembers: []
-                    },
-                    myocardialInfarction: {
-                        isMyocardialInfarction: "",
-                        onsetMembers: []
-                    },
-                    suddenDeath: {
-                        isSuddenDeath: "",
-                        onsetMembers: []
-                    },
-                    ischemicStroke: {
-                        isIschemicStroke: "",
-                        onsetMembers: []
-                    },
-                    hemorrhagicStroke: {
-                        isHemorrhagicStroke: "",
-                        onsetMembers: []
-                    }
-                },
-                physicalExamination: {
-                    bodyTemperature: "",
-                    respiratoryRate: "",
-                    isBreathSoundsNormal: "",
-                    breathSoundsType: "",
-                    breathSoundsPart: "",
-                    isLungWetRales: "",
-                    lungWetRalesRange: "",
-                    lungWetRalesPart: "",
-                    heartRate: "",
-                    cardiacRhythm: "",
-                    heartSoundS1Result: "",
-                    isS3S4GallopRhythm: "",
-                    pulse: "",
-                    BP: { SBP: '', DBP: '' },
-                    isEarLobeLongitudinalCrack: "",
-                    earLobeLongitudinalCrackParts: [],
-                    isSkinYellowPigmentTumor: "",
-                    skinYellowPigmentTumorParts: [],
-                    isAlopecia: "",
-                    alopeciaParts: []
-                },
-                routineExamination: {
-                    TC: "",
-                    TG: "",
-                    LDL: "",
-                    HDL: "",
-                    notHDL: "",
-                    APOA1: "",
-                    APOB: "",
-                    bloodGlucoseFasting: "",
-                    isSerumMyocardialNecrosisMarkers: "",
-                    myocardialCK: "",
-                    myocardialCKMB: "",
-                    myocardialCTnI: "",
-                    myocardialMb: "",
-                    isInflammatoryMarkers: "",
-                    inflammationHsCRP: "",
-                    inflammationIL6: "",
-                    inflammationIL1Beta: "",
-                    inflammationTNFAlpha: "",
-                    heartFailureNTproBNP: "",
-                    electrolyteNa: "",
-                    electrolyteK: "",
-                    electrolyteCa: "",
-                    electrolyteCl: "",
-                    isLiverFunction: "",
-                    totalProtein: "",
-                    albumin: "",
-                    totalBilirubin: "",
-                    directBilirubin: "",
-                    indirectBilirubin: "",
-                    ALT: "",
-                    AST: "",
-                    isRenalFunction: "",
-                    Cr: "",
-                    UA: "",
-                    BUN: "",
-                    GFR: "",
-                    isHepatorenalDisease: "",
-                    APTT: "",
-                    PT: "",
-                    TT: "",
-                    FIB: "",
-                    dDimer: "",
-                    INR: "",
-                    isINRStable: "",
-                    redBloodCellCount: "",
-                    redBloodCellSpecificVolume: "",
-                    HGB: "",
-                    leukocyteCount: "",
-                    neutrophil: "",
-                    eosinophil: "",
-                    basophil: "",
-                    lymphocyte: "",
-                    monocyte: "",
-                    isQualitativePlatelet: "",
-                    PCPLT: "",
-                    PCMPV: "",
-                    PCPDW: "",
-                    PARADP: "",
-                    PAREpinephrine: "",
-                    PARArachidonicAcid: "",
-                    PARCollagen: "",
-                    PARRistocetin: ""
-                },
-                specialExamination: {
-                    ecg: {
-                        pathologicalQWave: {
-                            isPathologicalQWave: "",
-                            qWaveLeads: []
-                        },
-                        stSegmentChange: {
-                            isStSegmentChange: "",
-                            stSegmentDepression: {
-                                isStSegmentDepression: "",
-                                changeDetail: []
-                            },
-                            stSegmentElevation: {
-                                isStSegmentElevation: "",
-                                changeDetail: []
-                            }
-                        },
-                        tWaveChange: {
-                            isTWaveChange: "",
-                            changeDetail: []
-                        },
-                        arrhythmia: {
-                            isArrhythmia: "",
-                            arrhythmiaTypes: [],
-                            arrhythmiaTypeOthers: ""
-                        },
-                        isResultNormal: "",
-                        findings: ""
-                    },
-                    exerciseEcg: {
-                        exerciseDuration: "",
-                        isExerciseAngina: "",
-                        maximumBP: { SBP: '', DBP: '' },
-                        minimumBP: { SBP: '', DBP: '' },
-                        stSegmentChange: {
-                            isStSegmentChange: "",
-                            stSegmentDepression: {
-                                isStSegmentDepression: "",
-                                duration: "",
-                                changeDetail: []
-                            },
-                            stSegmentElevation: {
-                                isStSegmentElevation: "",
-                                duration: "",
-                                changeDetail: []
-                            }
-                        },
-                        tWaveChange: {
-                            isTWaveChange: "",
-                            duration: "",
-                            changeDetail: []
-                        },
-                        result: "",
-                        findings: ""
-                    },
-                    holterEcg: {
-                        totalHeartbeats: "",
-                        averageHeartRate: "",
-                        maximalHeartRate: "",
-                        maximalHeartRateOccurrenceTime: "",
-                        minimalHeartRate: "",
-                        minimalHeartRateOccurrenceTime: "",
-                        arrhythmia: {
-                            isArrhythmia: "",
-                            frequentness: "",
-                            totalAbnormalHeartbeats: "",
-                            arrhythmiaTypes: []
-                        },
-                        pathologicalQWave: {
-                            isPathologicalQWave: "",
-                            frequentness: "",
-                            qWaveLeadsDetail: []
-                        },
-                        stSegmentChange: {
-                            isStSegmentChange: "",
-                            stSegmentDepression: {
-                                isStSegmentDepression: "",
-                                frequentness: "",
-                                changesDetail: []
-                            },
-                            stSegmentElevation: {
-                                isStSegmentElevation: "",
-                                frequentness: "",
-                                changesDetail: []
-                            }
+            mr: null,
+            // mr: {
+            //     basicInfo: {
+            //         admissionNum: "",
+            //         bedNum: "",
+            //         doctor: {},
+            //         recorder: {},
+            //         name: "",
+            //         medicalCardNum: "",
+            //         idNum: "",
+            //         cellphone1: "",
+            //         cellphone2: "",
+            //         telephone: "",
+            //         gender: "",
+            //         nationality: "",
+            //         birthProvince: "",
+            //         birthCity: "",
+            //         birthday: "",
+            //         profession: "",
+            //         addressProvince: "",
+            //         addressCity: "",
+            //         addressArea: "",
+            //         addressTown: "",
+            //         address: ""
+            //     },
+            //     historyOfPresentIllness: {
+            //         careCauses: [],
+            //         careCauseOthers: "",
+            //         chestPain: {
+            //             timesPerDay: "",
+            //             timesPerWeek: "",
+            //             timesPerMonth: "",
+            //             timesPerYear: "",
+            //             onsetTime: [],
+            //             onsetTimeOthers: "",
+            //             diseaseBodyParts: [],
+            //             relievingFactors: [],
+            //             relievingDuration: "",
+            //             relievingFactorsOthers: "",
+            //             precipitatingFactors: [],
+            //             precipitatingFactorsOthers: "",
+            //             radiationSites: [],
+            //             radiationSitesOthers: "",
+            //             simultaneousPhenomena: [],
+            //             simultaneousPhenomenonOthers: ""
+            //         },
+            //         chestDistress: {
+            //             timesPerDay: "",
+            //             timesPerWeek: "",
+            //             timesPerMonth: "",
+            //             timesPerYear: "",
+            //             onsetTime: [],
+            //             onsetTimeOthers: "",
+            //             diseaseBodyParts: [],
+            //             relievingFactors: [],
+            //             relievingDuration: "",
+            //             relievingFactorsOthers: "",
+            //             precipitatingFactors: [],
+            //             precipitatingFactorsOthers: "",
+            //             radiationSites: [],
+            //             radiationSitesOthers: "",
+            //             simultaneousPhenomena: [],
+            //             simultaneousPhenomenonOthers: ""
+            //         },
+            //         dyspnea: {
+            //             timesPerDay: "",
+            //             timesPerWeek: "",
+            //             timesPerMonth: "",
+            //             timesPerYear: "",
+            //             onsetTime: [],
+            //             onsetTimeOthers: ""
+            //         },
+            //         palpitation: {
+            //             timesPerDay: "",
+            //             timesPerWeek: "",
+            //             timesPerMonth: "",
+            //             timesPerYear: "",
+            //             onsetTime: [],
+            //             onsetTimeOthers: ""
+            //         },
+            //         abnormalEcg: {
+            //             timesPerDay: "",
+            //             timesPerWeek: "",
+            //             timesPerMonth: "",
+            //             timesPerYear: "",
+            //             onsetTime: [],
+            //             onsetTimeOthers: ""
+            //         }
+            //     },
+            //     anamnesis: {
+            //         isLipidAbnormality: "",
+            //         lipidAbnormalityType: "",
+            //         lipidAbnormalityDuration: "",
+            //         isLipidAbnormalityUnderTreatment: "",
+            //         lipidAbnormalityDrugName: "",
+            //         isEssentialHypertension: "",
+            //         essentialHypertensionDuration: "",
+            //         maximumBP: { SBP: '', DBP: '' },
+            //         ordinaryBP: { SBP: '', DBP: '' },
+            //         isEssentialHypertensionUnderTreatment: "",
+            //         essentialHypertensionDrugName: "",
+            //         isDysglycemia: "",
+            //         dysglycemiaDuration: "",
+            //         dysglycemiaType: "",
+            //         isDiabetesMellitus: "",
+            //         diabetesMellitusDuration: "",
+            //         diabetesMellitusType: "",
+            //         isDiabetesMellitusUnderTreatment: "",
+            //         diabetesMellitusTreatmentMethod: [],
+            //         diabetesMellitusOralDrugName: "",
+            //         isGout: "",
+            //         goutDuration: "",
+            //         serumUricAcidLevel: "",
+            //         isRenalInsufficiency: "",
+            //         renalInsufficiencyDuration: "",
+            //         maximumCr: "",
+            //         recentCr: "",
+            //         renalInsufficiencyEtiology: "",
+            //         isOldMyocardialInfarction: "",
+            //         oldMyocardialInfarctionOnsetTimeYear: "",
+            //         oldMyocardialInfarctionOnsetTimeMonth: "",
+            //         oldMyocardialInfarctionOnsetFrequency: "",
+            //         oldMyocardialInfarctionLocation: [],
+            //         oldMyocardialInfarctionLocationOthers: "",
+            //         isPciHistory: "",
+            //         isCabgHistory: "",
+            //         isCasGt50History: "",
+            //         isAtrialFibrillation: "",
+            //         isOtherHeartDiseaseHistory: "",
+            //         otherHeartDiseaseType: [],
+            //         otherHeartDiseaseTypeOthers: "",
+            //         isDeepVenousThrombosis: "",
+            //         deepVenousThrombosisOnsetTimeYear: "",
+            //         deepVenousThrombosisOnsetTimeMonth: "",
+            //         deepVenousThrombosisInducements: [],
+            //         deepVenousThrombosisSymptoms: [],
+            //         deepVenousThrombosisDiagnosisResult: "",
+            //         isOldIschemicStroke: "",
+            //         oldIschemicStrokeTypes: [],
+            //         isVascularDiseases: "",
+            //         vascularDiseasesTypes: [],
+            //         isHemorrhage: "",
+            //         hemorrhageTypes: [],
+            //         isBleeding: "",
+            //         bleedingCauses: []
+            //     },
+            //     riskFactors: {
+            //         isSomking: "",
+            //         smokingDuration: "",
+            //         piecesPerDay: "",
+            //         cigretteType: [],
+            //         cigretteTypeOthers: "",
+            //         isSmokingCessation: "",
+            //         smokingCessationDuration: "",
+            //         isDrinking: "",
+            //         drinkingDuration: "",
+            //         talesPerDay: "",
+            //         wineType: [],
+            //         wineTypeOthers: "",
+            //         isTemperance: "",
+            //         temperanceDuration: "",
+            //         drinkingAmount: "",
+            //         paddyPotato: "",
+            //         grainMixedBeans: "",
+            //         potato: "",
+            //         vegetables: "",
+            //         fruits: "",
+            //         livestockMeat: "",
+            //         aquaticProducts: "",
+            //         eggs: "",
+            //         milkProducts: "",
+            //         soybeansNuts: "",
+            //         salt: "",
+            //         sugar: "",
+            //         oil: "",
+            //         fatMeat: "",
+            //         visceral: "",
+            //         bloodType: "",
+            //         isLongtermPsychologicalStress: "",
+            //         isDepression: "",
+            //         exerciseType: "",
+            //         exerciseDuration: "",
+            //         exerciseMode: [],
+            //         exerciseModeOthers: "",
+            //         isCentralObesity: "",
+            //         centralObesityDuration: "",
+            //         height: "",
+            //         weight: "",
+            //         BMI: "",
+            //         waistline: "",
+            //         neckCircumference: "",
+            //         hipline: ""
+            //     },
+            //     familyHistory: {
+            //         prematureChd: {
+            //             isPrematureChd: "",
+            //             onsetMembers: []
+            //         },
+            //         myocardialInfarction: {
+            //             isMyocardialInfarction: "",
+            //             onsetMembers: []
+            //         },
+            //         suddenDeath: {
+            //             isSuddenDeath: "",
+            //             onsetMembers: []
+            //         },
+            //         ischemicStroke: {
+            //             isIschemicStroke: "",
+            //             onsetMembers: []
+            //         },
+            //         hemorrhagicStroke: {
+            //             isHemorrhagicStroke: "",
+            //             onsetMembers: []
+            //         }
+            //     },
+            //     physicalExamination: {
+            //         bodyTemperature: "",
+            //         respiratoryRate: "",
+            //         isBreathSoundsNormal: "",
+            //         breathSoundsType: "",
+            //         breathSoundsPart: "",
+            //         isLungWetRales: "",
+            //         lungWetRalesRange: "",
+            //         lungWetRalesPart: "",
+            //         heartRate: "",
+            //         cardiacRhythm: "",
+            //         heartSoundS1Result: "",
+            //         isS3S4GallopRhythm: "",
+            //         pulse: "",
+            //         BP: { SBP: '', DBP: '' },
+            //         isEarLobeLongitudinalCrack: "",
+            //         earLobeLongitudinalCrackParts: [],
+            //         isSkinYellowPigmentTumor: "",
+            //         skinYellowPigmentTumorParts: [],
+            //         isAlopecia: "",
+            //         alopeciaParts: []
+            //     },
+            //     routineExamination: {
+            //         TC: "",
+            //         TG: "",
+            //         LDL: "",
+            //         HDL: "",
+            //         notHDL: "",
+            //         APOA1: "",
+            //         APOB: "",
+            //         bloodGlucoseFasting: "",
+            //         isSerumMyocardialNecrosisMarkers: "",
+            //         myocardialCK: "",
+            //         myocardialCKMB: "",
+            //         myocardialCTnI: "",
+            //         myocardialMb: "",
+            //         isInflammatoryMarkers: "",
+            //         inflammationHsCRP: "",
+            //         inflammationIL6: "",
+            //         inflammationIL1Beta: "",
+            //         inflammationTNFAlpha: "",
+            //         heartFailureNTproBNP: "",
+            //         electrolyteNa: "",
+            //         electrolyteK: "",
+            //         electrolyteCa: "",
+            //         electrolyteCl: "",
+            //         isLiverFunction: "",
+            //         totalProtein: "",
+            //         albumin: "",
+            //         totalBilirubin: "",
+            //         directBilirubin: "",
+            //         indirectBilirubin: "",
+            //         ALT: "",
+            //         AST: "",
+            //         isRenalFunction: "",
+            //         Cr: "",
+            //         UA: "",
+            //         BUN: "",
+            //         GFR: "",
+            //         isHepatorenalDisease: "",
+            //         APTT: "",
+            //         PT: "",
+            //         TT: "",
+            //         FIB: "",
+            //         dDimer: "",
+            //         INR: "",
+            //         isINRStable: "",
+            //         redBloodCellCount: "",
+            //         redBloodCellSpecificVolume: "",
+            //         HGB: "",
+            //         leukocyteCount: "",
+            //         neutrophil: "",
+            //         eosinophil: "",
+            //         basophil: "",
+            //         lymphocyte: "",
+            //         monocyte: "",
+            //         isQualitativePlatelet: "",
+            //         PCPLT: "",
+            //         PCMPV: "",
+            //         PCPDW: "",
+            //         PARADP: "",
+            //         PAREpinephrine: "",
+            //         PARArachidonicAcid: "",
+            //         PARCollagen: "",
+            //         PARRistocetin: ""
+            //     },
+            //     specialExamination: {
+            //         ecg: {
+            //             pathologicalQWave: {
+            //                 isPathologicalQWave: "",
+            //                 qWaveLeads: []
+            //             },
+            //             stSegmentChange: {
+            //                 isStSegmentChange: "",
+            //                 stSegmentDepression: {
+            //                     isStSegmentDepression: "",
+            //                     changeDetail: []
+            //                 },
+            //                 stSegmentElevation: {
+            //                     isStSegmentElevation: "",
+            //                     changeDetail: []
+            //                 }
+            //             },
+            //             tWaveChange: {
+            //                 isTWaveChange: "",
+            //                 changeDetail: []
+            //             },
+            //             arrhythmia: {
+            //                 isArrhythmia: "",
+            //                 arrhythmiaTypes: [],
+            //                 arrhythmiaTypeOthers: ""
+            //             },
+            //             isResultNormal: "",
+            //             findings: ""
+            //         },
+            //         exerciseEcg: {
+            //             exerciseDuration: "",
+            //             isExerciseAngina: "",
+            //             maximumBP: { SBP: '', DBP: '' },
+            //             minimumBP: { SBP: '', DBP: '' },
+            //             stSegmentChange: {
+            //                 isStSegmentChange: "",
+            //                 stSegmentDepression: {
+            //                     isStSegmentDepression: "",
+            //                     duration: "",
+            //                     changeDetail: []
+            //                 },
+            //                 stSegmentElevation: {
+            //                     isStSegmentElevation: "",
+            //                     duration: "",
+            //                     changeDetail: []
+            //                 }
+            //             },
+            //             tWaveChange: {
+            //                 isTWaveChange: "",
+            //                 duration: "",
+            //                 changeDetail: []
+            //             },
+            //             result: "",
+            //             findings: ""
+            //         },
+            //         holterEcg: {
+            //             totalHeartbeats: "",
+            //             averageHeartRate: "",
+            //             maximalHeartRate: "",
+            //             maximalHeartRateOccurrenceTime: "",
+            //             minimalHeartRate: "",
+            //             minimalHeartRateOccurrenceTime: "",
+            //             arrhythmia: {
+            //                 isArrhythmia: "",
+            //                 frequentness: "",
+            //                 totalAbnormalHeartbeats: "",
+            //                 arrhythmiaTypes: []
+            //             },
+            //             pathologicalQWave: {
+            //                 isPathologicalQWave: "",
+            //                 frequentness: "",
+            //                 qWaveLeadsDetail: []
+            //             },
+            //             stSegmentChange: {
+            //                 isStSegmentChange: "",
+            //                 stSegmentDepression: {
+            //                     isStSegmentDepression: "",
+            //                     frequentness: "",
+            //                     changesDetail: []
+            //                 },
+            //                 stSegmentElevation: {
+            //                     isStSegmentElevation: "",
+            //                     frequentness: "",
+            //                     changesDetail: []
+            //                 }
 
-                        },
-                        tWaveChange: {
-                            isTWaveChange: "",
-                            frequentness: "",
-                            changesDetail: []
-                        },
-                        findings: ""
-                    },
-                    ucg: {
-                        LVD: "",
-                        EDV: "",
-                        LVS: "",
-                        ESV: "",
-                        LAD: "",
-                        LVPW: "",
-                        IVST: "",
-                        isLVEFLtFortyPercent: "",
-                        ratioEToA: "",
-                        EF: "",
-                        isLocalMotionAbnormality: "",
-                        localMotionAbnormalityParts: [],
-                        isVntricularAneurysm: "",
-                        vntricularAneurysmParts: [],
-                        isLeftVentricularThrombosis: "",
-                        leftVentricularThrombosisParts: [],
-                        findings: "",
-                    },
-                    pci: {
-                        num: "",
-                        date: "",
-                        pciType: "",
-                        thrombolysisInterval: "",
-                        onsetIntervalDay: "",
-                        onsetIntervalHour: "",
-                        stayTimePrehospital: "",
-                        stayTimeEmergencyCall: "",
-                        stayTimeCCU: "",
-                        stayTimeConduitRoom: "",
-                        contrastMedia: [],
-                        contrastMediaOthers: "",
-                        coronaryDistributionType: "",
-                        isCoronaryMalformations: "",
-                        isGrade3Lesions: "",
-                        isBloodFlowTIMIGrade0to2: "",
-                        isCTO: "",
-                        isCollateralCirculation: "",
-                        pciPaths: [],
-                        implantedBracketCountLAD: "",
-                        implantedBracketCountLCX: "",
-                        implantedBracketCountRCA: "",
-                        implantedBracketCountLM: "",
-                        segmentalLesions: []
-                    }
-                },
-                admissionDiagnosis: {
-                    isSilentMyocardialIschemia: "",
-                    isCoronaryMicrovascularDisease: "",
-                    isMyocardialInfarction: "",
-                    myocardialInfarctionType: "",
-                    myocardialInfarctionPart: "",
-                    isAngina: "",
-                    anginaType: "",
-                    anginaCcs: "",
-                    isIschemicCardiomyopathy: "",
-                    isSuddenCoronaryDeath: "",
-                    isChestPainOfUnknownOrigin: "",
-                    isDiagnosisOthers: "",
-                    diagnosisOthers: ""
-                },
-                dischargeDiagnosis: {
-                    isSilentMyocardialIschemia: "",
-                    isCoronaryMicrovascularDisease: "",
-                    isMyocardialInfarction: "",
-                    myocardialInfarctionType: "",
-                    myocardialInfarctionPart: "",
-                    isAngina: "",
-                    anginaType: "",
-                    anginaCcs: "",
-                    isIschemicCardiomyopathy: "",
-                    isSuddenCoronaryDeath: "",
-                    isChestPainOfUnknownOrigin: "",
-                    isDiagnosisOthers: "",
-                    diagnosisOthers: ""
-                }
-            },
+            //             },
+            //             tWaveChange: {
+            //                 isTWaveChange: "",
+            //                 frequentness: "",
+            //                 changesDetail: []
+            //             },
+            //             findings: ""
+            //         },
+            //         ucg: {
+            //             LVD: "",
+            //             EDV: "",
+            //             LVS: "",
+            //             ESV: "",
+            //             LAD: "",
+            //             LVPW: "",
+            //             IVST: "",
+            //             isLVEFLtFortyPercent: "",
+            //             ratioEToA: "",
+            //             EF: "",
+            //             isLocalMotionAbnormality: "",
+            //             localMotionAbnormalityParts: [],
+            //             isVntricularAneurysm: "",
+            //             vntricularAneurysmParts: [],
+            //             isLeftVentricularThrombosis: "",
+            //             leftVentricularThrombosisParts: [],
+            //             findings: "",
+            //         },
+            //         pci: {
+            //             num: "",
+            //             date: "",
+            //             pciType: "",
+            //             thrombolysisInterval: "",
+            //             onsetIntervalDay: "",
+            //             onsetIntervalHour: "",
+            //             stayTimePrehospital: "",
+            //             stayTimeEmergencyCall: "",
+            //             stayTimeCCU: "",
+            //             stayTimeConduitRoom: "",
+            //             contrastMedia: [],
+            //             contrastMediaOthers: "",
+            //             coronaryDistributionType: "",
+            //             isCoronaryMalformations: "",
+            //             isGrade3Lesions: "",
+            //             isBloodFlowTIMIGrade0to2: "",
+            //             isCTO: "",
+            //             isCollateralCirculation: "",
+            //             pciPaths: [],
+            //             implantedBracketCountLAD: "",
+            //             implantedBracketCountLCX: "",
+            //             implantedBracketCountRCA: "",
+            //             implantedBracketCountLM: "",
+            //             segmentalLesions: []
+            //         }
+            //     },
+            //     admissionDiagnosis: {
+            //         isSilentMyocardialIschemia: "",
+            //         isCoronaryMicrovascularDisease: "",
+            //         isMyocardialInfarction: "",
+            //         myocardialInfarctionType: "",
+            //         myocardialInfarctionPart: "",
+            //         isAngina: "",
+            //         anginaType: "",
+            //         anginaCcs: "",
+            //         isIschemicCardiomyopathy: "",
+            //         isSuddenCoronaryDeath: "",
+            //         isChestPainOfUnknownOrigin: "",
+            //         isDiagnosisOthers: "",
+            //         diagnosisOthers: ""
+            //     },
+            //     dischargeDiagnosis: {
+            //         isSilentMyocardialIschemia: "",
+            //         isCoronaryMicrovascularDisease: "",
+            //         isMyocardialInfarction: "",
+            //         myocardialInfarctionType: "",
+            //         myocardialInfarctionPart: "",
+            //         isAngina: "",
+            //         anginaType: "",
+            //         anginaCcs: "",
+            //         isIschemicCardiomyopathy: "",
+            //         isSuddenCoronaryDeath: "",
+            //         isChestPainOfUnknownOrigin: "",
+            //         isDiagnosisOthers: "",
+            //         diagnosisOthers: ""
+            //     }
+            // },
             steps: [
                 {
                     value: 1,
@@ -653,42 +663,50 @@ export default {
     },
     methods: {
         nextStep () {
-            this.currentStep++;
+            this.currentStep++;//测试用，后期注释掉
+            this.$validator.validateAll().then((result) => {
+                if(result){
+                    this.currentStep++;
+                }else{
+                    this.$refs.formError.open();
+                }
+            });
         },
         lastStep () {
             this.currentStep--;
         },
         changeActiveTab (index) {
             this.activeTab = index+1;
-            console.log(this.activeTab);
         },
         submitForm () {
-            this.isDone = true;
-            this.$modal.show('dialog', {
-                title: '提示信息',
-                text: '是否提交病历内容？',
-                buttons: [
-                    { 
-                        title: '取消',
-                        class: 'btn btn-danger',
-                    },
-                    { 
-                        title: '确定', 
-                        class: 'btn btn-success',
-                        handler: () => {
-                            console.log(this.mr); 
-                        } 
-                    },
-                ]
-            });            
+            this.$refs.formSubmitting.open();
         }
+    },
+    created () {
+        mrApi.getMedicalRecord().then(res=>{
+            if(res.status){
+                this.mr = res.data;
+            }else{
+                console.log('获取病历数据失败！');
+            }
+        })
     },
     mounted () {
         utils.handleSidebarAndContentHeight();
         utils.handleGoTop();
     },
     components: {
-        basicInfo, historyOfPresentIllness, anamnesis, riskFactors, familyHistory, physicalExamination, routineExamination,specialExamination, admissionDiagnosis, dischargeDiagnosis
+        SweetButton,
+        basicInfo,
+        historyOfPresentIllness,
+        anamnesis,
+        riskFactors,
+        familyHistory,
+        physicalExamination,
+        routineExamination,
+        specialExamination,
+        admissionDiagnosis,
+        dischargeDiagnosis
     }
 }
 

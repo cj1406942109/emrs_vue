@@ -1,35 +1,40 @@
 <template>
   <div class="basic-info">
     <div class="form-group">
-        <label class="control-label col-md-2">姓名<span class="required"> * </span></label>
-        <div class="col-md-2">
-            <input type="text" class="form-control" name="name" v-model="basicInfo.name">
-            <span class="help-block"> 填写患者姓名 </span>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('name')}">姓名<span class="required"> * </span></label>
+        <div class="col-md-2" :class="{ 'control': true }">
+            <input v-validate="'required'" :class="{'input': true, 'border-red': errors.has('name') }" class="form-control" name="name" v-model="basicInfo.name">
+            <span v-show="errors.has('name')" class="help-block font-red">{{ errors.first('name') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('name')}"> 填写患者姓名 </span>
+        </div>
+    </div>   
+    <div class="form-group">
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('medical_card_number')}">就诊卡号<span class="required"> * </span></label>
+        <div class="col-md-4" :class="{ 'control': true }">
+            <input v-validate="'required|digits:10'" :class="{'input': true, 'border-red': errors.has('medical_card_number') }" class="form-control" name="medical_card_number" v-model="basicInfo.medicalCardNum">
+            <span v-show="errors.has('medical_card_number')" class="help-block font-red">{{ errors.first('medical_card_number') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('medical_card_number')}"> 填写患者就诊卡号 </span>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-2">就诊卡号<span class="required"> * </span></label>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('id_number')}">身份证号<span class="required"> * </span></label>
         <div class="col-md-4">
-            <input type="text" class="form-control" name="medical_card_number" v-model="basicInfo.medicalCardNum">
-            <span class="help-block"> 填写患者就诊卡号 </span>
+            <input v-validate="{required: true, regex: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}[0-9Xx]$)/}" :class="{'input': true, 'border-red': errors.has('id_number') }" class="form-control" name="id_number" v-model="basicInfo.idNum">
+            <span v-show="errors.has('id_number')" class="help-block font-red">{{ errors.first('id_number') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('id_number')}"> 填写患者身份证号 </span>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-2">身份证号<span class="required"> * </span></label>
-        <div class="col-md-4">
-            <input type="text" class="form-control" name="id_number" v-model="basicInfo.idNum">
-            <span class="help-block"> 填写患者身份证号 </span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">联系方式<span class="required"> * </span></label>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('cellphone_1')||errors.has('cellphone_2')||errors.has('telephone')}">联系方式<span class="required"> * </span></label>
         <div class="col-md-3">
-            <input type="text" class="form-control phone-group" name="cellphone_1" v-model="basicInfo.cellphone1">
-            <span class="help-block"> 填写患者手机号1 </span>
+            <input v-validate="'regex:/^1[34578]\d{9}$/'" :class="{'input': true, 'border-red': errors.has('cellphone_1') }" class="form-control phone-group" name="cellphone_1" v-model="basicInfo.cellphone1">
+            <span v-show="errors.has('cellphone_1')" class="help-block font-red">{{ errors.first('cellphone_1') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('cellphone_1')}"> 填写患者手机号1 </span>
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control phone-group" name="cellphone_2" v-model="basicInfo.cellphone2">
-            <span class="help-block"> 填写患者手机号2 </span>
+            <input v-validate="'regex:/^1[34578]\d{9}$/'" :class="{'input': true, 'border-red': errors.has('cellphone_2') }" class="form-control phone-group" name="cellphone_2" v-model="basicInfo.cellphone2">
+            <span v-show="errors.has('cellphone_2')" class="help-block font-red">{{ errors.first('cellphone_2') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('cellphone_2')}"> 填写患者手机号2 </span>
         </div>
         <div class="col-md-3">
             <input type="text" class="form-control phone-group" name="telephone" v-model="basicInfo.telephone">
@@ -37,12 +42,13 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-2">性别<span class="required"> * </span></label>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('gender')}">性别<span class="required"> * </span></label>
         <div class="col-md-4">
             <div>
-                <label><radio value="男" v-model="basicInfo.gender" name="gender">男</radio></label>
-                <label><radio value="女" v-model="basicInfo.gender" name="gender">女</radio></label>
+                <label><radio v-validate="'required'" value="男" v-model="basicInfo.gender" name="gender">男</radio></label>
+                <label><radio v-validate="'required'" value="女" v-model="basicInfo.gender" name="gender">女</radio></label>
             </div>
+            <span v-show="errors.has('gender')" class="help-block font-red">{{ errors.first('gender') }}</span>
         </div>
     </div>            
     <div class="form-group">
@@ -64,7 +70,7 @@
         <div class="col-md-3">
             <select name="body_part_name" class="form-control" v-model="basicInfo.doctor">
                 <option :value="{}" disabled selected>请选择主治医生</option>
-                <option v-for="doctor in pagedata.doctorList" :key="doctor.id" :value="doctor">{{doctor.name}}</option>
+                <option v-for="doctor in doctorList" :key="doctor.id" :value="doctor">{{doctor.name}}</option>
             </select>
         </div>
     </div>
@@ -73,7 +79,7 @@
         <div class="col-md-3">
             <select name="body_part_name" class="form-control" v-model="basicInfo.recorder">
                 <option :value="{}" disabled selected>请选择记录者</option>
-                <option v-for="recorder in pagedata.recorderList" :key="recorder.id" :value="recorder">{{recorder.name}}</option>
+                <option v-for="recorder in recorderList" :key="recorder.id" :value="recorder">{{recorder.name}}</option>
             </select>
         </div>
     </div>
@@ -82,7 +88,7 @@
         <div class="col-md-3">
             <select name="body_part_name" class="form-control" v-model="basicInfo.profession">
                 <option value="" disabled selected>请选择职业</option>
-                <option v-for="profession in pagedata.professionList" :key="profession.id" :value="profession.id">{{profession.text}}</option>
+                <option v-for="profession in staticIndex.professionList" :key="profession.id" :value="profession.id">{{profession.text}}</option>
             </select>
         </div>
     </div>
@@ -91,7 +97,7 @@
         <div class="col-md-3">
             <select name="body_part_name" class="form-control" v-model="basicInfo.nationality">
                 <option value="" disabled selected>请选择职业</option>
-                <option v-for="nationality in pagedata.nationalityList" :key="nationality.id" :value="nationality.id">{{nationality.text}}</option>
+                <option v-for="nationality in staticIndex.nationalityList" :key="nationality.id" :value="nationality.id">{{nationality.text}}</option>
             </select>
         </div>
     </div>
@@ -127,10 +133,7 @@ import locationPicker from '@/components/location_picker/location_picker';
 
 export default {
     name: 'basic_info',
-    props: {
-        pagedata: {
-            type: Object
-        },
+    props: {        
         basicInfo: {
             type: Object
         }
@@ -156,9 +159,54 @@ export default {
                 city: '',
                 area: '',
                 town: ''
+            },
+            dict: {
+                zh_CN: {
+                    attributes: {
+                        name: '姓名',
+                        medical_card_number: '就诊卡号',
+                        id_number: '身份证号',
+                        cellphone_1: '手机号1',
+                        cellphone_2: '手机号2',
+                    },
+                    custom: {
+                        name: {
+                            // required: ()=>"姓名是必填项"
+                        },
+                        medical_card_number: {
+                            // required: ()=>"就诊卡号是必填项"
+                        },
+                        id_number: {
+                            // required: ()=>"身份证号是必填项"
+                        }
+                    }
+                }
+            },
+            phoneGroup: {
+                messages: {                   
+                    zh_CN: (field, args) => {
+                        return "至少填写患者的一个联系方式";
+                    }
+                },
+                validate(value, [value2, value3]) {
+                    // Returns a Boolean or a Promise.
+                    console.log(value,value2,value3);                    
+                    return false;
+                }
             }
         }
-    },    
+    },
+    computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
+        },
+        doctorList: function() {
+            return this.$store.state.doctorList;
+        },
+        recorderList: function() {
+            return this.$store.state.recorderList;
+        }
+    }, 
     watch: {
         'birthday':{
             handler: 'updateBirthday',
@@ -180,7 +228,13 @@ export default {
         this.address.province = this.basicInfo.addressProvince;
         this.address.city = this.basicInfo.addressCity;
         this.address.area = this.basicInfo.addressArea;
-        this.address.town = this.basicInfo.addressTown;        
+        this.address.town = this.basicInfo.addressTown;   
+        
+        this.$validator.updateDictionary(this.dict);
+        this.$validator.extend('phoneGroup', this.phoneGroup);
+    },
+    inject: {
+        $validator: '$validator'    //获取父组件的validator实例，将子组件验证的属性注册到该实例上
     },
     methods: {
         updateBirthday (val, oldVal) {

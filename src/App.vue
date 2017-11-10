@@ -56,33 +56,9 @@
       cursor pointer
       background-color #3498DB
       border-radius 50%
-    //修改vue-multiselect样式
-    .multiselect
-      .multiselect__select
-        height 34px
-      .multiselect__tags
-        min-height 34px
-        padding 2px 40px 0 4px
-        border 1px solid #c2cad8
-        .multiselect__input
-            margin-top 4px
-            margin-bottom 4px
-        .multiselect__tags-wrap
-          .multiselect__tag
-            margin-top 3px
-            margin-bottom 0
-    //修改vue-dialog样式
-    .vue-dialog      
-      .dialog-content
-        .dialog-c-title
-          padding 0 0 20px 0
-          font-size 18px
-      .vue-dialog-buttons
-          padding 10px
-          justify-content flex-end
-          button
-            flex 0!important
-            margin-right 5px
-            border-radius: none!important
+    //修改sweet-modal样式
+    .sweet-modal-overlay
+      &.theme-light
+        background rgba(0, 0, 0, 0.2)
 </style>
 

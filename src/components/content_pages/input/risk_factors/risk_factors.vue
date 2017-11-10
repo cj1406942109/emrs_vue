@@ -41,7 +41,7 @@
                         <div class="form-group" v-if="riskFactors.isSomking=='1'">
                             <label class="control-label bold col-md-2">吸烟类型（多选）</label>
                             <div class="col-md-6">
-                                <div><label v-for="cigrette in pagedata.cigretteTypes" :key="cigrette.id"><checkbox v-model="riskFactors.cigretteType" :value="cigrette.id">{{cigrette.text}}</checkbox></label></div>
+                                <div><label v-for="cigrette in staticIndex.cigretteTypes" :key="cigrette.id"><checkbox v-model="riskFactors.cigretteType" :value="cigrette.id">{{cigrette.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-3" v-show="riskFactors.cigretteType.indexOf('5')>= 0">
@@ -100,7 +100,7 @@
                         <div class="form-group" v-if="riskFactors.isDrinking=='1'">
                             <label class="control-label bold col-md-2">饮酒类型（多选）</label>
                             <div class="col-md-6">
-                                <div><label v-for="wine in pagedata.wineTypes" :key="wine.id"><checkbox v-model="riskFactors.wineType" :value="wine.id">{{wine.text}}</checkbox></label></div>
+                                <div><label v-for="wine in staticIndex.wineTypes" :key="wine.id"><checkbox v-model="riskFactors.wineType" :value="wine.id">{{wine.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-3" v-show="riskFactors.wineType.indexOf('5')>= 0">
@@ -140,7 +140,7 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.drinkingAmount">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="drinkingAmount in pagedata.dietHabitDrinkingAmouts" :key="drinkingAmount.id" :value="drinkingAmount.id">{{drinkingAmount.text}}</option>
+                                    <option v-for="drinkingAmount in staticIndex.dietHabitDrinkingAmouts" :key="drinkingAmount.id" :value="drinkingAmount.id">{{drinkingAmount.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -149,21 +149,21 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.paddyPotato">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="paddyPotato in pagedata.dietHabitPaddyPotatoes" :key="paddyPotato.id" :value="paddyPotato.id">{{paddyPotato.text}}</option>
+                                    <option v-for="paddyPotato in staticIndex.dietHabitPaddyPotatoes" :key="paddyPotato.id" :value="paddyPotato.id">{{paddyPotato.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">全谷物和杂豆</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.grainMixedBeans">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="grainMixedBeans in pagedata.dietHabitGrainMixedBeans" :key="grainMixedBeans.id" :value="grainMixedBeans.id">{{grainMixedBeans.text}}</option>
+                                    <option v-for="grainMixedBeans in staticIndex.dietHabitGrainMixedBeans" :key="grainMixedBeans.id" :value="grainMixedBeans.id">{{grainMixedBeans.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">薯类</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.potato">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="potato in pagedata.dietHabitPotatoes" :key="potato.id" :value="potato.id">{{potato.text}}</option>
+                                    <option v-for="potato in staticIndex.dietHabitPotatoes" :key="potato.id" :value="potato.id">{{potato.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -172,14 +172,14 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.vegetables">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="vegetables in pagedata.dietHabitVegetables" :key="vegetables.id" :value="vegetables.id">{{vegetables.text}}</option>
+                                    <option v-for="vegetables in staticIndex.dietHabitVegetables" :key="vegetables.id" :value="vegetables.id">{{vegetables.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">水果类</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.fruits">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="fruits in pagedata.dietHabitFruits" :key="fruits.id" :value="fruits.id">{{fruits.text}}</option>
+                                    <option v-for="fruits in staticIndex.dietHabitFruits" :key="fruits.id" :value="fruits.id">{{fruits.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -188,21 +188,21 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.livestockMeat">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="livestockMeat in pagedata.dietHabitLivestockMeats" :key="livestockMeat.id" :value="livestockMeat.id">{{livestockMeat.text}}</option>
+                                    <option v-for="livestockMeat in staticIndex.dietHabitLivestockMeats" :key="livestockMeat.id" :value="livestockMeat.id">{{livestockMeat.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">水产品</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.aquaticProducts">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="aquaticProducts in pagedata.dietHabitAquaticProducts" :key="aquaticProducts.id" :value="aquaticProducts.id">{{aquaticProducts.text}}</option>
+                                    <option v-for="aquaticProducts in staticIndex.dietHabitAquaticProducts" :key="aquaticProducts.id" :value="aquaticProducts.id">{{aquaticProducts.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">蛋类</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.eggs">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="eggs in pagedata.dietHabitEggs" :key="eggs.id" :value="eggs.id">{{eggs.text}}</option>
+                                    <option v-for="eggs in staticIndex.dietHabitEggs" :key="eggs.id" :value="eggs.id">{{eggs.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -211,14 +211,14 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.milkProducts">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="milkProducts in pagedata.dietHabitMilkProducts" :key="milkProducts.id" :value="milkProducts.id">{{milkProducts.text}}</option>
+                                    <option v-for="milkProducts in staticIndex.dietHabitMilkProducts" :key="milkProducts.id" :value="milkProducts.id">{{milkProducts.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">大豆及坚果类</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.soybeansNuts">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="soybeansNuts in pagedata.dietHabitSoybeansNuts" :key="soybeansNuts.id" :value="soybeansNuts.id">{{soybeansNuts.text}}</option>
+                                    <option v-for="soybeansNuts in staticIndex.dietHabitSoybeansNuts" :key="soybeansNuts.id" :value="soybeansNuts.id">{{soybeansNuts.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -227,21 +227,21 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.salt">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="salt in pagedata.dietHabitSalts" :key="salt.id" :value="salt.id">{{salt.text}}</option>
+                                    <option v-for="salt in staticIndex.dietHabitSalts" :key="salt.id" :value="salt.id">{{salt.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">糖</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.sugar">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="sugar in pagedata.dietHabitSugar" :key="sugar.id" :value="sugar.id">{{sugar.text}}</option>
+                                    <option v-for="sugar in staticIndex.dietHabitSugar" :key="sugar.id" :value="sugar.id">{{sugar.text}}</option>
                                 </select>
                             </div>
                             <label class="control-label bold col-md-2">油</label>
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.oil">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="oil in pagedata.dietHabitOils" :key="oil.id" :value="oil.id">{{oil.text}}</option>
+                                    <option v-for="oil in staticIndex.dietHabitOils" :key="oil.id" :value="oil.id">{{oil.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.bloodType">
                                     <option value="" disabled selected>选择血型</option>
-                                    <option v-for="bloodType in pagedata.bloodTypes" :key="bloodType.id" :value="bloodType.id">{{bloodType.text}}</option>
+                                    <option v-for="bloodType in staticIndex.bloodTypes" :key="bloodType.id" :value="bloodType.id">{{bloodType.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -313,7 +313,7 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.exerciseType">
                                     <option value="" disabled selected>选择类型</option>
-                                    <option v-for="exerciseType in pagedata.exerciseTypes" :key="exerciseType.id" :value="exerciseType.id">{{exerciseType.text}}</option>
+                                    <option v-for="exerciseType in staticIndex.exerciseTypes" :key="exerciseType.id" :value="exerciseType.id">{{exerciseType.text}}</option>
                                 </select>
                             </div>
                         </div>
@@ -322,14 +322,14 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="riskFactors.exerciseDuration">
                                     <option value="" disabled selected>选择时长</option>
-                                    <option v-for="exerciseDuration in pagedata.exerciseDuration" :key="exerciseDuration.id" :value="exerciseDuration.id">{{exerciseDuration.text}}</option>
+                                    <option v-for="exerciseDuration in staticIndex.exerciseDuration" :key="exerciseDuration.id" :value="exerciseDuration.id">{{exerciseDuration.text}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label bold col-md-2">方式（多选）</label>
                             <div class="col-md-4">
-                                <div><label v-for="exerciseMode in pagedata.exerciseModes" :key="exerciseMode.id"><checkbox v-model="riskFactors.exerciseMode" :value="exerciseMode.id">{{exerciseMode.text}}</checkbox></label></div>
+                                <div><label v-for="exerciseMode in staticIndex.exerciseModes" :key="exerciseMode.id"><checkbox v-model="riskFactors.exerciseMode" :value="exerciseMode.id">{{exerciseMode.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-3" v-show="riskFactors.exerciseMode.indexOf('3')>=0">
@@ -422,9 +422,6 @@ import {Checkbox, Radio} from 'vue-checkbox-radio';
 export default {
     name: 'risk_factors',
     props: {
-        pagedata: {
-            type: Object
-        },
         riskFactors: {
             type: Object
         },
@@ -436,6 +433,9 @@ export default {
         return {}
     },
     computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
+        },
         BMI: function(){
             if(this.riskFactors.height!="" && this.riskFactors.weight!="") {
                 return parseFloat(10000*this.riskFactors.weight/this.riskFactors.height/this.riskFactors.height).toFixed(2);

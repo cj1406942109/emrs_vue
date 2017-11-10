@@ -1,4 +1,4 @@
-var handleSidebarAndContentHeight = function() {
+const handleSidebarAndContentHeight = function() {
     var content = $('.page-content');
     var sidebar = $('.page-sidebar');
     var body = $('body');
@@ -38,7 +38,7 @@ var handleSidebarAndContentHeight = function() {
     }
 };
 
-var handlePortletCollapse = function() {
+const handlePortletCollapse = function() {
     $('body').on('click', '.portlet > .portlet-title > .tools > .collapse, .portlet .portlet-title > .tools > .expand', function(e) {
         e.preventDefault();
         var el = $(this).closest(".portlet").children(".portlet-body");
@@ -52,7 +52,7 @@ var handlePortletCollapse = function() {
     });
 };
 
-var handleGoTop = function() {
+const handleGoTop = function() {
     var offset = 300;
     var duration = 500;
 
@@ -81,7 +81,7 @@ var handleGoTop = function() {
     });
 };
 // Helper function to calculate sidebar height for fixed sidebar layout.
-var _calculateFixedSidebarViewportHeight = function() {
+const _calculateFixedSidebarViewportHeight = function() {
     var sidebarHeight = getViewPort().height - $('.page-header').outerHeight(true);
     if($('body').hasClass("page-footer-fixed")) {
         sidebarHeight = sidebarHeight - $('.page-footer').outerHeight();
@@ -89,7 +89,7 @@ var _calculateFixedSidebarViewportHeight = function() {
     return sidebarHeight;
 };
 
-var getViewPort = function() {
+const getViewPort = function() {
     var e = window,
         a = 'inner';
     if(!('innerWidth' in window)) {
@@ -103,7 +103,7 @@ var getViewPort = function() {
     };
 };
 
-var datepickerOption = {
+const datepickerOption = {
     type: 'day',
     week: ['一', '二', '三', '四', '五', '六', '日'],
     month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
@@ -131,9 +131,39 @@ var datepickerOption = {
     dismissible: true // as true as default 
 };
 
+/**
+ * 存储localStorage
+ */
+const setStore = (name, content) => {
+    if(!name) return;
+    if(typeof content !== 'string') {
+        content = JSON.stringify(content);
+    }
+    window.localStorage.setItem(name, content);
+}
+
+/**
+ * 获取localStorage
+ */
+const getStore = name => {
+    if(!name) return;
+    return window.localStorage.getItem(name);
+}
+
+/**
+ * 删除localStorage
+ */
+const removeStore = name => {
+    if(!name) return;
+    window.localStorage.removeItem(name);
+}
+
 export default {
     handleSidebarAndContentHeight: handleSidebarAndContentHeight,
     datepickerOption: datepickerOption,
     handlePortletCollapse: handlePortletCollapse,
-    handleGoTop: handleGoTop
+    handleGoTop: handleGoTop,
+    setStore: setStore,
+    getStore: getStore,
+    removeStore: removeStore
 }

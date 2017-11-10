@@ -9,7 +9,7 @@
             <div class="form-group">
                 <label class="control-label bold col-md-1">就诊原因</label>
                 <div class="col-md-7">
-                    <div><label v-for="disease in pagedata.historyOfPresentIllnessCareCauses" :key="disease.id"><checkbox v-model="historyOfPresentIllness.careCauses" :value="disease.id">{{disease.text}}</checkbox></label></div>
+                    <div><label v-for="disease in staticIndex.historyOfPresentIllnessCareCauses" :key="disease.id"><checkbox v-model="historyOfPresentIllness.careCauses" :value="disease.id">{{disease.text}}</checkbox></label></div>
                     <span class="help-block"> &nbsp;</span>
                 </div>
                 <div class="col-md-2" v-if="historyOfPresentIllness.careCauses.indexOf('6')>=0">
@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">发病时间（多选）</label>
                                 <div class="col-md-5">
-                                    <div><label v-for="time in pagedata.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.chestPain.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
+                                    <div><label v-for="time in staticIndex.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.chestPain.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-3" v-if="historyOfPresentIllness.chestPain.onsetTime.indexOf('5')>=0">
@@ -72,7 +72,7 @@
                                             <label class="control-label">部位名</label>
                                             <select class="form-control" v-model="item.bodyPartName">
                                                 <option value="" disabled selected>选择部位</option>
-                                                <option v-for="bodyPart in pagedata.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
+                                                <option v-for="bodyPart in staticIndex.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='10'">
@@ -83,7 +83,7 @@
                                             <label class="control-label">性质</label>
                                             <select class="form-control" v-model="item.qualityOfPain">
                                                 <option value="" selected disabled>选择性质</option>
-                                                <option v-for="quality in pagedata.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
+                                                <option v-for="quality in staticIndex.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
                                             </select> 
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id" v-if="item.qualityOfPain=='13'">
@@ -94,7 +94,7 @@
                                             <label class="control-label">持续时间</label>
                                             <select class="form-control" v-model="item.durationOfPain">
                                                 <option value="" disabled selected>选择持续时间</option>
-                                                <option v-for="duration in pagedata.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
+                                                <option v-for="duration in staticIndex.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id" v-if="item.durationOfPain=='6'">
@@ -105,7 +105,7 @@
                                             <label class="control-label">程度</label>
                                             <select class="form-control" v-model="item.painDegree">
                                                 <option value="" disabled selected>请选择程度</option>
-                                                <option v-for="degree in pagedata.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
+                                                <option v-for="degree in staticIndex.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
                                             </select>
                                         </div>
                                     </template>
@@ -114,7 +114,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">缓解因素</label>
                                 <div class="col-md-4">
-                                    <div><label v-for="factor in pagedata.relievingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestPain.relievingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
+                                    <div><label v-for="factor in staticIndex.relievingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestPain.relievingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>                                    
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.relievingFactors.indexOf('5')>=0">
@@ -130,7 +130,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">诱因（多选）</label>
                                 <div class="col-md-8">
-                                    <div><label v-for="factor in pagedata.precipitatingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestPain.precipitatingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
+                                    <div><label v-for="factor in staticIndex.precipitatingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestPain.precipitatingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.precipitatingFactors.indexOf('12')>=0">
@@ -141,7 +141,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">放射部位（多选）</label>
                                 <div class="col-md-8">
-                                    <div><label v-for="site in pagedata.radiationSites" :key="site.id"><checkbox v-model="historyOfPresentIllness.chestPain.radiationSites" :value="site.id">{{site.text}}</checkbox></label></div>
+                                    <div><label v-for="site in staticIndex.radiationSites" :key="site.id"><checkbox v-model="historyOfPresentIllness.chestPain.radiationSites" :value="site.id">{{site.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.radiationSites.indexOf('7')>=0">
@@ -152,7 +152,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">伴随症状（多选）</label>
                                 <div class="col-md-8">
-                                    <div><label v-for="phenomenon in pagedata.simultaneousPhenomena" :key="phenomenon.id"><checkbox v-model="historyOfPresentIllness.chestPain.simultaneousPhenomena" :value="phenomenon.id">{{phenomenon.text}}</checkbox></label></div>
+                                    <div><label v-for="phenomenon in staticIndex.simultaneousPhenomena" :key="phenomenon.id"><checkbox v-model="historyOfPresentIllness.chestPain.simultaneousPhenomena" :value="phenomenon.id">{{phenomenon.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.simultaneousPhenomena.indexOf('21')>=0">
@@ -200,7 +200,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">发病时间（多选）</label>
                                 <div class="col-md-5">
-                                    <div><label v-for="time in pagedata.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.chestDistress.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
+                                    <div><label v-for="time in staticIndex.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.chestDistress.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-3" v-if="historyOfPresentIllness.chestDistress.onsetTime.indexOf('5')>=0">
@@ -216,7 +216,7 @@
                                             <label class="control-label">部位名</label>
                                             <select class="form-control" v-model="item.bodyPartName">
                                                 <option value="" disabled selected>选择部位</option>
-                                                <option v-for="bodyPart in pagedata.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
+                                                <option v-for="bodyPart in staticIndex.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='10'">
@@ -227,7 +227,7 @@
                                             <label class="control-label">性质</label>
                                             <select class="form-control" v-model="item.qualityOfPain">
                                                 <option value="" selected disabled>选择性质</option>
-                                                <option v-for="quality in pagedata.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
+                                                <option v-for="quality in staticIndex.diseaseQualityOfPain" :key="quality.id" :value="quality.id">{{quality.text}}</option>
                                             </select> 
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id" v-if="item.qualityOfPain=='13'">
@@ -238,7 +238,7 @@
                                             <label class="control-label">持续时间</label>
                                             <select class="form-control" v-model="item.durationOfPain">
                                                 <option value="" disabled selected>选择持续时间</option>
-                                                <option v-for="duration in pagedata.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
+                                                <option v-for="duration in staticIndex.diseaseDurationOfPain" :key="duration.id" :value="duration.id">{{duration.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id" v-if="item.durationOfPain=='6'">
@@ -249,7 +249,7 @@
                                             <label class="control-label">程度</label>
                                             <select class="form-control" v-model="item.painDegree">
                                                 <option value="" disabled selected>请选择程度</option>
-                                                <option v-for="degree in pagedata.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
+                                                <option v-for="degree in staticIndex.diseasePainDegree" :key="degree.id" :value="degree.id">{{degree.text}}</option>
                                             </select>
                                         </div>
                                     </template>
@@ -258,7 +258,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">缓解因素</label>
                                 <div class="col-md-4">
-                                    <div><label v-for="factor in pagedata.relievingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestDistress.relievingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
+                                    <div><label v-for="factor in staticIndex.relievingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestDistress.relievingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>                                    
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.relievingFactors.indexOf('5')>=0">
@@ -273,7 +273,7 @@
                                 <!-- <div class="col-md-3">
                                     <select class="form-control" v-model="historyOfPresentIllness.chestDistress.relievingFactors">
                                         <option value="" disabled selected>请选择缓解因素</option>
-                                        <option v-for="factor in pagedata.relievingFactors" :key="factor.id" :value="factor.id">{{factor.text}}</option>
+                                        <option v-for="factor in staticIndex.relievingFactors" :key="factor.id" :value="factor.id">{{factor.text}}</option>
                                     </select>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
@@ -285,7 +285,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">诱因（多选）</label>
                                 <div class="col-md-8">
-                                    <div><label v-for="factor in pagedata.precipitatingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestDistress.precipitatingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
+                                    <div><label v-for="factor in staticIndex.precipitatingFactors" :key="factor.id"><checkbox v-model="historyOfPresentIllness.chestDistress.precipitatingFactors" :value="factor.id">{{factor.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.precipitatingFactors.indexOf('12')>=0">
@@ -296,7 +296,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">放射部位（多选）</label>
                                 <div class="col-md-8">
-                                    <div><label v-for="site in pagedata.radiationSites" :key="site.id"><checkbox v-model="historyOfPresentIllness.chestDistress.radiationSites" :value="site.id">{{site.text}}</checkbox></label></div>
+                                    <div><label v-for="site in staticIndex.radiationSites" :key="site.id"><checkbox v-model="historyOfPresentIllness.chestDistress.radiationSites" :value="site.id">{{site.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.radiationSites.indexOf('7')>=0">
@@ -307,7 +307,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">伴随症状（多选）</label>
                                 <div class="col-md-8">
-                                    <div><label v-for="phenomenon in pagedata.simultaneousPhenomena" :key="phenomenon.id"><checkbox v-model="historyOfPresentIllness.chestDistress.simultaneousPhenomena" :value="phenomenon.id">{{phenomenon.text}}</checkbox></label></div>
+                                    <div><label v-for="phenomenon in staticIndex.simultaneousPhenomena" :key="phenomenon.id"><checkbox v-model="historyOfPresentIllness.chestDistress.simultaneousPhenomena" :value="phenomenon.id">{{phenomenon.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.simultaneousPhenomena.indexOf('21')>=0">
@@ -355,7 +355,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">发病时间（多选）</label>
                                 <div class="col-md-5">
-                                    <div><label v-for="time in pagedata.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.dyspnea.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
+                                    <div><label v-for="time in staticIndex.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.dyspnea.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-3" v-if="historyOfPresentIllness.dyspnea.onsetTime.indexOf('5')>=0">
@@ -403,7 +403,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">发病时间（多选）</label>
                                 <div class="col-md-5">
-                                    <div><label v-for="time in pagedata.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.palpitation.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
+                                    <div><label v-for="time in staticIndex.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.palpitation.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-3" v-if="historyOfPresentIllness.palpitation.onsetTime.indexOf('5')>=0">
@@ -451,7 +451,7 @@
                             <div class="form-group">
                                 <label class="control-label bold col-md-1">发病时间（多选）</label>
                                 <div class="col-md-5">
-                                    <div><label v-for="time in pagedata.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.abnormalEcg.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
+                                    <div><label v-for="time in staticIndex.onsetTimeOfIllness" :key="time.id"><checkbox v-model="historyOfPresentIllness.abnormalEcg.onsetTime" :value="time.id">{{time.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-3" v-if="historyOfPresentIllness.abnormalEcg.onsetTime.indexOf('5')>=0">
@@ -474,14 +474,16 @@ import vRepeater from '@/components/v_repeater/v_repeater';
 export default {
     name: 'history_of_present_illness',
     props: {
-        pagedata: {
-            type: Object
-        },
         historyOfPresentIllness: {
             type: Object
         },
         activeTab: {
             type: Number
+        }
+    },
+    computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
         }
     },
     data () {

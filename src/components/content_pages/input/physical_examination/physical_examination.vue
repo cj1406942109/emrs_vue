@@ -36,14 +36,14 @@
                         <div class="col-md-2">
                             <select class="form-control" v-model="physicalExamination.breathSoundsType">
                                 <option value="" disabled selected>选择类型</option>
-                                <option v-for="breathSoundsType in pagedata.breathSoundsTypes" :key="breathSoundsType.id" :value="breathSoundsType.id">{{breathSoundsType.text}}</option>
+                                <option v-for="breathSoundsType in staticIndex.breathSoundsTypes" :key="breathSoundsType.id" :value="breathSoundsType.id">{{breathSoundsType.text}}</option>
                             </select>
                         </div>
                         <label class="control-label col-md-1">部位</label>
                         <div class="col-md-2">
                             <select class="form-control" v-model="physicalExamination.breathSoundsPart">
                                 <option value="" disabled selected>选择部位</option>
-                                <option v-for="breathSoundsPart in pagedata.breathSoundsParts" :key="breathSoundsPart.id" :value="breathSoundsPart.id">{{breathSoundsPart.text}}</option>
+                                <option v-for="breathSoundsPart in staticIndex.breathSoundsParts" :key="breathSoundsPart.id" :value="breathSoundsPart.id">{{breathSoundsPart.text}}</option>
                             </select>
                         </div>
                     </div>
@@ -61,14 +61,14 @@
                         <div class="col-md-2">
                             <select class="form-control" v-model="physicalExamination.lungWetRalesRange">
                                 <option value="" disabled selected>选择范围</option>
-                                <option v-for="lungWetRalesRange in pagedata.lungWetRalesRanges" :key="lungWetRalesRange.id" :value="lungWetRalesRange.id">{{lungWetRalesRange.text}}</option>
+                                <option v-for="lungWetRalesRange in staticIndex.lungWetRalesRanges" :key="lungWetRalesRange.id" :value="lungWetRalesRange.id">{{lungWetRalesRange.text}}</option>
                             </select>
                         </div>
                         <label class="control-label col-md-1">部位</label>
                         <div class="col-md-2">
                             <select class="form-control" v-model="physicalExamination.lungWetRalesPart">
                                 <option value="" disabled selected>选择部位</option>
-                                <option v-for="breathSoundsPart in pagedata.breathSoundsParts" :key="breathSoundsPart.id" :value="breathSoundsPart.id">{{breathSoundsPart.text}}</option>
+                                <option v-for="breathSoundsPart in staticIndex.breathSoundsParts" :key="breathSoundsPart.id" :value="breathSoundsPart.id">{{breathSoundsPart.text}}</option>
                             </select>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
             <div class="col-md-2">
                 <select class="form-control" v-model="physicalExamination.cardiacRhythm">
                     <option value="" disabled selected>选择部位</option>
-                    <option v-for="cardiacRhythm in pagedata.cardiacRhythms" :key="cardiacRhythm.id" :value="cardiacRhythm.id">{{cardiacRhythm.text}}</option>
+                    <option v-for="cardiacRhythm in staticIndex.cardiacRhythms" :key="cardiacRhythm.id" :value="cardiacRhythm.id">{{cardiacRhythm.text}}</option>
                 </select>
             </div>
         </div>
@@ -99,7 +99,7 @@
                     <div class="col-md-2">
                         <select class="form-control" v-model="physicalExamination.heartSoundS1Result">
                             <option value="" disabled selected>选择</option>
-                            <option v-for="heartSoundS1Result in pagedata.heartSoundS1Results" :key="heartSoundS1Result.id" :value="heartSoundS1Result.id">{{heartSoundS1Result.text}}</option>
+                            <option v-for="heartSoundS1Result in staticIndex.heartSoundS1Results" :key="heartSoundS1Result.id" :value="heartSoundS1Result.id">{{heartSoundS1Result.text}}</option>
                         </select>
                     </div>
                 </div>                
@@ -141,7 +141,7 @@
             <div v-if="physicalExamination.isEarLobeLongitudinalCrack=='1'">
                 <label class="control-label col-md-2">部位（多选）</label>
                 <div class="col-md-6">
-                    <div><label v-for="part in pagedata.earLobeLongitudinalCrackParts" :key="part.id"><checkbox v-model="physicalExamination.earLobeLongitudinalCrackParts" :value="part.id">{{part.text}}</checkbox></label></div>
+                    <div><label v-for="part in staticIndex.earLobeLongitudinalCrackParts" :key="part.id"><checkbox v-model="physicalExamination.earLobeLongitudinalCrackParts" :value="part.id">{{part.text}}</checkbox></label></div>
                 </div>
             </div>
         </div>
@@ -156,7 +156,7 @@
             <div v-if="physicalExamination.isSkinYellowPigmentTumor=='1'">
                 <label class="control-label col-md-2">部位（多选）</label>
                 <div class="col-md-7">
-                    <div><label v-for="part in pagedata.skinYellowPigmentTumorParts" :key="part.id"><checkbox v-model="physicalExamination.skinYellowPigmentTumorParts" :value="part.id">{{part.text}}</checkbox></label></div>
+                    <div><label v-for="part in staticIndex.skinYellowPigmentTumorParts" :key="part.id"><checkbox v-model="physicalExamination.skinYellowPigmentTumorParts" :value="part.id">{{part.text}}</checkbox></label></div>
                 </div>
             </div>
         </div>
@@ -171,7 +171,7 @@
             <div v-if="physicalExamination.isAlopecia=='1'">
                 <label class="control-label col-md-2">部位（多选）</label>
                 <div class="col-md-6">
-                    <div><label v-for="part in pagedata.alopeciaParts" :key="part.id"><checkbox v-model="physicalExamination.alopeciaParts" :value="part.id">{{part.text}}</checkbox></label></div>
+                    <div><label v-for="part in staticIndex.alopeciaParts" :key="part.id"><checkbox v-model="physicalExamination.alopeciaParts" :value="part.id">{{part.text}}</checkbox></label></div>
                 </div>
             </div>
         </div>
@@ -184,9 +184,6 @@ import {Checkbox, Radio} from 'vue-checkbox-radio';
 export default {
     name: 'physical_examination',
     props: {
-        pagedata: {
-            type: Object
-        },
         physicalExamination: {
             type: Object
         },
@@ -196,7 +193,12 @@ export default {
     },
     data () {
         return {}
-    },    
+    },
+    computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
+        }
+    },  
     components: {
         Checkbox, Radio
     }

@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-2">导联（多选）</label>
                                     <div class="col-md-8">
-                                        <div><label v-for="lead in pagedata.leadSystem" :key="lead.id"><checkbox v-model="specialExamination.ecg.pathologicalQWave.qWaveLeads" :value="lead.id">{{lead.text}}</checkbox></label></div>
+                                        <div><label v-for="lead in staticIndex.leadSystem" :key="lead.id"><checkbox v-model="specialExamination.ecg.pathologicalQWave.qWaveLeads" :value="lead.id">{{lead.text}}</checkbox></label></div>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                                         <label class="control-label">导联</label>
                                                         <select class="form-control" v-model="item.lead">
                                                             <option value="" disabled selected>选择</option>
-                                                            <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                            <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="mt-repeater-input" :key="item.id">
@@ -89,7 +89,7 @@
                                                         <label class="control-label">导联</label>
                                                         <select class="form-control" v-model="item.lead">
                                                             <option value="" disabled selected>选择</option>
-                                                            <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                            <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="mt-repeater-input" :key="item.id">
@@ -120,14 +120,14 @@
                                                 <label class="control-label">导联</label>
                                                 <select class="form-control" v-model="item.lead">
                                                     <option value="" disabled selected>选择</option>
-                                                    <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                    <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                 </select>
                                             </div>
                                             <div class="mt-repeater-input" :key="item.id">  
                                                 <label class="control-label">波形</label>
                                                 <select class="form-control" v-model="item.waveform">
                                                     <option value="" disabled selected>选择</option>
-                                                    <option v-for="waveform in pagedata.ecgWaveforms" :key="waveform.id" :value="waveform.id">{{waveform.text}}</option>
+                                                    <option v-for="waveform in staticIndex.ecgWaveforms" :key="waveform.id" :value="waveform.id">{{waveform.text}}</option>
                                                 </select>
                                             </div>
                                             <div class="mt-repeater-input" :key="item.id">
@@ -152,7 +152,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2">类型（多选）</label>
                                         <div class="col-md-7">
-                                            <div><label v-for="arrhythmiaType in pagedata.arrhythmiaTypes" :key="arrhythmiaType.id"><checkbox v-model="specialExamination.ecg.arrhythmia.arrhythmiaTypes" :value="arrhythmiaType.id">{{arrhythmiaType.text}}</checkbox></label></div>
+                                            <div><label v-for="arrhythmiaType in staticIndex.arrhythmiaTypes" :key="arrhythmiaType.id"><checkbox v-model="specialExamination.ecg.arrhythmia.arrhythmiaTypes" :value="arrhythmiaType.id">{{arrhythmiaType.text}}</checkbox></label></div>
                                         </div>
                                         <div class="col-md-2" v-if="specialExamination.ecg.arrhythmia.arrhythmiaTypes.indexOf('11')>='0'">
                                             <input class="form-control" v-model="specialExamination.ecg.arrhythmia.arrhythmiaTypeOthers">
@@ -258,7 +258,7 @@
                                                         <label class="control-label">导联</label>
                                                         <select class="form-control" v-model="item.lead">
                                                             <option value="" disabled selected>选择</option>
-                                                            <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                            <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="mt-repeater-input" :key="item.id">
@@ -294,7 +294,7 @@
                                                         <label class="control-label">导联</label>
                                                         <select class="form-control" v-model="item.lead">
                                                             <option value="" disabled selected>选择</option>
-                                                            <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                            <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="mt-repeater-input" :key="item.id">
@@ -332,14 +332,14 @@
                                                 <label class="control-label">导联</label>
                                                 <select class="form-control" v-model="item.lead">
                                                     <option value="" disabled selected>选择</option>
-                                                    <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                    <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                 </select>
                                             </div>
                                             <div class="mt-repeater-input" :key="item.id">  
                                                 <label class="control-label">波形</label>
                                                 <select class="form-control" v-model="item.waveform">
                                                     <option value="" disabled selected>选择</option>
-                                                    <option v-for="waveform in pagedata.ecgWaveforms" :key="waveform.id" :value="waveform.id">{{waveform.text}}</option>
+                                                    <option v-for="waveform in staticIndex.ecgWaveforms" :key="waveform.id" :value="waveform.id">{{waveform.text}}</option>
                                                 </select>
                                             </div>
                                             <div class="mt-repeater-input" :key="item.id">
@@ -355,7 +355,7 @@
                             <label class="control-label bold col-md-1">运动ECG结果</label>
                             <div class="col-md-6">
                                 <div>
-                                    <label v-for="result in pagedata.ecgResults" :key="result.id"><radio :value="result.id" v-model="specialExamination.exerciseEcg.result">{{result.text}}</radio></label>
+                                    <label v-for="result in staticIndex.ecgResults" :key="result.id"><radio :value="result.id" v-model="specialExamination.exerciseEcg.result">{{result.text}}</radio></label>
                                 </div>
                             </div>                                                       
                         </div>         
@@ -440,7 +440,7 @@
                                                 <label class="control-label">类型</label>
                                                 <select class="form-control" v-model="item.arrhythmiaType">
                                                     <option value="" disabled selected>选择</option>
-                                                    <option v-for="arrhythmiaType in pagedata.arrhythmiaTypes" :key="arrhythmiaType.id" :value="arrhythmiaType.id">{{arrhythmiaType.text}}</option>
+                                                    <option v-for="arrhythmiaType in staticIndex.arrhythmiaTypes" :key="arrhythmiaType.id" :value="arrhythmiaType.id">{{arrhythmiaType.text}}</option>
                                                 </select>
                                             </div>                                            
                                             <div class="mt-repeater-input" :key="item.id" v-if="item.arrhythmiaType=='11'">
@@ -482,7 +482,7 @@
                                             </div> 
                                             <div class="mt-repeater-input" :key="item.id">
                                                 <label class="control-label">导联（多选）</label>
-                                                <div><label v-for="lead in pagedata.leadSystem" :key="lead.id"><checkbox v-model="item.qWaveLeads" :value="lead.id">{{lead.text}}</checkbox></label></div>
+                                                <div><label v-for="lead in staticIndex.leadSystem" :key="lead.id"><checkbox v-model="item.qWaveLeads" :value="lead.id">{{lead.text}}</checkbox></label></div>
                                             </div>          
                                         </template>
                                     </v-repeater>
@@ -531,7 +531,7 @@
                                                                     <label class="control-label">导联</label>
                                                                     <select class="form-control" v-model="subitem.lead">
                                                                         <option value="" disabled selected>选择</option>
-                                                                        <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                                        <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="mt-repeater-input" :key="subitem.id">
@@ -579,7 +579,7 @@
                                                                     <label class="control-label">导联</label>
                                                                     <select class="form-control" v-model="subitem.lead">
                                                                         <option value="" disabled selected>选择</option>
-                                                                        <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                                        <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="mt-repeater-input" :key="subitem.id">
@@ -629,14 +629,14 @@
                                                             <label class="control-label">导联</label>
                                                             <select class="form-control" v-model="subitem.lead">
                                                                 <option value="" disabled selected>选择</option>
-                                                                <option v-for="lead in pagedata.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
+                                                                <option v-for="lead in staticIndex.leadSystem" :key="lead.id" :value="lead.id">{{lead.text}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="mt-repeater-input" :key="subitem.id">  
                                                             <label class="control-label">波形</label>
                                                             <select class="form-control" v-model="subitem.waveform">
                                                                 <option value="" disabled selected>选择</option>
-                                                                <option v-for="waveform in pagedata.ecgWaveforms" :key="waveform.id" :value="waveform.id">{{waveform.text}}</option>
+                                                                <option v-for="waveform in staticIndex.ecgWaveforms" :key="waveform.id" :value="waveform.id">{{waveform.text}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="mt-repeater-input" :key="subitem.id">
@@ -741,7 +741,7 @@
                             <div v-if="specialExamination.ucg.isLocalMotionAbnormality=='1'">
                                 <label class="control-label col-md-1">部位（多选）</label>
                                 <div class="col-md-6">
-                                    <div><label v-for="ucgPart in pagedata.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.localMotionAbnormalityParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
+                                    <div><label v-for="ucgPart in staticIndex.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.localMotionAbnormalityParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
                                 </div>                               
                             </div>
                         </div>
@@ -756,7 +756,7 @@
                             <div v-if="specialExamination.ucg.isVntricularAneurysm=='1'">
                                 <label class="control-label col-md-1">部位（多选）</label>
                                 <div class="col-md-6">
-                                    <div><label v-for="ucgPart in pagedata.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.vntricularAneurysmParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
+                                    <div><label v-for="ucgPart in staticIndex.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.vntricularAneurysmParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
                                 </div>                               
                             </div>
                         </div>
@@ -771,7 +771,7 @@
                             <div v-if="specialExamination.ucg.isLeftVentricularThrombosis=='1'">
                                 <label class="control-label col-md-1">部位（多选）</label>
                                 <div class="col-md-6">
-                                    <div><label v-for="ucgPart in pagedata.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.leftVentricularThrombosisParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
+                                    <div><label v-for="ucgPart in staticIndex.ucgParts" :key="ucgPart.id"><checkbox v-model="specialExamination.ucg.leftVentricularThrombosisParts" :value="ucgPart.id">{{ucgPart.text}}</checkbox></label></div>
                                 </div>                               
                             </div>
                         </div>
@@ -808,7 +808,7 @@
                             <div class="col-md-2">
                                 <select class="form-control" v-model="specialExamination.pci.pciType">
                                     <option value="" disabled selected>选择</option>
-                                    <option v-for="pciType in pagedata.pciTypes" :key="pciType.id" :value="pciType.id">{{pciType.text}}</option>
+                                    <option v-for="pciType in staticIndex.pciTypes" :key="pciType.id" :value="pciType.id">{{pciType.text}}</option>
                                 </select>
                             </div>
                             <div v-if="specialExamination.pci.pciType=='3'||specialExamination.pci.pciType=='4'">
@@ -839,7 +839,7 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">造影剂（多选）</label>
                             <div class="col-md-6">
-                                <div><label v-for="contrastMedium in pagedata.contrastMedia" :key="contrastMedium.id"><checkbox v-model="specialExamination.pci.contrastMedia" :value="contrastMedium.id">{{contrastMedium.text}}</checkbox></label></div>
+                                <div><label v-for="contrastMedium in staticIndex.contrastMedia" :key="contrastMedium.id"><checkbox v-model="specialExamination.pci.contrastMedia" :value="contrastMedium.id">{{contrastMedium.text}}</checkbox></label></div>
                                 <span class="help-block">&nbsp;</span>
                             </div>
                             <div class="col-md-4" v-if="specialExamination.pci.contrastMedia.indexOf('5')>=0">
@@ -854,7 +854,7 @@
                                     <label class="control-label col-md-2">冠脉分布</label>
                                     <div class="col-md-6">
                                         <div>
-                                            <label v-for="distributionType in pagedata.coronaryDistributionTypes" :key="distributionType.id"><radio :value="distributionType.id" v-model="specialExamination.pci.coronaryDistributionType">{{distributionType.text}}</radio></label>
+                                            <label v-for="distributionType in staticIndex.coronaryDistributionTypes" :key="distributionType.id"><radio :value="distributionType.id" v-model="specialExamination.pci.coronaryDistributionType">{{distributionType.text}}</radio></label>
                                         </div> 
                                     </div>
                                 </div>
@@ -908,7 +908,7 @@
                         <div class="form-group">
                             <label class="control-label bold col-md-2">介入路径（多选）</label>
                             <div class="col-md-6">
-                                <div><label v-for="pciPath in pagedata.pciPaths" :key="pciPath.id"><checkbox v-model="specialExamination.pci.pciPaths" :value="pciPath.id">{{pciPath.text}}</checkbox></label></div>
+                                <div><label v-for="pciPath in staticIndex.pciPaths" :key="pciPath.id"><checkbox v-model="specialExamination.pci.pciPaths" :value="pciPath.id">{{pciPath.text}}</checkbox></label></div>
                                 <span class="help-block">&nbsp;</span>
                             </div>
                         </div>
@@ -971,7 +971,7 @@
                                                 <label class="control-label">形态</label>
                                                 <select class="form-control" v-model="item.shape">
                                                     <option value="" disabled selected>选择</option>
-                                                    <option v-for="shape in pagedata.segmentalLesionsShapes" :key="shape.id" :value="shape.id">{{shape.text}}</option>
+                                                    <option v-for="shape in staticIndex.segmentalLesionsShapes" :key="shape.id" :value="shape.id">{{shape.text}}</option>
                                                 </select>
                                             </div> 
                                             <div class="mt-repeater-input" :key="item.id">  
@@ -1051,9 +1051,6 @@ import vRepeater from '@/components/v_repeater/v_repeater';
 export default {
     name: 'special_examination',
     props: {
-        pagedata: {
-            type: Object
-        },
         specialExamination: {
             type: Object
         },
@@ -1079,9 +1076,11 @@ export default {
             }
         }
     },
-    methods: {
-        
-    },
+    computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
+        }
+    }, 
     components: {
         Checkbox, Radio, vRepeater
     }
