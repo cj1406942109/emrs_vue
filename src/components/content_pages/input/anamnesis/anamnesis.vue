@@ -36,7 +36,7 @@
                                 <div class="col-md-2">
                                     <select class="form-control" v-model="anamnesis.lipidAbnormalityType">
                                         <option value="" disabled selected>选择类型</option>
-                                        <option v-for="lipidAbnormalityType in pagedata.lipidAbnormalityTypes" :key="lipidAbnormalityType.id" :value="lipidAbnormalityType.id">{{lipidAbnormalityType.text}}</option>
+                                        <option v-for="lipidAbnormalityType in staticIndex.lipidAbnormalityTypes" :key="lipidAbnormalityType.id" :value="lipidAbnormalityType.id">{{lipidAbnormalityType.text}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                                 <div class="col-md-2">
                                     <select class="form-control" v-model="anamnesis.dysglycemiaType">
                                         <option value="" disabled selected>选择类型</option>
-                                        <option v-for="dysglycemiaType in pagedata.dysglycemiaTypes" :key="dysglycemiaType.id" :value="dysglycemiaType.id">{{dysglycemiaType.text}}</option>
+                                        <option v-for="dysglycemiaType in staticIndex.dysglycemiaTypes" :key="dysglycemiaType.id" :value="dysglycemiaType.id">{{dysglycemiaType.text}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                                         <div class="col-md-2">
                                             <select class="form-control" v-model="anamnesis.diabetesMellitusType">
                                                 <option value="" disabled selected>选择类型</option>
-                                                <option v-for="diabetesMellitusType in pagedata.diabetesMellitusTypes" :key="diabetesMellitusType.id" :value="diabetesMellitusType.id">{{diabetesMellitusType.text}}</option>
+                                                <option v-for="diabetesMellitusType in staticIndex.diabetesMellitusTypes" :key="diabetesMellitusType.id" :value="diabetesMellitusType.id">{{diabetesMellitusType.text}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                             <div class="form-group" v-if="anamnesis.isDiabetesMellitusUnderTreatment=='1'||anamnesis.isDiabetesMellitusUnderTreatment=='2'">
                                 <label class="control-label col-md-2 col-md-offset-1 bold">治疗方法（多选）</label>
                                 <div class="col-md-5">
-                                    <div><label v-for="treatMethod in pagedata.diabetesMellitusTreatmentMethods" :key="treatMethod.id"><checkbox v-model="anamnesis.diabetesMellitusTreatmentMethod" :value="treatMethod.id">{{treatMethod.text}}</checkbox></label></div>
+                                    <div><label v-for="treatMethod in staticIndex.diabetesMellitusTreatmentMethods" :key="treatMethod.id"><checkbox v-model="anamnesis.diabetesMellitusTreatmentMethod" :value="treatMethod.id">{{treatMethod.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-4" v-if="anamnesis.diabetesMellitusTreatmentMethod.indexOf('3')>=0">
@@ -303,7 +303,7 @@
                         <div class="form-group" v-if="anamnesis.isOldMyocardialInfarction=='1'">
                             <label class="control-label col-md-2 col-md-offset-1 bold">部位（多选）</label>
                             <div class="col-md-6">
-                                <div><label v-for="location in pagedata.oldMyocardialInfarctionLocations" :key="location.id"><checkbox v-model="anamnesis.oldMyocardialInfarctionLocation" :value="location.id">{{location.text}}</checkbox></label></div>
+                                <div><label v-for="location in staticIndex.oldMyocardialInfarctionLocations" :key="location.id"><checkbox v-model="anamnesis.oldMyocardialInfarctionLocation" :value="location.id">{{location.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-2" v-if="anamnesis.oldMyocardialInfarctionLocation.indexOf('7')>='0'">
@@ -359,7 +359,7 @@
                         <div class="form-group" v-if="anamnesis.isOtherHeartDiseaseHistory=='1'">
                             <label class="control-label col-md-2 col-md-offset-1 bold">类型（多选）</label>
                             <div class="col-md-6">
-                                <div><label v-for="diseaseType in pagedata.otherHeartDiseaseTypes" :key="diseaseType.id"><checkbox v-model="anamnesis.otherHeartDiseaseType" :value="diseaseType.id">{{diseaseType.text}}</checkbox></label></div>
+                                <div><label v-for="diseaseType in staticIndex.otherHeartDiseaseTypes" :key="diseaseType.id"><checkbox v-model="anamnesis.otherHeartDiseaseType" :value="diseaseType.id">{{diseaseType.text}}</checkbox></label></div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>
                             <div class="col-md-2" v-if="anamnesis.otherHeartDiseaseType.indexOf('8')>='0'">
@@ -398,7 +398,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-md-offset-1 bold">诱因（多选）</label>
                                 <div class="col-md-6">
-                                    <div><label v-for="inducement in pagedata.deepVenousThrombosisInducements" :key="inducement.id"><checkbox v-model="anamnesis.deepVenousThrombosisInducements" :value="inducement.id">{{inducement.text}}</checkbox></label></div>
+                                    <div><label v-for="inducement in staticIndex.deepVenousThrombosisInducements" :key="inducement.id"><checkbox v-model="anamnesis.deepVenousThrombosisInducements" :value="inducement.id">{{inducement.text}}</checkbox></label></div>
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="anamnesis.deepVenousThrombosisInducements.indexOf('5')>='0'">
@@ -409,7 +409,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-md-offset-1 bold">症状（多选）</label>
                                 <div class="col-md-8">
-                                    <div><label v-for="symptom in pagedata.deepVenousThrombosisSymptoms" :key="symptom.id"><checkbox v-model="anamnesis.deepVenousThrombosisSymptoms" :value="symptom.id">{{symptom.text}}</checkbox></label></div>
+                                    <div><label v-for="symptom in staticIndex.deepVenousThrombosisSymptoms" :key="symptom.id"><checkbox v-model="anamnesis.deepVenousThrombosisSymptoms" :value="symptom.id">{{symptom.text}}</checkbox></label></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -453,7 +453,7 @@
                                         <label class="control-label">类型</label>
                                         <select class="form-control" v-model="item.typeName">
                                             <option value="" disabled selected>选择</option>
-                                            <option v-for="oldIschemicStrokeType in pagedata.oldIschemicStrokeTypes" :key="oldIschemicStrokeType.id" :value="oldIschemicStrokeType.id">{{oldIschemicStrokeType.text}}</option>
+                                            <option v-for="oldIschemicStrokeType in staticIndex.oldIschemicStrokeTypes" :key="oldIschemicStrokeType.id" :value="oldIschemicStrokeType.id">{{oldIschemicStrokeType.text}}</option>
                                         </select>
                                     </div>
                                     <div class="mt-repeater-input" :key="item.id">
@@ -495,7 +495,7 @@
                         <div class="form-group" v-if="anamnesis.isVascularDiseases=='1'">
                             <label class="control-label col-md-2 col-md-offset-1 bold">类型（多选）</label>
                             <div class="col-md-8">
-                                <div><label v-for="diseaseType in pagedata.vascularDiseasesTypes" :key="diseaseType.id"><checkbox v-model="anamnesis.vascularDiseasesTypes" :value="diseaseType.id">{{diseaseType.text}}</checkbox></label></div>
+                                <div><label v-for="diseaseType in staticIndex.vascularDiseasesTypes" :key="diseaseType.id"><checkbox v-model="anamnesis.vascularDiseasesTypes" :value="diseaseType.id">{{diseaseType.text}}</checkbox></label></div>
                             </div>
                         </div>
                     </div>
@@ -527,7 +527,7 @@
                                         <label class="control-label">类型</label>
                                         <select class="form-control" v-model="item.typeName">
                                             <option value="" disabled selected>选择</option>
-                                            <option v-for="hemorrhageType in pagedata.hemorrhageTypes" :key="hemorrhageType.id" :value="hemorrhageType.id">{{hemorrhageType.text}}</option>
+                                            <option v-for="hemorrhageType in staticIndex.hemorrhageTypes" :key="hemorrhageType.id" :value="hemorrhageType.id">{{hemorrhageType.text}}</option>
                                         </select>
                                     </div>
                                     <div class="mt-repeater-input" :key="item.id">
@@ -570,7 +570,7 @@
                                         <label class="control-label">病因</label>
                                         <select class="form-control" v-model="item.cause">
                                             <option value="" disabled selected>选择</option>
-                                            <option v-for="cause in pagedata.bleedingCauses" :key="cause.id" :value="cause.id">{{cause.text}}</option>
+                                            <option v-for="cause in staticIndex.bleedingCauses" :key="cause.id" :value="cause.id">{{cause.text}}</option>
                                         </select>
                                     </div>
                                     <div class="mt-repeater-input" :key="item.id">
@@ -595,9 +595,6 @@ import vRepeater from '@/components/v_repeater/v_repeater';
 export default {
     name: 'anamnesis',
     props: {
-        pagedata: {
-            type: Object
-        },
         anamnesis: {
             type: Object
         },
@@ -605,9 +602,11 @@ export default {
             type: Number
         }
     },
-    data () {
-        return {}
-    },    
+    computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
+        }        
+    }, 
     components: {
         Checkbox, Radio, vRepeater
     }

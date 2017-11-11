@@ -34,14 +34,14 @@
                                             <label class="control-label">成员</label>
                                             <select class="form-control" v-model="item.onsetMember">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="member in pagedata.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
+                                                <option v-for="member in staticIndex.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id">
                                             <label class="control-label">性别</label>
                                             <select class="form-control" v-model="item.gender">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="gender in pagedata.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
+                                                <option v-for="gender in staticIndex.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
                                             </select>
                                         </div> 
                                         <div class="mt-repeater-input" :key="item.id">
@@ -52,7 +52,7 @@
                                             <label class="control-label">冠心病类型</label>
                                             <select class="form-control" v-model="item.prematureChdType">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="prematureChdType in pagedata.prematureChdTypes" :key="prematureChdType.id" :value="prematureChdType.id">{{prematureChdType.text}}</option>
+                                                <option v-for="prematureChdType in staticIndex.prematureChdTypes" :key="prematureChdType.id" :value="prematureChdType.id">{{prematureChdType.text}}</option>
                                             </select>
                                         </div>
                                     </template>
@@ -87,14 +87,14 @@
                                             <label class="control-label">成员</label>
                                             <select class="form-control" v-model="item.onsetMember">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="member in pagedata.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
+                                                <option v-for="member in staticIndex.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id">
                                             <label class="control-label">性别</label>
                                             <select class="form-control" v-model="item.gender">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="gender in pagedata.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
+                                                <option v-for="gender in staticIndex.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
                                             </select>
                                         </div> 
                                         <div class="mt-repeater-input" :key="item.id">
@@ -133,14 +133,14 @@
                                             <label class="control-label">成员</label>
                                             <select class="form-control" v-model="item.onsetMember">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="member in pagedata.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
+                                                <option v-for="member in staticIndex.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id">
                                             <label class="control-label">性别</label>
                                             <select class="form-control" v-model="item.gender">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="gender in pagedata.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
+                                                <option v-for="gender in staticIndex.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
                                             </select>
                                         </div> 
                                         <div class="mt-repeater-input" :key="item.id">
@@ -151,7 +151,7 @@
                                             <label class="control-label">发病原因</label>
                                             <select class="form-control" v-model="item.etiology">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="etiology in pagedata.suddenDeathEtiologies" :key="etiology.id" :value="etiology.id">{{etiology.text}}</option>
+                                                <option v-for="etiology in staticIndex.suddenDeathEtiologies" :key="etiology.id" :value="etiology.id">{{etiology.text}}</option>
                                             </select>
                                         </div>    
                                         <div class="mt-repeater-input" :key="item.id" v-if="item.etiology=='4'">
@@ -190,14 +190,14 @@
                                             <label class="control-label">成员</label>
                                             <select class="form-control" v-model="item.onsetMember">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="member in pagedata.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
+                                                <option v-for="member in staticIndex.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id">
                                             <label class="control-label">性别</label>
                                             <select class="form-control" v-model="item.gender">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="gender in pagedata.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
+                                                <option v-for="gender in staticIndex.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
                                             </select>
                                         </div> 
                                         <div class="mt-repeater-input" :key="item.id">
@@ -236,14 +236,14 @@
                                             <label class="control-label">成员</label>
                                             <select class="form-control" v-model="item.onsetMember">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="member in pagedata.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
+                                                <option v-for="member in staticIndex.familyMembers" :key="member.id" :value="member.id">{{member.text}}</option>
                                             </select>
                                         </div>
                                         <div class="mt-repeater-input" :key="item.id">
                                             <label class="control-label">性别</label>
                                             <select class="form-control" v-model="item.gender">
                                                 <option value="" disabled selected>选择</option>
-                                                <option v-for="gender in pagedata.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
+                                                <option v-for="gender in staticIndex.genderList" :key="gender.id" :value="gender.id">{{gender.text}}</option>
                                             </select>
                                         </div> 
                                         <div class="mt-repeater-input" :key="item.id">
@@ -268,10 +268,7 @@ import vRepeater from '@/components/v_repeater/v_repeater';
 
 export default {
     name: 'family_history',
-    props: {
-        pagedata: {
-            type: Object
-        },
+    props: {        
         familyHistory: {
             type: Object
         },
@@ -285,6 +282,11 @@ export default {
             className: "col-md-11 col-md-offset-1"
         }
     },    
+    computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
+        }        
+    },
     components: {
         Checkbox, Radio, vRepeater
     }

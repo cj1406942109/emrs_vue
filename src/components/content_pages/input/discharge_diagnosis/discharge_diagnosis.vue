@@ -37,7 +37,7 @@
                 <div class="col-md-2">
                     <select class="form-control" v-model="dischargeDiagnosis.myocardialInfarctionType">
                         <option value="" disabled selected>选择</option>
-                        <option v-for="myocardialInfarctionType in pagedata.myocardialInfarctionTypes" :key="myocardialInfarctionType.id" :value="myocardialInfarctionType.id">{{myocardialInfarctionType.text}}</option>
+                        <option v-for="myocardialInfarctionType in staticIndex.myocardialInfarctionTypes" :key="myocardialInfarctionType.id" :value="myocardialInfarctionType.id">{{myocardialInfarctionType.text}}</option>
                     </select>
                 </div>
                 <label class="control-label col-md-1">部位</label>
@@ -59,7 +59,7 @@
                 <div class="col-md-2">
                     <select class="form-control" v-model="dischargeDiagnosis.anginaType">
                         <option value="" disabled selected>选择</option>
-                        <option v-for="anginaType in pagedata.anginaTypes" :key="anginaType.id" :value="anginaType.id">{{anginaType.text}}</option>
+                        <option v-for="anginaType in staticIndex.anginaTypes" :key="anginaType.id" :value="anginaType.id">{{anginaType.text}}</option>
                     </select>
                 </div>
                 <label class="control-label col-md-1">CCS分级</label>
@@ -125,9 +125,6 @@ import {Checkbox, Radio} from 'vue-checkbox-radio';
 export default {
     name: 'discharge_diagnosis',
     props: {
-        pagedata: {
-            type: Object
-        },
         dischargeDiagnosis: {
             type: Object
         },
@@ -135,8 +132,10 @@ export default {
             type: Number
         }
     },
-    data () {
-        return {}
+    computed: {
+        staticIndex: function() {
+            return this.$store.state.staticIndex;
+        }        
     },
     components: {
         Checkbox, Radio

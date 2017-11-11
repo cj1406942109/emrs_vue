@@ -512,9 +512,6 @@ import {Checkbox, Radio} from 'vue-checkbox-radio';
 export default {
     name: 'routine_examination',    
     props: {
-        pagedata: {
-            type: Object
-        },
         routineExamination: {
             type: Object
         },
@@ -522,9 +519,6 @@ export default {
             type: Number
         }
     },
-    data () {
-        return {}
-    },    
     computed: {
         notHDL: function () {
             if(this.routineExamination.TC!='' && this.routineExamination.HDL!=''){
