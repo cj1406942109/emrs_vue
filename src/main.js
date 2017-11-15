@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VueBus from 'vue-bus';
 import store from '@/store';
 import App from './App';
 import router from './router';
@@ -35,6 +36,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
+Vue.use(VueBus);
 Vue.use(SweetModal);
 Validator.localize('zh_CN', zh_CN);
 Vue.use(VeeValidate, {

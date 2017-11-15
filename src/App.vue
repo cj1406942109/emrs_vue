@@ -15,18 +15,7 @@
 
 <style lang="stylus">
 
-  #app
-    // 修改select2默认样式
-    .select2-container
-      width 100% !important
-      .select2-selection--single
-        height 34px
-        border 1px solid #c2cad8
-        outline none
-        .select2-selection__rendered
-          line-height 34px
-        .select2-selection__arrow
-          height 32px
+  #app    
     // 修改vue-datepicker默认样式
     .cov-vue-date
       width 100% !important
@@ -37,6 +26,11 @@
     .radio-component
       line-height 34px
       margin-right 20px
+      &.border-red 
+        label
+          color #e7505a
+          .input-box
+            border 1px solid #e7505a
     .checkbox-component > input + label > .input-box
     .radio-component > input + label > .input-box 
       width 20px

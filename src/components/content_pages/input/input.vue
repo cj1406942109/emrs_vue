@@ -663,7 +663,7 @@ export default {
     },
     methods: {
         nextStep () {
-            this.currentStep++;//测试用，后期注释掉
+            // this.currentStep++;//测试用，后期注释掉
             this.$validator.validateAll().then((result) => {
                 if(result){
                     this.currentStep++;
@@ -680,6 +680,7 @@ export default {
         },
         submitForm () {
             this.$refs.formSubmitting.open();
+            console.log(this.mr);
         }
     },
     created () {

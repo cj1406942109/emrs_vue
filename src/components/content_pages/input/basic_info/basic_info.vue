@@ -27,66 +27,71 @@
     <div class="form-group">
         <label class="control-label col-md-2" :class="{'font-red':errors.has('cellphone_1')||errors.has('cellphone_2')||errors.has('telephone')}">联系方式<span class="required"> * </span></label>
         <div class="col-md-3">
-            <input v-validate="'regex:/^1[34578]\d{9}$/'" :class="{'input': true, 'border-red': errors.has('cellphone_1') }" class="form-control phone-group" name="cellphone_1" v-model="basicInfo.cellphone1">
+            <input v-validate="{required:phone23, regex:/^1[34578]\d{9}$/}" :class="{'input': true, 'border-red': errors.has('cellphone_1')}" class="form-control" name="cellphone_1" v-model="basicInfo.cellphone1">
             <span v-show="errors.has('cellphone_1')" class="help-block font-red">{{ errors.first('cellphone_1') }}</span>
             <span class="help-block" :class="{'font-red':errors.has('cellphone_1')}"> 填写患者手机号1 </span>
         </div>
         <div class="col-md-3">
-            <input v-validate="'regex:/^1[34578]\d{9}$/'" :class="{'input': true, 'border-red': errors.has('cellphone_2') }" class="form-control phone-group" name="cellphone_2" v-model="basicInfo.cellphone2">
+            <input v-validate="{required:phone13, regex:/^1[34578]\d{9}$/}" :class="{'input': true, 'border-red': errors.has('cellphone_2')}" class="form-control" name="cellphone_2" v-model="basicInfo.cellphone2">
             <span v-show="errors.has('cellphone_2')" class="help-block font-red">{{ errors.first('cellphone_2') }}</span>
             <span class="help-block" :class="{'font-red':errors.has('cellphone_2')}"> 填写患者手机号2 </span>
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control phone-group" name="telephone" v-model="basicInfo.telephone">
-            <span class="help-block"> 填写患者固定电话 </span>
+            <input v-validate="{required:phone12}" :class="{'input': true, 'border-red': errors.has('telephone') }" class="form-control" name="telephone" v-model="basicInfo.telephone">
+            <span v-show="errors.has('telephone')" class="help-block font-red">{{ errors.first('telephone') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('telephone')}"> 填写患者固定电话 </span>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2" :class="{'font-red':errors.has('gender')}">性别<span class="required"> * </span></label>
         <div class="col-md-4">
             <div>
-                <label><radio v-validate="'required'" value="男" v-model="basicInfo.gender" name="gender">男</radio></label>
-                <label><radio v-validate="'required'" value="女" v-model="basicInfo.gender" name="gender">女</radio></label>
+                <label><radio v-validate="{radioRequired: basicInfo.gender}" :class="{'input': true, 'border-red': errors.has('gender') }" data-vv-delay="500" value="男" v-model="basicInfo.gender" name="gender">男</radio></label>
+                <label><radio v-validate="{radioRequired: basicInfo.gender}" :class="{'input': true, 'border-red': errors.has('gender') }" data-vv-delay="500" value="女" v-model="basicInfo.gender" name="gender">女</radio></label>
             </div>
             <span v-show="errors.has('gender')" class="help-block font-red">{{ errors.first('gender') }}</span>
-        </div>
+        </div>        
     </div>            
     <div class="form-group">
-        <label class="control-label col-md-2">住院号<span class="required"> * </span></label>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('admission_num')}">住院号<span class="required"> * </span></label>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="admission_num" v-model="basicInfo.admissionNum">
-            <span class="help-block"> 填写患者住院号 </span>
+            <input v-validate="{required:true}" :class="{'input': true, 'border-red': errors.has('admission_num') }" class="form-control" name="admission_num" v-model="basicInfo.admissionNum">
+            <span v-show="errors.has('admission_num')" class="help-block font-red">{{ errors.first('admission_num') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('admission_num')}"> 填写患者住院号 </span>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-2">床位号<span class="required"> * </span></label>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('bed_num')}">床位号<span class="required"> * </span></label>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="bed_num" v-model="basicInfo.bedNum">
-            <span class="help-block"> 填写患者床位号 </span>
+            <input v-validate="{required:true}" :class="{'input': true, 'border-red': errors.has('bed_num') }" class="form-control" name="bed_num" v-model="basicInfo.bedNum">
+            <span v-show="errors.has('bed_num')" class="help-block font-red">{{ errors.first('bed_num') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('bed_num')}"> 填写患者床位号 </span>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-2">主治医生<span class="required"> * </span></label>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('doctor')}">主治医生<span class="required"> * </span></label>
         <div class="col-md-3">
-            <select name="body_part_name" class="form-control" v-model="basicInfo.doctor">
-                <option :value="{}" disabled selected>请选择主治医生</option>
+            <select v-validate="{required:true}" name="doctor" :class="{'input': true, 'border-red': errors.has('doctor') }" class="form-control" v-model="basicInfo.doctor">
+                <option :value="null" disabled selected>请选择主治医生</option>
                 <option v-for="doctor in doctorList" :key="doctor.id" :value="doctor">{{doctor.name}}</option>
             </select>
+            <span v-show="errors.has('doctor')" class="help-block font-red">{{ errors.first('doctor') }}</span>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-2">记录者<span class="required"> * </span></label>
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('recorder')}">记录者<span class="required"> * </span></label>
         <div class="col-md-3">
-            <select name="body_part_name" class="form-control" v-model="basicInfo.recorder">
-                <option :value="{}" disabled selected>请选择记录者</option>
+            <select v-validate="{required:true}" name="recorder" :class="{'input': true, 'border-red': errors.has('recorder') }" class="form-control" v-model="basicInfo.recorder">
+                <option :value="null" disabled selected>请选择记录者</option>
                 <option v-for="recorder in recorderList" :key="recorder.id" :value="recorder">{{recorder.name}}</option>
             </select>
+            <span v-show="errors.has('recorder')" class="help-block font-red">{{ errors.first('recorder') }}</span>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">职业</label>
         <div class="col-md-3">
-            <select name="body_part_name" class="form-control" v-model="basicInfo.profession">
+            <select name="profession" class="form-control" v-model="basicInfo.profession">
                 <option value="" disabled selected>请选择职业</option>
                 <option v-for="profession in staticIndex.professionList" :key="profession.id" :value="profession.id">{{profession.text}}</option>
             </select>
@@ -95,7 +100,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">民族</label>
         <div class="col-md-3">
-            <select name="body_part_name" class="form-control" v-model="basicInfo.nationality">
+            <select name="nationality" class="form-control" v-model="basicInfo.nationality">
                 <option value="" disabled selected>请选择职业</option>
                 <option v-for="nationality in staticIndex.nationalityList" :key="nationality.id" :value="nationality.id">{{nationality.text}}</option>
             </select>
@@ -168,43 +173,64 @@ export default {
                         id_number: '身份证号',
                         cellphone_1: '手机号1',
                         cellphone_2: '手机号2',
+                        telephone: '固定电话',
+                        gender: '性别',
+                        admission_num: '住院号',
+                        bed_num: '床位号',
+                        doctor: '主治医生',
+                        recorder: '记录者'
                     },
                     custom: {
-                        name: {
-                            // required: ()=>"姓名是必填项"
+                        cellphone_1: {
+                            required: ()=>"至少填写一个联系方式."
                         },
-                        medical_card_number: {
-                            // required: ()=>"就诊卡号是必填项"
+                        cellphone_2: {
+                            required: ()=>"至少填写一个联系方式."
                         },
-                        id_number: {
-                            // required: ()=>"身份证号是必填项"
+                        telephone: {
+                            required: ()=>"至少填写一个联系方式."
                         }
                     }
                 }
             },
-            phoneGroup: {
-                messages: {                   
+            radioRequired: {
+                messages: {
                     zh_CN: (field, args) => {
-                        return "至少填写患者的一个联系方式";
+                        return `${field} 是必须的.`
                     }
                 },
-                validate(value, [value2, value3]) {
-                    // Returns a Boolean or a Promise.
-                    console.log(value,value2,value3);                    
-                    return false;
+                validate(value, args) {
+                    if(args.length){
+                        if(args[0]!==''){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        return false;
+                    }
                 }
             }
         }
     },
     computed: {
-        staticIndex: function() {
+        staticIndex () {
             return this.$store.state.staticIndex;
         },
-        doctorList: function() {
+        doctorList () {
             return this.$store.state.doctorList;
         },
-        recorderList: function() {
+        recorderList () {
             return this.$store.state.recorderList;
+        },
+        phone12 () {
+            return this.basicInfo.cellphone1===''&&this.basicInfo.cellphone2==='';
+        },
+        phone13 () {
+            return this.basicInfo.cellphone1===''&&this.basicInfo.telephone==='';
+        },
+        phone23 () {
+            return this.basicInfo.cellphone2===''&&this.basicInfo.telephone==='';
         }
     }, 
     watch: {
@@ -231,7 +257,7 @@ export default {
         this.address.town = this.basicInfo.addressTown;   
         
         this.$validator.updateDictionary(this.dict);
-        this.$validator.extend('phoneGroup', this.phoneGroup);
+        this.$validator.extend('radioRequired', this.radioRequired);
     },
     inject: {
         $validator: '$validator'    //获取父组件的validator实例，将子组件验证的属性注册到该实例上
@@ -249,6 +275,9 @@ export default {
             this.basicInfo.addressCity = val.city;
             this.basicInfo.addressArea = val.area;
             this.basicInfo.addressTown = val.town;
+        },
+        updateSex () {
+
         }
     },
     components: {
