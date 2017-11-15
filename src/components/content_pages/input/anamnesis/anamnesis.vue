@@ -60,7 +60,7 @@
                 </div>
                 <!-- 血脂异常部分结束 -->
                 <!-- 原发性高血压部分开始 -->
-                <div class="portlet box red">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">原发性高血压</div>
                         <div class="tools">
@@ -120,7 +120,7 @@
                 </div>
                 <!-- 原发性高血压部分结束 -->
                 <!-- 血糖异常部分开始 -->
-                <div class="portlet box yellow">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">血糖异常</div>
                         <div class="tools">
@@ -203,7 +203,7 @@
                 </div>
                 <!-- 血糖异常部分结束 -->
                 <!-- 痛风部分开始 -->
-                <div class="portlet box green-dark">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">痛风</div>
                         <div class="tools">
@@ -275,7 +275,7 @@
                 </div>
                 <!-- 痛风部分结束 -->
                 <!-- 心脏病史部分开始 -->
-                <div class="portlet box purple">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">心脏病史</div>
                         <div class="tools">
@@ -371,7 +371,7 @@
                 </div>
                 <!-- 心脏病史部分结束 -->
                 <!-- 深静脉血栓部分开始 -->
-                <div class="portlet box dark">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">深静脉血栓</div>
                         <div class="tools">
@@ -475,7 +475,7 @@
                 </div>
                 <!-- 既往缺血性卒中部分结束 -->
                 <!-- 血管性疾病史部分开始 -->
-                <div class="portlet box red">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">血管性疾病史</div>
                         <div class="tools">
@@ -502,7 +502,7 @@
                 </div>
                 <!-- 血管性疾病史部分结束 -->
                 <!-- 出血病史部分开始 -->
-                <div class="portlet box yellow">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">出血病史</div>
                         <div class="tools">
@@ -545,7 +545,7 @@
                 </div>
                 <!-- 出血病史部分结束 -->
                 <!-- 出血史部分开始 -->
-                <div class="portlet box green-dark">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">出血史</div>
                         <div class="tools">

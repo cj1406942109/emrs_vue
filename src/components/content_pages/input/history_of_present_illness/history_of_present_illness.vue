@@ -164,7 +164,7 @@
                     </div>
                     <!-- 胸痛部分结束 -->
                     <!-- 胸闷部分开始 -->
-                    <div class="portlet box red" v-if="historyOfPresentIllness.careCauses.indexOf('2')>=0">
+                    <div class="portlet box blue" v-if="historyOfPresentIllness.careCauses.indexOf('2')>=0">
                         <div class="portlet-title">
                             <div class="caption">胸闷</div>
                             <div class="tools">
@@ -319,7 +319,7 @@
                     </div>
                     <!-- 胸闷部分结束 -->
                     <!-- 呼吸困难部分开始 -->
-                    <div class="portlet box yellow" v-if="historyOfPresentIllness.careCauses.indexOf('3')>=0">
+                    <div class="portlet box blue" v-if="historyOfPresentIllness.careCauses.indexOf('3')>=0">
                         <div class="portlet-title">
                             <div class="caption">呼吸困难</div>
                             <div class="tools">
@@ -367,7 +367,7 @@
                     </div>
                     <!-- 呼吸困难部分结束 -->
                     <!-- 心悸部分开始 -->
-                    <div class="portlet box green-dark" v-if="historyOfPresentIllness.careCauses.indexOf('4')>=0">
+                    <div class="portlet box blue" v-if="historyOfPresentIllness.careCauses.indexOf('4')>=0">
                         <div class="portlet-title">
                             <div class="caption">心悸</div>
                             <div class="tools">
@@ -415,7 +415,7 @@
                     </div>
                     <!-- 心悸部分结束 -->
                     <!-- 心电图异常部分开始 -->
-                    <div class="portlet box purple" v-if="historyOfPresentIllness.careCauses.indexOf('5')>=0">
+                    <div class="portlet box blue" v-if="historyOfPresentIllness.careCauses.indexOf('5')>=0">
                         <div class="portlet-title">
                             <div class="caption">心电图异常</div>
                             <div class="tools">

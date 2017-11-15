@@ -68,7 +68,7 @@
                 </div>
                 <!-- 吸烟部分结束 -->
                 <!-- 饮酒部分开始 -->
-                <div class="portlet box red">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">饮酒</div>
                         <div class="tools">
@@ -127,7 +127,7 @@
                 </div>
                 <!-- 饮酒部分结束 -->
                 <!-- 饮食习惯部分开始 -->
-                <div class="portlet box yellow">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">饮食习惯（每日摄入量）</div>
                         <div class="tools">
@@ -261,7 +261,7 @@
                 </div>
                 <!-- 饮食习惯部分结束 -->
                 <!-- 社会心理因素部分开始 -->
-                <div class="portlet box green-dark">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">社会心理因素</div>
                         <div class="tools">
@@ -300,7 +300,7 @@
                 </div>
                 <!-- 社会心理因素部分结束 -->
                 <!-- 运动部分开始 -->
-                <div class="portlet box purple">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">运动</div>
                         <div class="tools">
@@ -341,7 +341,7 @@
                 </div>
                 <!-- 运动部分结束 -->
                 <!-- 中心型肥胖部分开始 -->
-                <div class="portlet box dark">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">中心型肥胖</div>
                         <div class="tools">

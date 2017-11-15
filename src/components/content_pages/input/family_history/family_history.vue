@@ -62,7 +62,7 @@
                     </div>
                     <!-- 早发冠心病部分结束 -->
                     <!-- 心肌梗塞部分开始 -->
-                    <div class="portlet box red">
+                    <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">心肌梗塞</div>
                             <div class="tools">
@@ -108,7 +108,7 @@
                     </div>
                     <!-- 心肌梗塞部分结束 -->
                     <!-- 猝死部分开始 -->
-                    <div class="portlet box yellow">
+                    <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">猝死</div>
                             <div class="tools">
@@ -165,7 +165,7 @@
                     </div>
                     <!-- 猝死部分结束 -->
                     <!-- 缺血性脑卒中部分开始 -->
-                    <div class="portlet box green-dark">
+                    <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">缺血性脑卒中</div>
                             <div class="tools">
@@ -211,7 +211,7 @@
                     </div>
                     <!-- 缺血性脑卒中部分结束 -->
                     <!-- 缺血性脑卒中部分开始 -->
-                    <div class="portlet box purple">
+                    <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">出血性脑卒中</div>
                             <div class="tools">

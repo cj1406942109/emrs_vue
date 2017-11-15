@@ -181,7 +181,7 @@
                 </div>
                 <!-- ECG部分结束 -->
                 <!-- 运动ECG部分开始 -->
-                <div class="portlet box red">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">运动ECG</div>
                         <div class="tools">
@@ -369,7 +369,7 @@
                 </div>
                 <!-- 运动ECG部分结束 -->
                 <!-- 长程ECG部分开始 -->
-                <div class="portlet box yellow">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">长程ECG</div>
                         <div class="tools">
@@ -661,7 +661,7 @@
                 </div>
                 <!-- 长程ECG部分结束 -->
                 <!-- 心脏彩超部分开始 -->
-                <div class="portlet box green-dark">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">心脏彩超</div>
                         <div class="tools">
@@ -785,7 +785,7 @@
                 </div>
                 <!-- 心脏彩超部分结束 -->
                 <!-- 冠脉介入部分开始 -->
-                <div class="portlet box purple">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">冠脉介入</div>
                         <div class="tools">

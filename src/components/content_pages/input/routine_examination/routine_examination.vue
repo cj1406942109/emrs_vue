@@ -295,7 +295,7 @@
                 </div>
                 <!-- 血生化部分结束 --> 
                 <!-- 凝血功能部分开始 -->
-                <div class="portlet box red">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">凝血功能</div>
                         <div class="tools">
@@ -349,7 +349,7 @@
                 </div>
                 <!-- 凝血功能部分结束 -->               
                 <!-- 血常规部分开始 -->
-                <div class="portlet box yellow">
+                <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">血常规</div>
                         <div class="tools">
