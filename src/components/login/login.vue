@@ -97,8 +97,8 @@ export default {
                         console.log(responseData);
                         if (responseData.status) {
                             let user = responseData.data;                    
-                            this.$set(user, 'expireTime', new Date().getTime()+30*60*1000);     //设置会话过期时间
-                            localStorage.setItem('user', JSON.stringify(user));
+                            // this.$set(user, 'expireTime', new Date().getTime()+30*60*1000);     //设置会话过期时间
+                            sessionStorage.setItem('user', JSON.stringify(user));
                             this.$router.push('/home');
                         } else {
                             this.alert.show = true;

@@ -36,17 +36,18 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
-        let user = JSON.parse(localStorage.getItem('user'));
+        let user = JSON.parse(sessionStorage.getItem('user'));
         if(user) {
             console.log(user);
-            if(user.expireTime > new Date().getTime()) {
-                next();
-            } else {
-                localStorage.clear('user');
-                next({
-                    path: '/login'
-                })
-            }
+            // if(user.expireTime > new Date().getTime()) {
+            //     next();
+            // } else {
+            //     sessionStorage.clear('user');
+            //     next({
+            //         path: '/login'
+            //     })
+            // }
+            next();
         } else {
             next({
                 path: '/login'
@@ -54,7 +55,7 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         if(to.name == 'logout') {
-            localStorage.clear('user');
+            sessionStorage.clear('user');
             next({
                 path: '/login'
             });
