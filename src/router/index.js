@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import login from '@/components/login/login';
 import home from '@/components/home/home';
 import index from '@/components/content_pages/index/index';
+import BRSInput from '@/components/content_pages/bleeding_risk_estimator/input';
+import BRSQuery from '@/components/content_pages/bleeding_risk_estimator/query';
 
 Vue.use(Router)
 
@@ -29,6 +31,12 @@ const router = new Router({
             }, {
                 path: 'index',
                 component: index
+            }, {
+                path: 'brs_input',
+                component: BRSInput
+            }, {
+                path: 'brs_query',
+                component: BRSQuery
             }]
         }
     ]
@@ -38,15 +46,6 @@ router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
         let user = JSON.parse(sessionStorage.getItem('user'));
         if(user) {
-            console.log(user);
-            // if(user.expireTime > new Date().getTime()) {
-            //     next();
-            // } else {
-            //     sessionStorage.clear('user');
-            //     next({
-            //         path: '/login'
-            //     })
-            // }
             next();
         } else {
             next({
