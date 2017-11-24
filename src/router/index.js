@@ -32,10 +32,10 @@ const router = new Router({
                 path: 'index',
                 component: index
             }, {
-                path: 'brs_input',
+                path: 'bre_input',
                 component: BRSInput
             }, {
-                path: 'brs_query',
+                path: 'bre_query',
                 component: BRSQuery
             }]
         }

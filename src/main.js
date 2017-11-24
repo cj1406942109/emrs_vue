@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import SweetModal from 'sweet-modal-vue/src/plugin.js';
 import Resource from 'vue-resource';
 import VeeValidate from 'vee-validate';
 import 'font-awesome/css/font-awesome.min.css';
@@ -27,6 +28,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 Vue.config.productionTip = false;
 Vue.use(Resource);
 Vue.use(VeeValidate);
+Vue.use(SweetModal);
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

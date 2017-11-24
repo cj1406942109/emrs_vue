@@ -73,7 +73,10 @@
             margin-bottom 0
     .input-inline
         max-width 100%
-    
+    //修改sweet-modal样式
+    .sweet-modal-overlay
+      &.theme-light
+        background rgba(0, 0, 0, 0.2)
 
 
 </style>

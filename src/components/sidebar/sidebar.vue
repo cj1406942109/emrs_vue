@@ -96,11 +96,11 @@ export default {
                         {
                             title: 'Input Data',
                             icon: 'icon-note',
-                            href: '/home/brs_input'
+                            href: '/home/bre_input'
                         },{
                             title: 'Query Result',
                             icon: 'icon-list',
-                            href: '/home/brs_query'
+                            href: '/home/bre_query'
                         }
                     ]
                 }

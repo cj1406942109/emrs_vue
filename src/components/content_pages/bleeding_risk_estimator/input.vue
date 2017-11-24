@@ -9,10 +9,23 @@
             <li>
                 <router-link to="/home/brs_input">Input Data</router-link>
             </li>
-        </ul>            
+        </ul>
+        <div class="page-toolbar">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn green btn-outline btn-sm dropdown-toggle" data-toggle="dropdown"> Actions
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="javascritp:;" @click="checkData()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Data</a> 
+                    </li>
+                </ul>
+            </div>
+        </div>            
     </div>
     <h1 class="page-title"> Bleeding Risk Estimator
-        <small>Enter all the fields below</small>
+        <small>Enter all the fields below</small>        
     </h1>
     <div class="row">
         <div class="col-md-6">
@@ -949,10 +962,22 @@
             </div>
         </div>
     </div>    
+    <sweet-modal ref="saveDataConfirm" icon="warning">
+        Save the input data and the result data?
+        <sweet-button class="btn red" slot="button" v-on:click="$refs.saveDataConfirm.close()">取消</sweet-button>
+        <sweet-button class="btn green" slot="button" v-on:click="SaveData()">确定</sweet-button>
+    </sweet-modal>
+    <sweet-modal ref="dataError" icon="error" :blocking="true" :hide-close-button="false">
+        Please fill in all the blanks and get the result data!
+    </sweet-modal>
+    <sweet-modal ref="dataSaving" icon="success" :blocking="true" :hide-close-button="false">
+        All your data are saved, redirecting to the result list page!
+    </sweet-modal>
   </div>
 </template>
 
 <script>
+import SweetButton from 'sweet-modal-vue/docs/components/Button';
 import utils from '@/utils/utils';
 
 export default {
@@ -1508,8 +1533,25 @@ export default {
                 }
                 return GFR;
             }
-            return returnValue;       
+            return returnValue;
         }
+    },
+    methods: {
+        checkData () {
+            console.log(this.rawdata,this.resultData,sessionStorage.getItem('user'));
+            if(this.resultData.DAPTScore.result.value===''||this.resultData.BleedingScore.result.value===''||this.resultData.HASBLEDScore.result.value===''||this.resultData.CHADSVASScore.result.value===''||this.resultData.DAPTScore.result.value===''){
+                this.$refs.dataError.open();      
+            }else{
+                this.$refs.saveDataConfirm.open();            
+            }
+        },
+        SaveData () {
+            this.$refs.dataSaving.open();
+            console.log(this.rawdata,this.resultData,sessionStorage.getItem('user'));
+        }
+    },
+    components: {
+        SweetButton
     },
     mounted () {
         utils.handleSidebarAndContentHeight();
