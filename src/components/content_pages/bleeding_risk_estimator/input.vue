@@ -77,7 +77,7 @@
                     <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('weight')}">Weight</label>
                         <div class="col-md-8">
-                            <input v-validate="{decimal:1,min_value:0}" :class="{'input': true, 'border-red': errors.has('weight')}" class="form-control input-inline" v-model="rawdata.basicInfo.weight" name="weight">
+                            <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('weight')}" class="form-control input-inline" v-model="rawdata.basicInfo.weight" name="weight">
                             <span class="help-inline" :class="{'font-red':errors.has('weight')}">kg</span>
                             <span v-show="errors.has('weight')" class="help-block font-red">{{ errors.first('weight') }}</span>
                         </div>                    
@@ -223,10 +223,10 @@
                         <div class="col-md-6">
                             <select class="form-control input-inline" v-model="rawdata.medicalHistory.priorHistoryBleeding">
                                 <option value="" disabled selected>--select--</option>
-                                <option value="1">spontaneous bleeding</option>
-                                <option value="2">major bleeding</option>
-                                <option value="3">predisposition to bleeding</option>
-                                <option value="4">no</option>
+                                <option value="1">Spontaneous Bleeding</option>
+                                <option value="2">Major Bleeding</option>
+                                <option value="3">Predisposition to Bleeding</option>
+                                <option value="4">No</option>
                             </select>
                         </div>
                     </div>
@@ -251,35 +251,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label bold col-md-6">Prior Stroke</label>
+                        <label class="control-label bold col-md-6">Prior Stroke or TIA or Thromboembolism</label>
                         <div class="col-md-6">
-                            <select class="form-control input-inline" v-model="rawdata.medicalHistory.priorStroke">
+                            <select class="form-control input-inline" v-model="rawdata.medicalHistory.priorStrokeOrTIAOrThromboembolism">
                                 <option value="" disabled selected>--select--</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label bold col-md-6">Prior TIA</label>
-                        <div class="col-md-6">
-                            <select class="form-control input-inline" v-model="rawdata.medicalHistory.priorTIA">
-                                <option value="" disabled selected>--select--</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label bold col-md-6">Prior Thromboembolism</label>
-                        <div class="col-md-6">
-                            <select class="form-control input-inline" v-model="rawdata.medicalHistory.priorThromboembolism">
-                                <option value="" disabled selected>--select--</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
             <div class="portlet box blue">
@@ -327,7 +307,7 @@
                     <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('hematocrit')}">Hematocrit</label>
                         <div class="col-md-8">
-                            <input v-validate="{numeric:true,min_value:0,max_value:100}" :class="{'input': true, 'border-red': errors.has('hematocrit')}" class="form-control input-inline" v-model="rawdata.labExamination.hematocrit" name="hematocrit">
+                            <input v-validate="{decimal:2,min_value:0,max_value:100}" :class="{'input': true, 'border-red': errors.has('hematocrit')}" class="form-control input-inline" v-model="rawdata.labExamination.hematocrit" name="hematocrit">
                             <span class="help-inline" :class="{'font-red':errors.has('hematocrit')}">%</span>
                             <span v-show="errors.has('hematocrit')" class="help-block font-red">{{ errors.first('hematocrit') }}</span>
                         </div>
@@ -335,15 +315,23 @@
                     <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('cr')}">Cr</label>
                         <div class="col-md-8">
-                            <input v-validate="{decimal:1,min_value:0}" :class="{'input': true, 'border-red': errors.has('cr')}" class="form-control input-inline" v-model="rawdata.labExamination.cr" name="cr">
+                            <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('cr')}" class="form-control input-inline" v-model="rawdata.labExamination.cr" name="cr">
                             <span class="help-inline" :class="{'font-red':errors.has('cr')}">mg/dL</span>
                             <span v-show="errors.has('cr')" class="help-block font-red">{{ errors.first('cr') }}</span>
                         </div>
-                    </div> 
+                    </div>                     
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4" :class="{'font-red':errors.has('GFR')}">GFR: Cockcroft-Gault</label>
+                        <div class="col-md-8">
+                            <input v-validate="{decimal:2,min_value:0,max_value:200}" :class="{'input': true, 'border-red': errors.has('GFR')}" class="form-control input-inline" v-model="rawdata.labExamination.GFR" name="GFR">
+                            <span class="help-inline" :class="{'font-red':errors.has('GFR')}">mL/min</span>
+                            <span v-show="errors.has('GFR')" class="help-block font-red">{{ errors.first('GFR') }}</span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('haemoglobin')}">Haemoglobin</label>
                         <div class="col-md-8">
-                            <input v-validate="{decimal:1,min_value:0}" :class="{'input': true, 'border-red': errors.has('haemoglobin')}" class="form-control input-inline" v-model="rawdata.labExamination.haemoglobin" name="haemoglobin">
+                            <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('haemoglobin')}" class="form-control input-inline" v-model="rawdata.labExamination.haemoglobin" name="haemoglobin">
                             <span class="help-inline" :class="{'font-red':errors.has('haemoglobin')}">g/dL</span>
                             <span v-show="errors.has('haemoglobin')" class="help-block font-red">{{ errors.first('haemoglobin') }}</span>
                         </div>
@@ -351,7 +339,7 @@
                     <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('white-blood-cells')}">White Blood Cells</label>
                         <div class="col-md-8">
-                            <input v-validate="{decimal:1,min_value:0}" :class="{'input': true, 'border-red': errors.has('white-blood-cells')}" class="form-control input-inline" v-model="rawdata.labExamination.whiteBloodCells" name="white-blood-cells">
+                            <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('white-blood-cells')}" class="form-control input-inline" v-model="rawdata.labExamination.whiteBloodCells" name="white-blood-cells">
                             <span class="help-inline" :class="{'font-red':errors.has('white-blood-cells')}">× 10<sup>9</sup>/L</span>
                             <span v-show="errors.has('white-blood-cells')" class="help-block font-red">{{ errors.first('white-blood-cells') }}</span>
                         </div>
@@ -409,7 +397,7 @@
                     <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('stent-diameter')}">Stent Diameter</label>
                         <div class="col-md-8">
-                            <input v-validate="{decimal:1,min_value:0}" :class="{'input': true, 'border-red': errors.has('stent-diameter')}" class="form-control input-inline" v-model="rawdata.specialExamination.stentDiameter" name="stent-diameter">
+                            <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('stent-diameter')}" class="form-control input-inline" v-model="rawdata.specialExamination.stentDiameter" name="stent-diameter">
                             <span class="help-inline" :class="{'font-red':errors.has('stent-diameter')}">mm</span>
                             <span v-show="errors.has('stent-diameter')" class="help-block font-red">{{ errors.first('stent-diameter') }}</span>
                         </div>
@@ -578,7 +566,6 @@
                                 <option value="39">< 16</option>
                             </select>
                             <span class="help-inline">mL/min</span>
-                            <span class="help-block"><span v-if="resultData.GFR!=null" class="font-red">({{resultData.GFR}})</span> caculated by age, weight, Cr and sex</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -1011,9 +998,7 @@ export default {
                     priorHistoryBleeding: '',
                     medicationUsagePredisposingToBleeding: '',
                     treatedHypertensionOnMedication: '',
-                    priorStroke: '',
-                    priorTIA: '',
-                    priorThromboembolism: ''
+                    priorStrokeOrTIAOrThromboembolism: ''
                 },
                 physicalExamination: {
                     heartRate: '',
@@ -1023,6 +1008,7 @@ export default {
                 labExamination: {
                     hematocrit: '',
                     cr: '',
+                    GFR: '',
                     haemoglobin: '',
                     whiteBloodCells: '',
                     abnormalRenalFunction: '',
@@ -1042,12 +1028,13 @@ export default {
         resultData: function() {
             let returnValue = {};
             
-            if(!this.$validator.errors.has('age')&&!this.$validator.errors.has('weight')&&!this.$validator.errors.has('cr')){
-                if(this.rawdata.basicInfo.age!=''&&this.rawdata.basicInfo.weight!=''&&this.rawdata.basicInfo.sex!=''&&this.rawdata.labExamination.cr!=''){
-                    let GFRResult = GFRCaculator(this.rawdata.basicInfo.age, this.rawdata.basicInfo.weight,this.rawdata.labExamination.cr,this.rawdata.basicInfo.sex);
-                    returnValue.GFR = GFRResult;
-                }
-            }
+            //计算GFR
+            // if(!this.$validator.errors.has('age')&&!this.$validator.errors.has('weight')&&!this.$validator.errors.has('cr')){
+            //     if(this.rawdata.basicInfo.age!=''&&this.rawdata.basicInfo.weight!=''&&this.rawdata.basicInfo.sex!=''&&this.rawdata.labExamination.cr!=''){
+            //         let GFRResult = GFRCaculator(this.rawdata.basicInfo.age, this.rawdata.basicInfo.weight,this.rawdata.labExamination.cr,this.rawdata.basicInfo.sex);
+            //         returnValue.GFR = GFRResult;
+            //     }
+            // }
 
             this.$set(returnValue, 'DAPTScore',setDAPTScore(this.rawdata, this.$validator));
             this.$set(returnValue, 'BleedingScore',setBleedingScore(this.rawdata, this.$validator));
@@ -1076,16 +1063,17 @@ export default {
                     }
                 }
                 if(!validator.errors.has('white-blood-cells')&&rawdata.labExamination.whiteBloodCells!=''){
-                    let whiteBloodCells = parseInt(rawdata.labExamination.whiteBloodCells);
+                    let whiteBloodCells = parseFloat(rawdata.labExamination.whiteBloodCells);
                     if(whiteBloodCells>=0&&whiteBloodCells<=100){
                         PreciseDaptScore.whiteBloodCells = whiteBloodCells;
                     }
                 }
-                if(returnValue.GFR){
-                    if(returnValue.GFR<200){
-                        PreciseDaptScore.creatinineClearance=returnValue.GFR;
+                if(!validator.errors.has('GFR')&&rawdata.labExamination.GFR!=''){
+                    let GFR = parseFloat(rawdata.labExamination.GFR);
+                    if(GFR<200){
+                        PreciseDaptScore.creatinineClearance=GFR;
                     }
-                }
+                }                
                 if(rawdata.medicalHistory.priorHistoryBleeding=='1'||rawdata.medicalHistory.priorHistoryBleeding=='2'||rawdata.medicalHistory.priorHistoryBleeding=='3'){
                     PreciseDaptScore.priorBleeding=1;
                 }else if(rawdata.medicalHistory.priorHistoryBleeding=='4'){
@@ -1198,10 +1186,10 @@ export default {
                     }
                 }
                 CHADSVASScore.diabetesMellitus = rawdata.medicalHistory.diabetesMellitus;
-                if(rawdata.medicalHistory.priorStroke==='1'||rawdata.medicalHistory.priorTIA==='1'||rawdata.medicalHistory.priorThromboembolism==='1'){
+                if(rawdata.medicalHistory.priorStrokeOrTIAOrThromboembolism==='1'){
                     CHADSVASScore.priorStrokeOrTIAOrThromboembolism=2;
                 }
-                if(rawdata.medicalHistory.priorStroke==='0'&&rawdata.medicalHistory.priorTIA==='0'&&rawdata.medicalHistory.priorThromboembolism==='0'){
+                if(rawdata.medicalHistory.priorStrokeOrTIAOrThromboembolism==='0'){
                     CHADSVASScore.priorStrokeOrTIAOrThromboembolism=0;
                 }
                 CHADSVASScore.vascularDisease = rawdata.medicalHistory.priorVascularDisease;
@@ -1326,7 +1314,7 @@ export default {
                     sex: ''
                 };
                 if(!validator.errors.has('hematocrit')&&rawdata.labExamination.hematocrit!=''){
-                    let hematocrit = parseInt(rawdata.labExamination.hematocrit);
+                    let hematocrit = parseFloat(rawdata.labExamination.hematocrit);
                     if(hematocrit>=40){
                         BleedingScore.hematocrit = 0;
                     }else if(hematocrit>=37){
@@ -1340,16 +1328,17 @@ export default {
                     }
                 }
 
-                if(returnValue.GFR){
-                    if(returnValue.GFR>120){
+                if(!validator.errors.has('GFR')&&rawdata.labExamination.GFR!=''){
+                    let GFR = parseFloat(rawdata.labExamination.GFR);
+                    if(GFR>120){
                         BleedingScore.GFR=0;
-                    }else if(returnValue.GFR>90){
+                    }else if(GFR>90){
                         BleedingScore.GFR=7;
-                    }else if(returnValue.GFR>60){
+                    }else if(GFR>60){
                         BleedingScore.GFR=17;
-                    }else if(returnValue.GFR>30){
+                    }else if(GFR>30){
                         BleedingScore.GFR=28;
-                    }else if(returnValue.GFR>15){
+                    }else if(GFR>15){
                         BleedingScore.GFR=35;
                     }else{
                         BleedingScore.GFR=39;
@@ -1436,7 +1425,6 @@ export default {
                 }
                 return BleedingScore;
             }
-
             function setDAPTScore(rawdata, validator) {
                 let DAPTScore = {
                     age: '',
@@ -1455,19 +1443,19 @@ export default {
                 DAPTScore.cigaretteSmoking = rawdata.riskFactors.cigaretteSmoking;
                 DAPTScore.diabetesMellitus = rawdata.medicalHistory.diabetesMellitus;
 
+                if(rawdata.medicalHistory.congestiveHeartsFailure=='1'){
+                    DAPTScore.historyOfCHFOrLevflt30 = 2;
+                }else if(rawdata.medicalHistory.congestiveHeartsFailure==='0'&&!validator.errors.has('lvef')&&rawdata.specialExamination.lvef!=''&&!parseFloat(rawdata.specialExamination.lvef)<30){
+                    DAPTScore.historyOfCHFOrLevflt30 = 0;
+                }
                 if(!validator.errors.has('lvef')&&rawdata.specialExamination.lvef!=''){
-                    if(parseInt(rawdata.specialExamination.lvef)<30){
+                    if(parseFloat(rawdata.specialExamination.lvef)<30){
                         DAPTScore.historyOfCHFOrLevflt30 = 2;
                     }else if(rawdata.medicalHistory.congestiveHeartsFailure==='0'){
                         DAPTScore.historyOfCHFOrLevflt30 = 0;
                     };
-                }else{
-                    if(rawdata.medicalHistory.congestiveHeartsFailure==='1'){
-                        DAPTScore.historyOfCHFOrLevflt30 = 2;
-                    }else if(rawdata.medicalHistory.congestiveHeartsFailure==='0'&&!validator.errors.has('lvef')&&rawdata.specialExamination.lvef!=''&&!parseInt(rawdata.specialExamination.lvef)<30){
-                        DAPTScore.historyOfCHFOrLevflt30 = 0;
-                    }
-                }               
+                }
+
                 if(rawdata.medicalHistory.priorMI==='0'&&rawdata.medicalHistory.priorPCI==='0'){
                     DAPTScore.priorMIOrPriorPCI = 0;
                 }else{
