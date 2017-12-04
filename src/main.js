@@ -40,9 +40,9 @@ Vue.use(VueBus);
 Vue.use(SweetModal);
 Validator.localize('zh_CN', zh_CN);
 Vue.use(VeeValidate, {
-    locale: 'zh_CN'
+    locale: 'zh_CN',
+    fieldsBagName: 'veeFormFields'
 });
-
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

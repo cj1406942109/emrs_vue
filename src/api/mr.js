@@ -28,5 +28,14 @@ export default {
     },
     getMedicalRecord(recordId) {
         return fetch('./record/getRecord', recordId);
-    }
+    },
+    getMedicalRecordList() {
+        return fetch('./record/getPartOfAllRecords');
+    },
+    insertMedicalRecord(record) {
+        return fetch('./record/insertRecord', record)
+    },
+    updateMedicalRecord(record) {
+        return fetch('./record/updateRecord', record)
+    },
 }

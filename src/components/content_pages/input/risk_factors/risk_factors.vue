@@ -282,8 +282,8 @@
                             <label class="control-label bold col-md-6">有无长期心理压力</label>
                             <div class="col-md-6">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isLongtermPsychologicalStress">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isLongtermPsychologicalStress">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isLongtermPsychologicalStress">无</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isLongtermPsychologicalStress">有</radio></label>
                                 </div>                                
                             </div>
                         </div>
@@ -291,8 +291,8 @@
                             <label class="control-label bold col-md-6">有无抑郁症（悲观、焦虑或反应迟钝、疲劳、缺乏自信、饮食睡眠改变）</label>
                             <div class="col-md-6">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isDepression">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isDepression">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isDepression">无</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isDepression">有</radio></label>
                                 </div>                                
                             </div>
                         </div>
@@ -353,8 +353,8 @@
                             <label class="control-label bold col-md-2">有无中心型肥胖</label>
                             <div class="col-md-2">
                                 <div>
-                                    <label><radio value="0" v-model="riskFactors.isCentralObesity">否</radio></label>
-                                    <label><radio value="1" v-model="riskFactors.isCentralObesity">是</radio></label>
+                                    <label><radio value="0" v-model="riskFactors.isCentralObesity">无</radio></label>
+                                    <label><radio value="1" v-model="riskFactors.isCentralObesity">有</radio></label>
                                 </div>
                                 <span class="help-block"> &nbsp;</span>
                             </div>

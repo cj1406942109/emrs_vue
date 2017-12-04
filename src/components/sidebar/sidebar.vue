@@ -94,12 +94,12 @@ export default {
                     isOpen: false,
                     submenu: [
                         {
-                            title: '病历查询',
-                            icon: 'icon-question',
+                            title: '病历列表',
+                            icon: 'icon-list',
                             href: '/home/query'
                         },
                         {
-                            title: '病历录入',
+                            title: '新增病历',
                             icon: 'icon-note',
                             href: '/home/input'
                         }
@@ -124,6 +124,21 @@ export default {
                 })
             });
         })
+    },
+    watch: {
+        '$route': function (val) {
+            var path = val.path;
+            const vue = this;
+            vue.menu.forEach(function(menuItem, menuIndex) {
+                menuItem.submenu.forEach(function(submenuItem, submenuIndex) {
+                    if(submenuItem.href == path) {
+                        vue.currentMenu = menuIndex;
+                        vue.currentSubmenu = submenuIndex;
+                        menuItem.isOpen = true;
+                    }
+                })
+            });
+        }
     },
     methods: {        
         menuToggler (menuItem) {

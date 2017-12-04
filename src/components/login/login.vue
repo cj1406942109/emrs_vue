@@ -1,7 +1,7 @@
 <template>
   <div class="login">
       <div class="logo">
-        <a href="index.html"><img src="./logo-big.png"></a>
+        <a href="javascript:;"><img src="./logo-big.png"></a>
       </div>
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
@@ -9,32 +9,37 @@
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" method="post">
                 <h3 class="form-title">登录到我的账户</h3>
-                <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button>
-                    <span>输入用户名或密码</span>
+                <div class="alert alert-danger" :class="{'display-hide':!alert.show}" style="padding: 10px;">
+                    <button class="close" type="button" @click="hideAlert"></button>
+                    <span>{{alert.text}}</span>
                 </div>
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
-                    <div class="input-icon">
+                    <label class="control-label visible-ie8 visible-ie9">用户名</label>                    
+                    <div class="input-icon" :class="{ 'control': true }">
                         <i class="fa fa-user"></i>
-                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username" /> </div>
+                        <input v-validate="'required|email'" :class="{'input': true, 'border-red': errors.has('username') }" name="username" class="form-control" type="text" placeholder="用户名" v-model="user.name">
+                        <span v-show="errors.has('username')" class="help-block font-red">{{ errors.first('username') }}</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">密码</label>
-                    <div class="input-icon">
+                    <div class="input-icon" :class="{ 'control': true }">
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" /> </div>
-                </div>
+                        <input v-validate="'required|alpha_dash|min:6|max:16'" :class="{'input': true, 'border-red': errors.has('password') }" name="password" class="form-control" type="password" placeholder="密码" v-model="user.password" @keyup.13="login">
+                        <span v-show="errors.has('password')" class="help-block font-red">{{ errors.first('password') }}</span>
+                    </div>
+                </div>                
                 <div class="form-actions">
                     <!-- <label class="rememberme mt-checkbox mt-checkbox-outline">
                         <input type="checkbox" name="remember" value="1">记住密码
                         <span></span>
                     </label> -->
                     <label for=""></label>
-                    <button type="button" class="btn green pull-right" @click="login">登录</button>
+                    <button type="button" class="btn green pull-right" @click="login" :disabled="logining">{{buttonText}}</button>
                 </div>                
             </form>
+            
             <!-- END LOGIN FORM -->            
         </div>
         <!-- END LOGIN -->
@@ -54,17 +59,72 @@
     import bg2 from './bg/2.jpg';
     import bg3 from './bg/3.jpg';
     import bg4 from './bg/4.jpg';
+    import loginApi from '@/api/login';
     export default {
+        data () {
+            return {
+                user: {
+                    name: '',
+                    password: ''
+                },
+                formValid: false,
+                alert: {
+                    show: false,
+                    text: ''
+                },
+                logining: false,
+                dict: {
+                    zh_CN: {
+                        attributes: {
+                            username: '用户名',
+                            password: '密码'
+                        }
+                    }
+                },
+            }
+        },
         created () {
             $.backstretch([bg1, bg2, bg3, bg4], {
                     fade: 1000,
                     duration: 8000
                 }
             );
+            this.$validator.updateDictionary(this.dict);
+        },
+        computed: {
+            buttonText: function(){
+                return this.logining?'正在登录……':'登录';
+            }
         },
         methods: {
             login () {
-                this.$router.push('/home');
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.logining = true;
+                        loginApi.checkLogin({phoneOrEmail: this.user.name, password: this.user.password}).then(res=>{
+                            this.logining = false;
+                            if(res.status){
+                                let user = res.data;                    
+                                // this.$set(user, 'expireTime', new Date().getTime()+30*60*1000);     //设置会话过期时间
+                                sessionStorage.setItem('user', JSON.stringify(user));
+                                this.$router.push('/home');
+                            }else{
+                                console.log(res);
+                                this.alert.show = true;
+                                this.alert.text = '用户名或密码错误';
+                            }
+                        }, res=>{
+                            this.logining = false;
+                            this.alert.show = true;
+                            this.alert.text = '登录出错，请重试';
+                        })                        
+                    } else {
+                        return;
+                    }
+                });           
+            },
+            hideAlert () {
+                this.alert.show = false;
             }
         }
     }

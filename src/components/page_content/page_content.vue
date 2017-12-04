@@ -16,6 +16,7 @@ export default {
         this.$store.dispatch('getStaticIndex');
         this.$store.dispatch('getDoctorList');
         this.$store.dispatch('getRecorderList');
+        this.$store.dispatch('getEmptyMedicalRecord');
     }
 }
 </script>

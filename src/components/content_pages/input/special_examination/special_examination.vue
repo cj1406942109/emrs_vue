@@ -246,7 +246,7 @@
                                         <label class="control-label col-md-2">持续时间</label>
                                         <div class="col-md-3">
                                             <input class="form-control input-inline" v-model="specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression.duration"> 
-                                            <span class="help-inline">min</span>
+                                            <span class="help-inline">mins</span>
                                         </div>
                                     </div>
                                     <div class="col-md-10 col-md-offset-2" v-if="specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression.isStSegmentDepression=='1'">       
@@ -282,7 +282,7 @@
                                         <label class="control-label col-md-2">持续时间</label>
                                         <div class="col-md-3">
                                             <input class="form-control input-inline" v-model="specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation.duration"> 
-                                            <span class="help-inline">min</span>
+                                            <span class="help-inline">mins</span>
                                         </div>
                                     </div>
                                     <div class="col-md-10 col-md-offset-2" v-if="specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation.isStSegmentElevation=='1'">                                        
@@ -320,7 +320,7 @@
                                 <label class="control-label col-md-2">持续时间</label>
                                 <div class="col-md-3">
                                     <input class="form-control input-inline" v-model="specialExamination.exerciseEcg.tWaveChange.duration"> 
-                                    <span class="help-inline">min</span>
+                                    <span class="help-inline">mins</span>
                                 </div>
                             </div>
                             <div class="col-md-11 col-md-offset-1" v-if="specialExamination.exerciseEcg.tWaveChange.isTWaveChange=='1'">
@@ -448,7 +448,7 @@
                                                 <input class="form-control" v-model="item.arrhythmiaTypeOthers">       
                                             </div>
                                             <div class="mt-repeater-input" :key="item.id">
-                                                <label class="control-label">持续时间（min）</label>
+                                                <label class="control-label">持续时间（mins）</label>
                                                 <input class="form-control" v-model="item.duration">
                                             </div>
                                         </template>
@@ -519,7 +519,7 @@
                                                 <label class="control-label col-md-1" slot="header"></label>
                                                 <template v-for="(item,index) in specialExamination.holterEcg.stSegmentChange.stSegmentDepression.changesDetail" :slot="index">                                                    
                                                     <div class="mt-repeater-input" :key="item.id">
-                                                        <label class="control-label">持续时间（min）</label>
+                                                        <label class="control-label">持续时间（mins）</label>
                                                         <input class="form-control" v-model="item.duration">       
                                                     </div> 
                                                     <div class="mt-repeater-input" :key="item.id">
@@ -567,7 +567,7 @@
                                                 <label class="control-label col-md-1" slot="header"></label>
                                                 <template v-for="(item,index) in specialExamination.holterEcg.stSegmentChange.stSegmentElevation.changesDetail" :slot="index">                                                    
                                                     <div class="mt-repeater-input" :key="item.id">
-                                                        <label class="control-label">持续时间（min）</label>
+                                                        <label class="control-label">持续时间（mins）</label>
                                                         <input class="form-control" v-model="item.duration">       
                                                     </div> 
                                                     <div class="mt-repeater-input" :key="item.id">
@@ -617,7 +617,7 @@
                                         <label class="control-label col-md-1" slot="header"></label>
                                         <template v-for="(item,index) in specialExamination.holterEcg.tWaveChange.changesDetail" :slot="index">                                                    
                                             <div class="mt-repeater-input" :key="item.id">
-                                                <label class="control-label">持续时间（min）</label>
+                                                <label class="control-label">持续时间（mins）</label>
                                                 <input class="form-control" v-model="item.duration">       
                                             </div> 
                                             <div class="mt-repeater-input" :key="item.id">

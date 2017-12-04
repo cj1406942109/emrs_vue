@@ -25,5 +25,25 @@ export default {
         }, () => {
             console.log('获取记录者列表失败！');
         });
+    },
+    //获取空病历
+    getEmptyMedicalRecord({ commit }) {
+        mrApi.getMedicalRecord().then((res) => {
+            commit(mutationsTypes.GET_EMPTY_MEDICAL_RECORD, res.data);
+        }, () => {
+            console.log('获取空病历失败！');
+        });
+    },
+    //获取记录者列表
+    getMedicalRecordList({ commit }) {
+        mrApi.getMedicalRecordList().then((res) => {
+            commit(mutationsTypes.GET_MEDICAL_RECORD_LIST, res.data);
+        }, () => {
+            console.log('获取病历列表失败！');
+        });
+    },
+    // 更改当前正在修改的病历id
+    changeCurrentMedicalRecordId({ commit }, id) {
+        commit(mutationsTypes.CHANGE_CURRENT_MEDICAL_RECORD_ID, id);
     }
 }

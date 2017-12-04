@@ -86,7 +86,7 @@
             <label class="control-label bold col-md-1">心律</label>            
             <div class="col-md-2">
                 <select class="form-control" v-model="physicalExamination.cardiacRhythm">
-                    <option value="" disabled selected>选择部位</option>
+                    <option value="" disabled selected>选择</option>
                     <option v-for="cardiacRhythm in staticIndex.cardiacRhythms" :key="cardiacRhythm.id" :value="cardiacRhythm.id">{{cardiacRhythm.text}}</option>
                 </select>
             </div>

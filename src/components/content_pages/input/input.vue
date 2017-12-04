@@ -6,23 +6,25 @@
                     <span>电子病历系统</span>
                     <i class="fa fa-circle"></i>
                 </li>
-                <li>
-                    <router-link to="/home/input">病历录入</router-link>
+                <li v-if="mr">
+                    <router-link to="/home/input" v-if="!mr._id">新增病历</router-link>
+                    <router-link to="/home/query" v-else>病历列表</router-link>
                 </li>
             </ul>
         </div>
         <h1 class="page-title"> 电子病历系统
-            <small>病历录入、病历查询</small>
+            <small>病历录入、病历查询、病历编辑</small>
         </h1>
-        <div class="m-heading-1 border-green m-bordered">
-            <h3>病历录入</h3>
+        <div class="m-heading-1 border-green m-bordered" v-if="mr">
+            <h3 v-if="!mr._id">病历录入</h3>
+            <h3 v-else>病历列表</h3>
             <p> 相关说明 </p>
         </div>
         <div class="portlet light " id="form_wizard_1">
             <div class="portlet-title">
-                <div class="caption">
+                <div class="caption" v-if="mr">
                     <i class=" icon-layers font-red"></i>
-                    <span class="caption-subject font-red bold uppercase"> 病历录入向导 -<span class="step-title"> 步骤 {{currentStep}} / {{steps.length}} </span></span>
+                    <span class="caption-subject font-red bold uppercase"><span v-if="!mr._id">新增</span><span v-else>编辑</span>病历向导 -<span class="step-title"> 步骤 {{currentStep}} / {{steps.length}} </span></span>
                 </div>
             </div>
             <div class="portlet-body form">
@@ -41,9 +43,6 @@
                                 <div class="progress-bar progress-bar-success" role="progressbar" :style="{width:currentStep*50+'%'}"></div>
                             </div>
                             <div class="tab-content">
-                                <div class="alert" :class="[isFormValid?'alert-danger':'alert-success']" v-show="showAlert">
-                                    <button class="close" data-dismiss="alert"></button> <span v-if="isFormValid">表单填写错误，请重新检查字段填写要求！</span><span v-else>表单格式验证成功！</span>
-                                </div>
                                 <div class="tab-pane active" id="tab1" v-show="currentStep==1">
                                     <div class="portlet light">
                                         <div class="portlet-title">
@@ -105,24 +104,23 @@
                 </form>
             </div>
         </div>    
-        <sweet-modal icon="error" ref="formError">
-            表单内容填写有误，请重新检查字段填写要求！
+        <sweet-modal icon="error" ref="errorModal">
+            {{modalMessage}}
         </sweet-modal>
         <sweet-modal icon="warning" ref="formSubmitConfirm" @close="isDone=false;" @open="isDone=true;">
             是否提交病历内容？
             <sweet-button class="btn red" slot="button" v-on:click="$refs.formSubmitConfirm.close()">取消</sweet-button>
             <sweet-button class="btn green" slot="button" v-on:click="submitForm">确定</sweet-button>
         </sweet-modal>
-        <sweet-modal ref="formSubmitting" icon="success" :blocking="true" :hide-close-button="false">
-            病历内容已提交，即将自动跳转到病历详情页！
+        <sweet-modal ref="formSubmitting" icon="info" :blocking="true" :hide-close-button="true">
+            正在提交病历内容，请耐心等待……
         </sweet-modal>
-        <div class="clearfix"></div>
+        <div class="clearfix"></div>        
     </div>
 </template>
 
 <script>
 import SweetButton from 'sweet-modal-vue/docs/components/Button';
-import config from '@/config';
 import utils from '@/utils/utils';
 import mrApi from '@/api/mr';
 import basicInfo from '@/components/content_pages/input/basic_info/basic_info';
@@ -140,478 +138,7 @@ export default {
     name: 'input',
     data () {
         return {
-            mr: null,
-            // mr: {
-            //     basicInfo: {
-            //         admissionNum: "",
-            //         bedNum: "",
-            //         doctor: {},
-            //         recorder: {},
-            //         name: "",
-            //         medicalCardNum: "",
-            //         idNum: "",
-            //         cellphone1: "",
-            //         cellphone2: "",
-            //         telephone: "",
-            //         gender: "",
-            //         nationality: "",
-            //         birthProvince: "",
-            //         birthCity: "",
-            //         birthday: "",
-            //         profession: "",
-            //         addressProvince: "",
-            //         addressCity: "",
-            //         addressArea: "",
-            //         addressTown: "",
-            //         address: ""
-            //     },
-            //     historyOfPresentIllness: {
-            //         careCauses: [],
-            //         careCauseOthers: "",
-            //         chestPain: {
-            //             timesPerDay: "",
-            //             timesPerWeek: "",
-            //             timesPerMonth: "",
-            //             timesPerYear: "",
-            //             onsetTime: [],
-            //             onsetTimeOthers: "",
-            //             diseaseBodyParts: [],
-            //             relievingFactors: [],
-            //             relievingDuration: "",
-            //             relievingFactorsOthers: "",
-            //             precipitatingFactors: [],
-            //             precipitatingFactorsOthers: "",
-            //             radiationSites: [],
-            //             radiationSitesOthers: "",
-            //             simultaneousPhenomena: [],
-            //             simultaneousPhenomenonOthers: ""
-            //         },
-            //         chestDistress: {
-            //             timesPerDay: "",
-            //             timesPerWeek: "",
-            //             timesPerMonth: "",
-            //             timesPerYear: "",
-            //             onsetTime: [],
-            //             onsetTimeOthers: "",
-            //             diseaseBodyParts: [],
-            //             relievingFactors: [],
-            //             relievingDuration: "",
-            //             relievingFactorsOthers: "",
-            //             precipitatingFactors: [],
-            //             precipitatingFactorsOthers: "",
-            //             radiationSites: [],
-            //             radiationSitesOthers: "",
-            //             simultaneousPhenomena: [],
-            //             simultaneousPhenomenonOthers: ""
-            //         },
-            //         dyspnea: {
-            //             timesPerDay: "",
-            //             timesPerWeek: "",
-            //             timesPerMonth: "",
-            //             timesPerYear: "",
-            //             onsetTime: [],
-            //             onsetTimeOthers: ""
-            //         },
-            //         palpitation: {
-            //             timesPerDay: "",
-            //             timesPerWeek: "",
-            //             timesPerMonth: "",
-            //             timesPerYear: "",
-            //             onsetTime: [],
-            //             onsetTimeOthers: ""
-            //         },
-            //         abnormalEcg: {
-            //             timesPerDay: "",
-            //             timesPerWeek: "",
-            //             timesPerMonth: "",
-            //             timesPerYear: "",
-            //             onsetTime: [],
-            //             onsetTimeOthers: ""
-            //         }
-            //     },
-            //     anamnesis: {
-            //         isLipidAbnormality: "",
-            //         lipidAbnormalityType: "",
-            //         lipidAbnormalityDuration: "",
-            //         isLipidAbnormalityUnderTreatment: "",
-            //         lipidAbnormalityDrugName: "",
-            //         isEssentialHypertension: "",
-            //         essentialHypertensionDuration: "",
-            //         maximumBP: { SBP: '', DBP: '' },
-            //         ordinaryBP: { SBP: '', DBP: '' },
-            //         isEssentialHypertensionUnderTreatment: "",
-            //         essentialHypertensionDrugName: "",
-            //         isDysglycemia: "",
-            //         dysglycemiaDuration: "",
-            //         dysglycemiaType: "",
-            //         isDiabetesMellitus: "",
-            //         diabetesMellitusDuration: "",
-            //         diabetesMellitusType: "",
-            //         isDiabetesMellitusUnderTreatment: "",
-            //         diabetesMellitusTreatmentMethod: [],
-            //         diabetesMellitusOralDrugName: "",
-            //         isGout: "",
-            //         goutDuration: "",
-            //         serumUricAcidLevel: "",
-            //         isRenalInsufficiency: "",
-            //         renalInsufficiencyDuration: "",
-            //         maximumCr: "",
-            //         recentCr: "",
-            //         renalInsufficiencyEtiology: "",
-            //         isOldMyocardialInfarction: "",
-            //         oldMyocardialInfarctionOnsetTimeYear: "",
-            //         oldMyocardialInfarctionOnsetTimeMonth: "",
-            //         oldMyocardialInfarctionOnsetFrequency: "",
-            //         oldMyocardialInfarctionLocation: [],
-            //         oldMyocardialInfarctionLocationOthers: "",
-            //         isPciHistory: "",
-            //         isCabgHistory: "",
-            //         isCasGt50History: "",
-            //         isAtrialFibrillation: "",
-            //         isOtherHeartDiseaseHistory: "",
-            //         otherHeartDiseaseType: [],
-            //         otherHeartDiseaseTypeOthers: "",
-            //         isDeepVenousThrombosis: "",
-            //         deepVenousThrombosisOnsetTimeYear: "",
-            //         deepVenousThrombosisOnsetTimeMonth: "",
-            //         deepVenousThrombosisInducements: [],
-            //         deepVenousThrombosisSymptoms: [],
-            //         deepVenousThrombosisDiagnosisResult: "",
-            //         isOldIschemicStroke: "",
-            //         oldIschemicStrokeTypes: [],
-            //         isVascularDiseases: "",
-            //         vascularDiseasesTypes: [],
-            //         isHemorrhage: "",
-            //         hemorrhageTypes: [],
-            //         isBleeding: "",
-            //         bleedingCauses: []
-            //     },
-            //     riskFactors: {
-            //         isSomking: "",
-            //         smokingDuration: "",
-            //         piecesPerDay: "",
-            //         cigretteType: [],
-            //         cigretteTypeOthers: "",
-            //         isSmokingCessation: "",
-            //         smokingCessationDuration: "",
-            //         isDrinking: "",
-            //         drinkingDuration: "",
-            //         talesPerDay: "",
-            //         wineType: [],
-            //         wineTypeOthers: "",
-            //         isTemperance: "",
-            //         temperanceDuration: "",
-            //         drinkingAmount: "",
-            //         paddyPotato: "",
-            //         grainMixedBeans: "",
-            //         potato: "",
-            //         vegetables: "",
-            //         fruits: "",
-            //         livestockMeat: "",
-            //         aquaticProducts: "",
-            //         eggs: "",
-            //         milkProducts: "",
-            //         soybeansNuts: "",
-            //         salt: "",
-            //         sugar: "",
-            //         oil: "",
-            //         fatMeat: "",
-            //         visceral: "",
-            //         bloodType: "",
-            //         isLongtermPsychologicalStress: "",
-            //         isDepression: "",
-            //         exerciseType: "",
-            //         exerciseDuration: "",
-            //         exerciseMode: [],
-            //         exerciseModeOthers: "",
-            //         isCentralObesity: "",
-            //         centralObesityDuration: "",
-            //         height: "",
-            //         weight: "",
-            //         BMI: "",
-            //         waistline: "",
-            //         neckCircumference: "",
-            //         hipline: ""
-            //     },
-            //     familyHistory: {
-            //         prematureChd: {
-            //             isPrematureChd: "",
-            //             onsetMembers: []
-            //         },
-            //         myocardialInfarction: {
-            //             isMyocardialInfarction: "",
-            //             onsetMembers: []
-            //         },
-            //         suddenDeath: {
-            //             isSuddenDeath: "",
-            //             onsetMembers: []
-            //         },
-            //         ischemicStroke: {
-            //             isIschemicStroke: "",
-            //             onsetMembers: []
-            //         },
-            //         hemorrhagicStroke: {
-            //             isHemorrhagicStroke: "",
-            //             onsetMembers: []
-            //         }
-            //     },
-            //     physicalExamination: {
-            //         bodyTemperature: "",
-            //         respiratoryRate: "",
-            //         isBreathSoundsNormal: "",
-            //         breathSoundsType: "",
-            //         breathSoundsPart: "",
-            //         isLungWetRales: "",
-            //         lungWetRalesRange: "",
-            //         lungWetRalesPart: "",
-            //         heartRate: "",
-            //         cardiacRhythm: "",
-            //         heartSoundS1Result: "",
-            //         isS3S4GallopRhythm: "",
-            //         pulse: "",
-            //         BP: { SBP: '', DBP: '' },
-            //         isEarLobeLongitudinalCrack: "",
-            //         earLobeLongitudinalCrackParts: [],
-            //         isSkinYellowPigmentTumor: "",
-            //         skinYellowPigmentTumorParts: [],
-            //         isAlopecia: "",
-            //         alopeciaParts: []
-            //     },
-            //     routineExamination: {
-            //         TC: "",
-            //         TG: "",
-            //         LDL: "",
-            //         HDL: "",
-            //         notHDL: "",
-            //         APOA1: "",
-            //         APOB: "",
-            //         bloodGlucoseFasting: "",
-            //         isSerumMyocardialNecrosisMarkers: "",
-            //         myocardialCK: "",
-            //         myocardialCKMB: "",
-            //         myocardialCTnI: "",
-            //         myocardialMb: "",
-            //         isInflammatoryMarkers: "",
-            //         inflammationHsCRP: "",
-            //         inflammationIL6: "",
-            //         inflammationIL1Beta: "",
-            //         inflammationTNFAlpha: "",
-            //         heartFailureNTproBNP: "",
-            //         electrolyteNa: "",
-            //         electrolyteK: "",
-            //         electrolyteCa: "",
-            //         electrolyteCl: "",
-            //         isLiverFunction: "",
-            //         totalProtein: "",
-            //         albumin: "",
-            //         totalBilirubin: "",
-            //         directBilirubin: "",
-            //         indirectBilirubin: "",
-            //         ALT: "",
-            //         AST: "",
-            //         isRenalFunction: "",
-            //         Cr: "",
-            //         UA: "",
-            //         BUN: "",
-            //         GFR: "",
-            //         isHepatorenalDisease: "",
-            //         APTT: "",
-            //         PT: "",
-            //         TT: "",
-            //         FIB: "",
-            //         dDimer: "",
-            //         INR: "",
-            //         isINRStable: "",
-            //         redBloodCellCount: "",
-            //         redBloodCellSpecificVolume: "",
-            //         HGB: "",
-            //         leukocyteCount: "",
-            //         neutrophil: "",
-            //         eosinophil: "",
-            //         basophil: "",
-            //         lymphocyte: "",
-            //         monocyte: "",
-            //         isQualitativePlatelet: "",
-            //         PCPLT: "",
-            //         PCMPV: "",
-            //         PCPDW: "",
-            //         PARADP: "",
-            //         PAREpinephrine: "",
-            //         PARArachidonicAcid: "",
-            //         PARCollagen: "",
-            //         PARRistocetin: ""
-            //     },
-            //     specialExamination: {
-            //         ecg: {
-            //             pathologicalQWave: {
-            //                 isPathologicalQWave: "",
-            //                 qWaveLeads: []
-            //             },
-            //             stSegmentChange: {
-            //                 isStSegmentChange: "",
-            //                 stSegmentDepression: {
-            //                     isStSegmentDepression: "",
-            //                     changeDetail: []
-            //                 },
-            //                 stSegmentElevation: {
-            //                     isStSegmentElevation: "",
-            //                     changeDetail: []
-            //                 }
-            //             },
-            //             tWaveChange: {
-            //                 isTWaveChange: "",
-            //                 changeDetail: []
-            //             },
-            //             arrhythmia: {
-            //                 isArrhythmia: "",
-            //                 arrhythmiaTypes: [],
-            //                 arrhythmiaTypeOthers: ""
-            //             },
-            //             isResultNormal: "",
-            //             findings: ""
-            //         },
-            //         exerciseEcg: {
-            //             exerciseDuration: "",
-            //             isExerciseAngina: "",
-            //             maximumBP: { SBP: '', DBP: '' },
-            //             minimumBP: { SBP: '', DBP: '' },
-            //             stSegmentChange: {
-            //                 isStSegmentChange: "",
-            //                 stSegmentDepression: {
-            //                     isStSegmentDepression: "",
-            //                     duration: "",
-            //                     changeDetail: []
-            //                 },
-            //                 stSegmentElevation: {
-            //                     isStSegmentElevation: "",
-            //                     duration: "",
-            //                     changeDetail: []
-            //                 }
-            //             },
-            //             tWaveChange: {
-            //                 isTWaveChange: "",
-            //                 duration: "",
-            //                 changeDetail: []
-            //             },
-            //             result: "",
-            //             findings: ""
-            //         },
-            //         holterEcg: {
-            //             totalHeartbeats: "",
-            //             averageHeartRate: "",
-            //             maximalHeartRate: "",
-            //             maximalHeartRateOccurrenceTime: "",
-            //             minimalHeartRate: "",
-            //             minimalHeartRateOccurrenceTime: "",
-            //             arrhythmia: {
-            //                 isArrhythmia: "",
-            //                 frequentness: "",
-            //                 totalAbnormalHeartbeats: "",
-            //                 arrhythmiaTypes: []
-            //             },
-            //             pathologicalQWave: {
-            //                 isPathologicalQWave: "",
-            //                 frequentness: "",
-            //                 qWaveLeadsDetail: []
-            //             },
-            //             stSegmentChange: {
-            //                 isStSegmentChange: "",
-            //                 stSegmentDepression: {
-            //                     isStSegmentDepression: "",
-            //                     frequentness: "",
-            //                     changesDetail: []
-            //                 },
-            //                 stSegmentElevation: {
-            //                     isStSegmentElevation: "",
-            //                     frequentness: "",
-            //                     changesDetail: []
-            //                 }
-
-            //             },
-            //             tWaveChange: {
-            //                 isTWaveChange: "",
-            //                 frequentness: "",
-            //                 changesDetail: []
-            //             },
-            //             findings: ""
-            //         },
-            //         ucg: {
-            //             LVD: "",
-            //             EDV: "",
-            //             LVS: "",
-            //             ESV: "",
-            //             LAD: "",
-            //             LVPW: "",
-            //             IVST: "",
-            //             isLVEFLtFortyPercent: "",
-            //             ratioEToA: "",
-            //             EF: "",
-            //             isLocalMotionAbnormality: "",
-            //             localMotionAbnormalityParts: [],
-            //             isVntricularAneurysm: "",
-            //             vntricularAneurysmParts: [],
-            //             isLeftVentricularThrombosis: "",
-            //             leftVentricularThrombosisParts: [],
-            //             findings: "",
-            //         },
-            //         pci: {
-            //             num: "",
-            //             date: "",
-            //             pciType: "",
-            //             thrombolysisInterval: "",
-            //             onsetIntervalDay: "",
-            //             onsetIntervalHour: "",
-            //             stayTimePrehospital: "",
-            //             stayTimeEmergencyCall: "",
-            //             stayTimeCCU: "",
-            //             stayTimeConduitRoom: "",
-            //             contrastMedia: [],
-            //             contrastMediaOthers: "",
-            //             coronaryDistributionType: "",
-            //             isCoronaryMalformations: "",
-            //             isGrade3Lesions: "",
-            //             isBloodFlowTIMIGrade0to2: "",
-            //             isCTO: "",
-            //             isCollateralCirculation: "",
-            //             pciPaths: [],
-            //             implantedBracketCountLAD: "",
-            //             implantedBracketCountLCX: "",
-            //             implantedBracketCountRCA: "",
-            //             implantedBracketCountLM: "",
-            //             segmentalLesions: []
-            //         }
-            //     },
-            //     admissionDiagnosis: {
-            //         isSilentMyocardialIschemia: "",
-            //         isCoronaryMicrovascularDisease: "",
-            //         isMyocardialInfarction: "",
-            //         myocardialInfarctionType: "",
-            //         myocardialInfarctionPart: "",
-            //         isAngina: "",
-            //         anginaType: "",
-            //         anginaCcs: "",
-            //         isIschemicCardiomyopathy: "",
-            //         isSuddenCoronaryDeath: "",
-            //         isChestPainOfUnknownOrigin: "",
-            //         isDiagnosisOthers: "",
-            //         diagnosisOthers: ""
-            //     },
-            //     dischargeDiagnosis: {
-            //         isSilentMyocardialIschemia: "",
-            //         isCoronaryMicrovascularDisease: "",
-            //         isMyocardialInfarction: "",
-            //         myocardialInfarctionType: "",
-            //         myocardialInfarctionPart: "",
-            //         isAngina: "",
-            //         anginaType: "",
-            //         anginaCcs: "",
-            //         isIschemicCardiomyopathy: "",
-            //         isSuddenCoronaryDeath: "",
-            //         isChestPainOfUnknownOrigin: "",
-            //         isDiagnosisOthers: "",
-            //         diagnosisOthers: ""
-            //     }
-            // },
+            mr: null,          
             steps: [
                 {
                     value: 1,
@@ -657,8 +184,8 @@ export default {
                 }
             ],
             activeTab: 1,
-            isFormValid: false,     //表单是否合法
-            showAlert: false,          //是否显示出错信息
+            isFormValid: false,     //表单是否合法            
+            modalMessage: ''
         }
     },
     methods: {
@@ -668,7 +195,8 @@ export default {
                 if(result){
                     this.currentStep++;
                 }else{
-                    this.$refs.formError.open();
+                    this.modalMessage = '表单内容填写有误，请重新检查字段填写要求！';
+                    this.$refs.errorModal.open();
                 }
             });
         },
@@ -679,16 +207,461 @@ export default {
             this.activeTab = index+1;
         },
         submitForm () {
+            this.$refs.formSubmitConfirm.close();
             this.$refs.formSubmitting.open();
-            console.log(this.mr);
+            // console.log(this.mr);
+            this.mr=this.emptyFieldCheck(this.mr, this.emptyMedicalRecord);
+            if(this.mr._id&&this.mr._id!==''){
+                //编辑
+                mrApi.updateMedicalRecord({record:this.mr}).then(res=>{
+                    this.$refs.formSubmitting.close();
+                    if(res.status){
+                        this.$router.push('/home/query');
+                    }else{
+                        console.log(res);
+                        this.modalMessage = '保存病历数据失败，请稍后重试！';
+                        this.$refs.errorModal.open();
+                    }
+                })
+            }else{
+                //新增
+                mrApi.insertMedicalRecord({record:this.mr}).then(res=>{
+                    this.$refs.formSubmitting.close();
+                    if(res.status){
+                        this.$router.push('/home/query');
+                    }else{
+                        console.log(res);
+                        this.modalMessage = '保存病历数据失败，请稍后重试！';
+                        this.$refs.errorModal.open();
+                    }
+                })
+            }
+        },
+        emptyFieldCheck (mr, emptyMedicalRecord) {
+            //现病史
+            if(!(mr.historyOfPresentIllness.careCauses.indexOf('1')>=0)){
+                mr.historyOfPresentIllness.chestPain = emptyMedicalRecord.historyOfPresentIllness.chestPain;
+            }else{
+                if(!(mr.historyOfPresentIllness.chestPain.onsetTime.indexOf('5')>=0)){
+                    mr.historyOfPresentIllness.chestPain.onsetTimeOthers='';
+                }
+                if(mr.historyOfPresentIllness.chestPain.diseaseBodyParts.length>0){
+                    mr.historyOfPresentIllness.chestPain.diseaseBodyParts.forEach(function(ele){
+                        if(ele.bodyPartName!='11'){
+                            ele.bodyPartNameOthers='';
+                        }
+                        if(ele.qualityOfPain!='13'){
+                            ele.qualityOfPainOthers='';
+                        }
+                        if(ele.durationOfPain!='6'){
+                            ele.durationOfPainOthers='';
+                        }
+                    })
+                }
+                if(!(mr.historyOfPresentIllness.chestPain.relievingFactors.indexOf('5')>=0)){
+                    mr.historyOfPresentIllness.chestPain.relievingFactorsOthers='';
+                }
+                if(!(mr.historyOfPresentIllness.chestPain.precipitatingFactors.indexOf('12')>=0)){
+                    mr.historyOfPresentIllness.chestPain.precipitatingFactorsOthers='';
+                }
+                if(!(mr.historyOfPresentIllness.chestPain.radiationSites.indexOf('7')>=0)){
+                    mr.historyOfPresentIllness.chestPain.radiationSitesOthers='';
+                }
+                if(!(mr.historyOfPresentIllness.chestPain.simultaneousPhenomena.indexOf('21')>=0)){
+                    mr.historyOfPresentIllness.chestPain.simultaneousPhenomenonOthers='';
+                }
+            }
+            if(!(mr.historyOfPresentIllness.careCauses.indexOf('2')>=0)){
+                mr.historyOfPresentIllness.chestDistress = emptyMedicalRecord.historyOfPresentIllness.chestDistress;
+            }else{
+                if(!(mr.historyOfPresentIllness.chestDistress.onsetTime.indexOf('5')>=0)){
+                    mr.historyOfPresentIllness.chestDistress.onsetTimeOthers='';
+                }
+                if(mr.historyOfPresentIllness.chestDistress.diseaseBodyParts.length>0){
+                    mr.historyOfPresentIllness.chestDistress.diseaseBodyParts.forEach(function(ele){
+                        if(ele.bodyPartName!='11'){
+                            ele.bodyPartNameOthers='';
+                        }
+                        if(ele.qualityOfPain!='13'){
+                            ele.qualityOfPainOthers='';
+                        }
+                        if(ele.durationOfPain!='6'){
+                            ele.durationOfPainOthers='';
+                        }
+                    })
+                }
+                if(!(mr.historyOfPresentIllness.chestDistress.relievingFactors.indexOf('5')>=0)){
+                    mr.historyOfPresentIllness.chestDistress.relievingFactorsOthers='';
+                }
+                if(!(mr.historyOfPresentIllness.chestDistress.precipitatingFactors.indexOf('12')>=0)){
+                    mr.historyOfPresentIllness.chestDistress.precipitatingFactorsOthers='';
+                }
+                if(!(mr.historyOfPresentIllness.chestDistress.radiationSites.indexOf('7')>=0)){
+                    mr.historyOfPresentIllness.chestDistress.radiationSitesOthers='';
+                }
+                if(!(mr.historyOfPresentIllness.chestDistress.simultaneousPhenomena.indexOf('21')>=0)){
+                    mr.historyOfPresentIllness.chestDistress.simultaneousPhenomenonOthers='';
+                }
+            }
+            if(!(mr.historyOfPresentIllness.careCauses.indexOf('3')>=0)){
+                mr.historyOfPresentIllness.dyspnea = emptyMedicalRecord.historyOfPresentIllness.dyspnea;
+            }else{
+                if(!(mr.historyOfPresentIllness.dyspnea.onsetTime.indexOf('5')>=0)){
+                    mr.historyOfPresentIllness.dyspnea.onsetTimeOthers='';
+                }
+            }
+            if(!(mr.historyOfPresentIllness.careCauses.indexOf('4')>=0)){
+                mr.historyOfPresentIllness.palpitation = emptyMedicalRecord.historyOfPresentIllness.palpitation;
+            }else{
+                if(!(mr.historyOfPresentIllness.palpitation.onsetTime.indexOf('5')>=0)){
+                    mr.historyOfPresentIllness.palpitation.onsetTimeOthers='';
+                }
+            }
+            if(!(mr.historyOfPresentIllness.careCauses.indexOf('5')>=0)){
+                mr.historyOfPresentIllness.abnormalEcg = emptyMedicalRecord.historyOfPresentIllness.abnormalEcg;
+            }else{
+                if(!(mr.historyOfPresentIllness.palpitation.onsetTime.indexOf('5')>=0)){
+                    mr.historyOfPresentIllness.palpitation.onsetTimeOthers='';
+                }
+            }
+            if(!(mr.historyOfPresentIllness.careCauses.indexOf('6')>=0)){
+                mr.historyOfPresentIllness.careCauseOthers = '';
+            }
+            //既往病史
+            if(mr.anamnesis.isLipidAbnormality!='1'){
+                mr.anamnesis.lipidAbnormalityType='';
+                mr.anamnesis.lipidAbnormalityDuration='';
+                mr.anamnesis.isLipidAbnormalityUnderTreatment='';
+                mr.anamnesis.lipidAbnormalityDrugName='';
+            }else{
+                if(mr.anamnesis.isLipidAbnormalityUnderTreatment!='2'){
+                    mr.anamnesis.lipidAbnormalityDrugName='';
+                }
+            }
+            if(mr.anamnesis.isEssentialHypertension!='1'){
+                mr.anamnesis.essentialHypertensionDuration='';
+                mr.anamnesis.isEssentialHypertensionUnderTreatment='';
+                mr.anamnesis.essentialHypertensionDrugName='';
+            }else{
+                if(mr.anamnesis.isEssentialHypertensionUnderTreatment!='2'){
+                    mr.anamnesis.essentialHypertensionDrugName='';
+                }
+            }
+            if(mr.anamnesis.isDysglycemia!='1'){
+                mr.anamnesis.dysglycemiaType='';
+            }
+            if(mr.anamnesis.isDiabetesMellitus!='1'){
+                mr.anamnesis.diabetesMellitusDuration='';
+                mr.anamnesis.diabetesMellitusType='';
+                mr.anamnesis.isDiabetesMellitusUnderTreatment='';
+                mr.anamnesis.diabetesMellitusOralDrugName='';
+            }else{
+                if(mr.anamnesis.isDiabetesMellitusUnderTreatment!='1'&&mr.anamnesis.isDiabetesMellitusUnderTreatment!='2'){
+                    mr.anamnesis.diabetesMellitusTreatmentMethod=[];
+                    mr.anamnesis.diabetesMellitusOralDrugName='';
+                }else{
+                    if(!(mr.anamnesis.diabetesMellitusTreatmentMethod.indexOf('3')>=0)){
+                        mr.anamnesis.diabetesMellitusOralDrugName='';
+                    }
+                }
+            }
+            if(mr.anamnesis.isGout!='1'){
+                mr.anamnesis.goutDuration='';
+            }
+            if(mr.anamnesis.isRenalInsufficiency!='1'){
+                mr.anamnesis.renalInsufficiencyDuration='';
+                mr.anamnesis.renalInsufficiencyEtiology='';
+            }
+            if(mr.anamnesis.isOldMyocardialInfarction!='1'){
+                mr.anamnesis.oldMyocardialInfarctionOnsetTimeYear='';
+                mr.anamnesis.oldMyocardialInfarctionOnsetTimeMonth='';
+                mr.anamnesis.oldMyocardialInfarctionOnsetFrequency='';
+                mr.anamnesis.oldMyocardialInfarctionLocation=[];
+                mr.anamnesis.oldMyocardialInfarctionLocationOthers='';
+            }else{
+                if(!(mr.anamnesis.oldMyocardialInfarctionLocation.indexOf('7')>=0)){
+                    mr.anamnesis.oldMyocardialInfarctionLocationOthers='';
+                }
+            }
+            if(mr.anamnesis.isOtherHeartDiseaseHistory!='1'){
+                mr.anamnesis.otherHeartDiseaseType=[];              
+                mr.anamnesis.otherHeartDiseaseTypeOthers='';
+            }else{
+                if(!(mr.anamnesis.otherHeartDiseaseType.indexOf('8')>=0)){
+                    mr.anamnesis.otherHeartDiseaseTypeOthers='';
+                }
+            }
+            if(mr.anamnesis.isDeepVenousThrombosis!='1'){
+                mr.anamnesis.deepVenousThrombosisOnsetTimeYear='';
+                mr.anamnesis.deepVenousThrombosisOnsetTimeMonth='';
+                mr.anamnesis.deepVenousThrombosisInducements=[];              
+                mr.anamnesis.deepVenousThrombosisSymptoms=[];              
+                mr.anamnesis.deepVenousThrombosisDiagnosisResult='';              
+            }else{
+                if(!(mr.anamnesis.deepVenousThrombosisInducements.indexOf('5')>=0)){
+                    mr.anamnesis.deepVenousThrombosisInducementsOthers='';
+                }                
+            }
+            if(mr.anamnesis.isOldIschemicStroke!='1'){
+                mr.anamnesis.oldIschemicStrokeTypes=[];
+            }
+            if(mr.anamnesis.isVascularDiseases!='1'){
+                mr.anamnesis.vascularDiseasesTypes=[];
+            }
+            if(mr.anamnesis.isHemorrhage!='1'){
+                mr.anamnesis.hemorrhageTypes=[];
+            }
+            if(mr.anamnesis.isBleeding!='1'){
+                mr.anamnesis.bleedingCauses=[];
+            }
+            //危险因素
+            if(mr.riskFactors.isSomking!='1'){
+                mr.riskFactors.smokingDuration='';
+                mr.riskFactors.piecesPerDay='';
+                mr.riskFactors.cigretteType=[];
+                mr.riskFactors.cigretteTypeOthers='';
+                mr.riskFactors.isSmokingCessation='';
+                mr.riskFactors.smokingCessationDuration='';
+            }else{
+                if(!(mr.riskFactors.cigretteType.indexOf('5')>=0)){
+                    mr.riskFactors.cigretteTypeOthers='';
+                }
+                if(mr.riskFactors.isSmokingCessation!='1'){
+                    mr.riskFactors.smokingCessationDuration='';
+                }
+            }
+            if(mr.riskFactors.isDrinking!='1'){
+                mr.riskFactors.drinkingDuration='';
+                mr.riskFactors.talesPerDay='';
+                mr.riskFactors.wineType=[];
+                mr.riskFactors.wineTypeOthers='';
+                mr.riskFactors.isTemperance='';
+                mr.riskFactors.temperanceDuration='';
+            }else{
+                if(!(mr.riskFactors.wineType.indexOf('5')>=0)){
+                    mr.riskFactors.wineTypeOthers='';
+                }
+                if(mr.riskFactors.isTemperance!='1'){
+                    mr.riskFactors.temperanceDuration='';
+                }
+            }
+            if(!(mr.riskFactors.exerciseMode.indexOf('3')>=0)){
+                mr.riskFactors.exerciseModeOthers='';
+            }
+            if(mr.riskFactors.isCentralObesity!='1'){
+                mr.riskFactors.centralObesityDuration='';
+            }
+            //家族史
+            if(mr.familyHistory.prematureChd.isPrematureChd!='1'){
+                mr.familyHistory.prematureChd.onsetMembers=[];
+            }
+            if(mr.familyHistory.myocardialInfarction.isMyocardialInfarction!='1'){
+                mr.familyHistory.myocardialInfarction.onsetMembers=[];
+            }
+            if(mr.familyHistory.suddenDeath.isSuddenDeath!='1'){
+                mr.familyHistory.suddenDeath.onsetMembers=[];
+            }
+            if(mr.familyHistory.ischemicStroke.isIschemicStroke!='1'){
+                mr.familyHistory.ischemicStroke.onsetMembers=[];
+            }
+            if(mr.familyHistory.hemorrhagicStroke.isHemorrhagicStroke!='1'){
+                mr.familyHistory.hemorrhagicStroke.onsetMembers=[];
+            }
+            //体格检查
+            if(mr.physicalExamination.isBreathSoundsNormal!='0'){
+                mr.physicalExamination.breathSoundsType='';
+                mr.physicalExamination.breathSoundsPart='';
+            }
+            if(mr.physicalExamination.isLungWetRales!='1'){
+                mr.physicalExamination.lungWetRalesRange='';
+                mr.physicalExamination.lungWetRalesPart='';
+            }
+            if(mr.physicalExamination.isEarLobeLongitudinalCrack!='1'){
+                mr.physicalExamination.earLobeLongitudinalCrackParts=[];
+            }
+            if(mr.physicalExamination.isSkinYellowPigmentTumor!='1'){
+                mr.physicalExamination.skinYellowPigmentTumorParts=[];
+            }
+            if(mr.physicalExamination.isAlopecia!='1'){
+                mr.physicalExamination.alopeciaParts=[];
+            }
+
+            //常规检查
+            if(mr.routineExamination.isSerumMyocardialNecrosisMarkers!='1'){
+                mr.routineExamination.myocardialCK='';
+                mr.routineExamination.myocardialCKMB='';
+                mr.routineExamination.myocardialCTnI='';
+                mr.routineExamination.myocardialMb='';
+            }
+            if(mr.routineExamination.isInflammatoryMarkers!='1'){
+                mr.routineExamination.inflammationHsCRP='';
+                mr.routineExamination.inflammationIL6='';
+                mr.routineExamination.inflammationIL1Beta='';
+                mr.routineExamination.inflammationTNFAlpha='';
+            }
+            if(mr.routineExamination.isLiverFunction!='1'){
+                mr.routineExamination.totalProtein='';
+                mr.routineExamination.albumin='';
+                mr.routineExamination.totalBilirubin='';
+                mr.routineExamination.directBilirubin='';
+                mr.routineExamination.indirectBilirubin='';
+                mr.routineExamination.ALT='';
+                mr.routineExamination.AST='';
+            }
+            if(mr.routineExamination.isRenalFunction!='1'){
+                mr.routineExamination.Cr='';
+                mr.routineExamination.UA='';
+                mr.routineExamination.BUN='';
+                mr.routineExamination.GFR='';
+            }
+            if(mr.routineExamination.isQualitativePlatelet!='1'){
+                mr.routineExamination.PCPLT='';
+                mr.routineExamination.PCMPV='';
+                mr.routineExamination.PCPDW='';
+                mr.routineExamination.PARADP='';
+                mr.routineExamination.PAREpinephrine='';
+                mr.routineExamination.PARArachidonicAcid='';
+                mr.routineExamination.PARCollagen='';
+                mr.routineExamination.PARRistocetin='';
+            }                    
+            
+            //特殊检查
+            if(mr.specialExamination.ecg.pathologicalQWave.isPathologicalQWave!='1'){
+                mr.specialExamination.ecg.pathologicalQWave.qWaveLeads=[];
+            }
+            if(mr.specialExamination.ecg.stSegmentChange.isStSegmentChange!='1'){
+                mr.specialExamination.ecg.stSegmentChange.stSegmentDepression=emptyMedicalRecord.specialExamination.ecg.stSegmentChange.stSegmentDepression;
+                mr.specialExamination.ecg.stSegmentChange.stSegmentElevation=emptyMedicalRecord.specialExamination.ecg.stSegmentChange.stSegmentElevation;
+            }else{
+                if(mr.specialExamination.ecg.stSegmentChange.stSegmentDepression.isStSegmentDepression!='1'){
+                    mr.specialExamination.ecg.stSegmentChange.stSegmentDepression.changeDetail=[];
+                }
+                if(mr.specialExamination.ecg.stSegmentChange.stSegmentElevation.isStSegmentElevation!='1'){
+                    mr.specialExamination.ecg.stSegmentChange.stSegmentElevation.changeDetail=[];
+                }
+            }
+            if(mr.specialExamination.ecg.tWaveChange.isTWaveChange!='1'){
+                mr.specialExamination.ecg.tWaveChange.changeDetail=[];
+            }
+            if(mr.specialExamination.ecg.arrhythmia.isArrhythmia!='1'){
+                mr.specialExamination.ecg.arrhythmia.arrhythmiaTypes=[];
+            }else{
+                if(!(mr.specialExamination.ecg.arrhythmia.arrhythmiaTypes.indexOf('11')>=0)){
+                    mr.specialExamination.ecg.arrhythmia.arrhythmiaTypeOthers='';
+                }
+            }
+            if(mr.specialExamination.exerciseEcg.stSegmentChange.isStSegmentChange!='1'){
+                mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression=emptyMedicalRecord.specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression;
+                mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation=emptyMedicalRecord.specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation;
+            }else{
+                if(mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression.isStSegmentDepression!='1'){
+                    mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression.duration='';
+                    mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentDepression.changeDetail=[];
+                }
+                if(mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation.isStSegmentElevation!='1'){
+                    mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation.duration='';
+                    mr.specialExamination.exerciseEcg.stSegmentChange.stSegmentElevation.changeDetail=[];
+                }
+            }
+            if(mr.specialExamination.exerciseEcg.tWaveChange.isTWaveChange!='1'){
+                mr.specialExamination.exerciseEcg.tWaveChange.duration='';
+                mr.specialExamination.exerciseEcg.tWaveChange.changeDetail=[];
+            }
+            if(mr.specialExamination.holterEcg.arrhythmia.isArrhythmia!='1'){
+                mr.specialExamination.holterEcg.arrhythmia.frequentness='';
+                mr.specialExamination.holterEcg.arrhythmia.totalAbnormalHeartbeats='';
+                mr.specialExamination.holterEcg.arrhythmia.arrhythmiaTypes=[];
+            }else{
+                if(mr.specialExamination.holterEcg.arrhythmia.arrhythmiaTypes.length>0){
+                    mr.specialExamination.holterEcg.arrhythmia.arrhythmiaTypes.forEach(function(ele){
+                        if(ele.arrhythmiaType!='11'){
+                            ele.arrhythmiaTypeOthers='';
+                        }
+                    })
+                }
+            }
+            if(mr.specialExamination.holterEcg.pathologicalQWave.isPathologicalQWave!='1'){
+                mr.specialExamination.holterEcg.isPathologicalQWave.frequentness='';
+                mr.specialExamination.holterEcg.isPathologicalQWave.arrhythmiaTypes=[];
+            }
+            if(mr.specialExamination.holterEcg.stSegmentChange.isStSegmentChange!='1'){
+                mr.specialExamination.holterEcg.stSegmentChange.stSegmentDepression=emptyMedicalRecord.specialExamination.holterEcg.stSegmentChange.stSegmentDepression;
+                mr.specialExamination.holterEcg.stSegmentChange.stSegmentElevation=emptyMedicalRecord.specialExamination.holterEcg.stSegmentChange.stSegmentElevation;
+            }else{
+                if(mr.specialExamination.holterEcg.stSegmentChange.stSegmentDepression.isStSegmentDepression!='1'){
+                    mr.specialExamination.holterEcg.stSegmentChange.stSegmentDepression.frequentness='';
+                    mr.specialExamination.holterEcg.stSegmentChange.stSegmentDepression.changesDetail=[];
+                }
+                if(mr.specialExamination.holterEcg.stSegmentChange.stSegmentElevation.isStSegmentElevation!='1'){
+                    mr.specialExamination.holterEcg.stSegmentChange.stSegmentElevation.frequentness='';
+                    mr.specialExamination.holterEcg.stSegmentChange.stSegmentElevation.changesDetail=[];
+                }
+            }
+            if(mr.specialExamination.holterEcg.tWaveChange.isTWaveChange!='1'){
+                mr.specialExamination.holterEcg.tWaveChange.duration='';
+                mr.specialExamination.holterEcg.tWaveChange.changesDetail=[];
+            }
+            if(mr.specialExamination.ucg.isLVEFLtFortyPercent!='1'){
+                mr.specialExamination.ucg.ratioEToA='';
+                mr.specialExamination.ucg.EF='';
+            }
+            if(mr.specialExamination.ucg.isLocalMotionAbnormality!='1'){
+                mr.specialExamination.ucg.localMotionAbnormalityParts=[];
+            }
+            if(mr.specialExamination.ucg.isVntricularAneurysm!='1'){
+                mr.specialExamination.ucg.vntricularAneurysmParts=[];
+            }
+            if(mr.specialExamination.ucg.isLeftVentricularThrombosis!='1'){
+                mr.specialExamination.ucg.leftVentricularThrombosisParts=[];
+            }
+            if(!(mr.specialExamination.pci.contrastMedia.indexOf('5')>=0)){
+                mr.specialExamination.pci.contrastMediaOthers='';
+            }
+
+            return mr;
         }
     },
+    watch: {
+        '$route': function (val, oldVal) {       
+            if(val.path.indexOf('input')>=0){
+                this.$store.dispatch('changeCurrentMedicalRecordId','');
+                this.currentStep=1;
+                this.$nextTick(function(){
+                    this.$validator.reset();
+                });
+            }
+        },
+        recordId(val, oldVal) {
+            if(val!=oldVal){
+                mrApi.getMedicalRecord({recordId:this.recordId}).then(res=>{
+                    if(res.status){
+                        this.mr = res.data;                    
+                        this.$nextTick(function(){
+                            if(this.recordId!=''){this.$validator.validateAll();}
+                        })
+                    }else{
+                        this.modalMessage = '获取病历数据失败，请稍后重试！';
+                        this.$refs.errorModal.open();
+                    }
+                }) 
+            }
+        }
+    },
+    computed: {
+        recordId () {
+            return this.$store.state.currentMedicalRecordId;
+        },
+        emptyMedicalRecord () {
+            return this.$store.state.emptyMedicalRecord;
+        }
+    },    
     created () {
-        mrApi.getMedicalRecord().then(res=>{
+        mrApi.getMedicalRecord({recordId:this.recordId}).then(res=>{
             if(res.status){
-                this.mr = res.data;
+                this.mr = res.data;                
             }else{
-                console.log('获取病历数据失败！');
+                this.modalMessage = '获取病历数据失败，请稍后重试！';
+                this.$refs.errorModal.open();
             }
         })
     },

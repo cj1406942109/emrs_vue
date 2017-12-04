@@ -22,8 +22,8 @@
                             <div class="col-md-3">
                                 <div>
                                     <label><radio value="-1" v-model="anamnesis.isLipidAbnormality" >不知道</radio></label>
-                                    <label><radio value="0" v-model="anamnesis.isLipidAbnormality" >否</radio></label>
-                                    <label><radio value="1" v-model="anamnesis.isLipidAbnormality" >是</radio></label>
+                                    <label><radio value="0" v-model="anamnesis.isLipidAbnormality" >无</radio></label>
+                                    <label><radio value="1" v-model="anamnesis.isLipidAbnormality" >有</radio></label>
                                 </div>                                
                             </div>
                             <div v-if="anamnesis.isLipidAbnormality=='1'">
@@ -251,7 +251,7 @@
                                         <span class="help-block"> 填写病史 </span>
                                     </div>
                                     <div class="col-md-4" v-if="anamnesis.isRenalInsufficiency=='1'">
-                                        <input class="form-control" v-model="anamnesis.renalInsufficiencyEtiology">
+                                        <input class="form-control input-inline" v-model="anamnesis.renalInsufficiencyEtiology">
                                         <span class="help-block"> 填写病因 </span>
                                     </div>
                                 </div>                                

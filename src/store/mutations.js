@@ -14,4 +14,16 @@ export default {
     [mutationTypes.GET_RECORDER_LIST](state, recorderList) {
         state.recorderList = recorderList;
     },
+    // 获取空病历
+    [mutationTypes.GET_EMPTY_MEDICAL_RECORD](state, emptyMedicalRecord) {
+        state.emptyMedicalRecord = emptyMedicalRecord;
+    },
+    // 获取病历列表
+    [mutationTypes.GET_MEDICAL_RECORD_LIST](state, medicalRecordList) {
+        state.medicalRecordList = medicalRecordList;
+    },
+    // 更改当前正在修改的病历id
+    [mutationTypes.CHANGE_CURRENT_MEDICAL_RECORD_ID](state, currentMedicalRecordId) {
+        state.currentMedicalRecordId = currentMedicalRecordId;
+    },
 }

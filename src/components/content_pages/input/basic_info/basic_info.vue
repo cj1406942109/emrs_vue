@@ -53,6 +53,14 @@
         </div>        
     </div>            
     <div class="form-group">
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('age')}">年龄<span class="required"> * </span></label>
+        <div class="col-md-3">
+            <input v-validate="{required:true,numeric:true,min_value:0,max_value:200}" :class="{'input': true, 'border-red': errors.has('age') }" class="form-control" name="age" v-model="basicInfo.age">
+            <span v-show="errors.has('age')" class="help-block font-red">{{ errors.first('age') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('age')}"> 填写患者年龄 </span>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label col-md-2" :class="{'font-red':errors.has('admission_num')}">住院号<span class="required"> * </span></label>
         <div class="col-md-3">
             <input v-validate="{required:true}" :class="{'input': true, 'border-red': errors.has('admission_num') }" class="form-control" name="admission_num" v-model="basicInfo.admissionNum">
@@ -78,7 +86,7 @@
             <span v-show="errors.has('doctor')" class="help-block font-red">{{ errors.first('doctor') }}</span>
         </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label class="control-label col-md-2" :class="{'font-red':errors.has('recorder')}">记录者<span class="required"> * </span></label>
         <div class="col-md-3">
             <select v-validate="{required:true}" name="recorder" :class="{'input': true, 'border-red': errors.has('recorder') }" class="form-control" v-model="basicInfo.recorder">
@@ -86,6 +94,14 @@
                 <option v-for="recorder in recorderList" :key="recorder.id" :value="recorder">{{recorder.name}}</option>
             </select>
             <span v-show="errors.has('recorder')" class="help-block font-red">{{ errors.first('recorder') }}</span>
+        </div>
+    </div> -->
+    <div class="form-group">
+        <label class="control-label col-md-2" :class="{'font-red':errors.has('recorder')}">记录者<span class="required"> * </span></label>
+        <div class="col-md-3">
+            <input v-validate="{required:true}" :class="{'input': true, 'border-red': errors.has('recorder') }" class="form-control" name="recorder" v-model="basicInfo.recorder">
+            <span v-show="errors.has('recorder')" class="help-block font-red">{{ errors.first('recorder') }}</span>
+            <span class="help-block" :class="{'font-red':errors.has('recorder')}"> 填写记录者 </span>
         </div>
     </div>
     <div class="form-group">
@@ -175,6 +191,7 @@ export default {
                         cellphone_2: '手机号2',
                         telephone: '固定电话',
                         gender: '性别',
+                        age: '年龄',
                         admission_num: '住院号',
                         bed_num: '床位号',
                         doctor: '主治医生',
@@ -245,16 +262,25 @@ export default {
         'address':{
             handler: 'updateAddress',
             deep: true
+        },
+        '$route' (val) {
+            if(val.path.indexOf('edit')>=0){
+                let vm = this;
+                setTimeout(function(){
+                    vm.birthday = {time: vm.basicInfo.birthday};
+                    vm.birthPlace = {province: vm.basicInfo.birthProvince, city: vm.basicInfo.birthCity};
+                    vm.address = {province:vm.basicInfo.addressProvince, city:vm.basicInfo.addressCity, area:vm.basicInfo.addressArea, town:vm.basicInfo.addressTown};
+                },300);
+            }
         }
     },
     created () {        
-        this.birthday.time = this.basicInfo.birthday;
-        this.birthPlace.province = this.basicInfo.birthProvince;
-        this.birthPlace.city = this.basicInfo.birthCity;
-        this.address.province = this.basicInfo.addressProvince;
-        this.address.city = this.basicInfo.addressCity;
-        this.address.area = this.basicInfo.addressArea;
-        this.address.town = this.basicInfo.addressTown;   
+        let vm = this;
+        setTimeout(function(){
+            vm.birthday = {time: vm.basicInfo.birthday};
+            vm.birthPlace = {province: vm.basicInfo.birthProvince, city: vm.basicInfo.birthCity};
+            vm.address = {province:vm.basicInfo.addressProvince, city:vm.basicInfo.addressCity, area:vm.basicInfo.addressArea, town:vm.basicInfo.addressTown};
+        },300);  
         
         this.$validator.updateDictionary(this.dict);
         this.$validator.extend('radioRequired', this.radioRequired);

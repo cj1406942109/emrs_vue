@@ -66,10 +66,10 @@
                 <div class="col-md-2">
                     <select class="form-control" v-model="admissionDiagnosis.anginaCcs">
                         <option value="" disabled selected>选择</option>
-                        <option value="1">I</option>
-                        <option value="2">II</option>
-                        <option value="3">III</option>
-                        <option value="4">IV</option>
+                        <option value="I">I</option>
+                        <option value="II">II</option>
+                        <option value="III">III</option>
+                        <option value="IV">IV</option>
                     </select>
                 </div>
             </div>

@@ -13,7 +13,7 @@
                     <span class="help-block"> &nbsp;</span>
                 </div>
                 <div class="col-md-2" v-if="historyOfPresentIllness.careCauses.indexOf('6')>=0">
-                    <input class="form-control" v-model="historyOfPresentIllness.care_cause_others">
+                    <input class="form-control" v-model="historyOfPresentIllness.careCauseOthers">
                     <span class="help-block"> 填写其他就诊原因 </span>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                                                 <option v-for="bodyPart in staticIndex.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
                                             </select>
                                         </div>
-                                        <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='10'">
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='11'">
                                             <label class="control-label">&nbsp;</label>
                                             <input class="form-control" placeholder="其他部位" v-model="item.bodyPartNameOthers">
                                         </div> 
@@ -156,7 +156,7 @@
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestPain.simultaneousPhenomena.indexOf('21')>=0">
-                                    <input class="form-control" v-model="historyOfPresentIllness.chestPain.simultaneousPhenomenaOthers">
+                                    <input class="form-control" v-model="historyOfPresentIllness.chestPain.simultaneousPhenomenonOthers">
                                     <span class="help-block"> 填写其他伴随症状 </span>
                                 </div>
                             </div>
@@ -219,7 +219,7 @@
                                                 <option v-for="bodyPart in staticIndex.diseaseBodyPartNames" :key="bodyPart.id" :value="bodyPart.id">{{bodyPart.text}}</option>
                                             </select>
                                         </div>
-                                        <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='10'">
+                                        <div class="mt-repeater-input" :key="item.id" v-if="item.bodyPartName=='11'">
                                             <label class="control-label">&nbsp;</label>
                                             <input class="form-control" placeholder="其他部位" v-model="item.bodyPartNameOthers">
                                         </div> 
@@ -262,7 +262,7 @@
                                     <span class="help-block"> &nbsp;</span>                                    
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.relievingFactors.indexOf('5')>=0">
-                                    <input class="form-control" v-model="historyOfPresentIllness.chestPain.relievingFactorsOthers">
+                                    <input class="form-control" v-model="historyOfPresentIllness.chestDistress.relievingFactorsOthers">
                                     <span class="help-block"> 填写其他缓解因素 </span>
                                 </div>
                                 <label class="control-label col-md-1">时间</label>
@@ -311,7 +311,7 @@
                                     <span class="help-block"> &nbsp;</span>
                                 </div>
                                 <div class="col-md-2" v-if="historyOfPresentIllness.chestDistress.simultaneousPhenomena.indexOf('21')>=0">
-                                    <input class="form-control" v-model="historyOfPresentIllness.chestDistress.simultaneousPhenomenaOthers">
+                                    <input class="form-control" v-model="historyOfPresentIllness.chestDistress.simultaneousPhenomenonOthers">
                                     <span class="help-block"> 填写其他伴随症状 </span>
                                 </div>
                             </div>
