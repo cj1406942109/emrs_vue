@@ -77,7 +77,7 @@ export default {
             areaList: [],
             townList: []            
         }
-    },
+    },        
     created: function () {
         for(var province in address4) {
             this.provinceList.push(province);            
@@ -96,8 +96,8 @@ export default {
             for (var town in address4[this.location.province][this.location.city][this.location.area]) {
                 this.townList.push(address4[this.location.province][this.location.city][this.location.area][town]);
             }
-        } 
-    },
+        }
+    },    
     watch: {
         'location.province':{
             handler: 'updateCity'
@@ -120,12 +120,14 @@ export default {
                        this.cityList.push(city)
                     }
                 }
-                this.location.city = '';                
-                if(this.grade > 3){
-                    this.location.area = '';    
-                    this.location.town = '';
-                }else if(this.grade > 2){
-                    this.location.area = '';
+                if(oldVal!=''){
+                    this.location.city = '';                
+                    if(this.grade > 3){
+                        this.location.area = '';    
+                        this.location.town = '';
+                    }else if(this.grade > 2){
+                        this.location.area = '';
+                    }
                 }
             }
         },
@@ -136,13 +138,15 @@ export default {
                     this.townList = [];
                     for(var area in address4[this.location.province][val]) {
                         this.areaList.push(area)
-                    }                    
-                    if(this.grade > 3){
-                        this.location.area = '';
-                        this.location.town = '';
-                    }else if(this.grade > 2){
-                        this.location.area = '';
-                    }
+                    }       
+                    if(oldVal!=''){
+                        if(this.grade > 3){
+                            this.location.area = '';    
+                            this.location.town = '';
+                        }else if(this.grade > 2){
+                            this.location.area = '';
+                        }
+                    }                                 
                 }
             }
             
@@ -154,9 +158,11 @@ export default {
                     for(var town in address4[this.location.province][this.location.city][val]) {
                         this.townList.push(address4[this.location.province][this.location.city][val][town])
                     }
-                    if(this.grade > 3){
-                        this.location.town = '';                        
-                    }
+                    if(oldVal!=''){
+                        if(this.grade > 3){
+                            this.location.town = '';                        
+                        }
+                    }                                 
                 }
             }
         }       

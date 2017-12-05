@@ -125,24 +125,24 @@
     <div class="form-group">
         <label class="control-label col-md-2">出生日期</label>
         <div class="col-md-2">            
-            <date-picker :date="birthday" :option="option" :limit="limit" v-model="basicInfo.birthday" class="from-control"></date-picker>
+            <date-picker :date="basicInfo.birthday" :option="option" :limit="limit" v-model="basicInfo.birthday" class="from-control"></date-picker>
         </div>
     </div>
     <div class="form-group" id="birthPlace">
         <label class="control-label col-md-2">出生地</label>
-        <location-picker :location="birthPlace" :grade="2" :className="'col-md-2'"></location-picker>
+        <location-picker :location="basicInfo.birthAddress" :grade="2" :className="'col-md-2'"></location-picker>
     </div>
     <div class="form-group" id="addressPlace">
         <label class="control-label col-md-2">家庭住址</label>
-        <location-picker :location="address" :grade="4" :className="'col-md-2'"></location-picker>
+        <location-picker :location="basicInfo.address" :grade="4" :className="'col-md-2'"></location-picker>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">详细住址</label>
         <div class="col-md-6">
-            <textarea class="form-control" name="address" rows="4" v-model="basicInfo.address"></textarea>
+            <textarea class="form-control" name="address" rows="4" v-model="basicInfo.address.detail"></textarea>
             <span class="help-block"> 填写患者详细家庭住址 </span>
         </div>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -168,19 +168,19 @@ export default {
                 from: '',
                 to: (new Date()).toUTCString()
             }],
-            birthday: {
-                time:''
-            },
-            birthPlace: {
-                province: '',
-                city: ''
-            },
-            address: {
-                province: '',
-                city: '',
-                area: '',
-                town: ''
-            },
+            // birthday: {
+            //     time:''
+            // },
+            // birthPlace: {
+            //     province: '',
+            //     city: ''
+            // },
+            // address: {
+            //     province: '',
+            //     city: '',
+            //     area: '',
+            //     town: ''
+            // },
             dict: {
                 zh_CN: {
                     attributes: {
@@ -251,36 +251,36 @@ export default {
         }
     }, 
     watch: {
-        'birthday':{
-            handler: 'updateBirthday',
-            deep: true
-        },
-        'birthPlace':{
-            handler: 'updateBirthPlace',
-            deep: true
-        },
-        'address':{
-            handler: 'updateAddress',
-            deep: true
-        },
-        '$route' (val) {
-            if(val.path.indexOf('edit')>=0){
-                let vm = this;
-                setTimeout(function(){
-                    vm.birthday = {time: vm.basicInfo.birthday};
-                    vm.birthPlace = {province: vm.basicInfo.birthProvince, city: vm.basicInfo.birthCity};
-                    vm.address = {province:vm.basicInfo.addressProvince, city:vm.basicInfo.addressCity, area:vm.basicInfo.addressArea, town:vm.basicInfo.addressTown};
-                },300);
-            }
-        }
+        // 'birthday':{
+        //     handler: 'updateBirthday',
+        //     deep: true
+        // },
+        // 'birthPlace':{
+        //     handler: 'updateBirthPlace',
+        //     deep: true
+        // },
+        // 'address':{
+        //     handler: 'updateAddress',
+        //     deep: true
+        // },
+        // '$route' (val) {
+        //     if(val.path.indexOf('edit')>=0){
+        //         let vm = this;
+        //         setTimeout(function(){
+        //             vm.birthday = {time: vm.basicInfo.birthday};
+        //             vm.birthPlace = {province: vm.basicInfo.birthProvince, city: vm.basicInfo.birthCity};
+        //             vm.address = {province:vm.basicInfo.addressProvince, city:vm.basicInfo.addressCity, area:vm.basicInfo.addressArea, town:vm.basicInfo.addressTown};
+        //         },300);
+        //     }
+        // }
     },
     created () {        
-        let vm = this;
-        setTimeout(function(){
-            vm.birthday = {time: vm.basicInfo.birthday};
-            vm.birthPlace = {province: vm.basicInfo.birthProvince, city: vm.basicInfo.birthCity};
-            vm.address = {province:vm.basicInfo.addressProvince, city:vm.basicInfo.addressCity, area:vm.basicInfo.addressArea, town:vm.basicInfo.addressTown};
-        },300);  
+        // let vm = this;
+        // setTimeout(function(){
+        //     vm.birthday = {time: vm.basicInfo.birthday};
+        //     vm.birthPlace = {province: vm.basicInfo.birthProvince, city: vm.basicInfo.birthCity};
+        //     vm.address = {province:vm.basicInfo.addressProvince, city:vm.basicInfo.addressCity, area:vm.basicInfo.addressArea, town:vm.basicInfo.addressTown};
+        // },300);  
         
         this.$validator.updateDictionary(this.dict);
         this.$validator.extend('radioRequired', this.radioRequired);
@@ -301,9 +301,6 @@ export default {
             this.basicInfo.addressCity = val.city;
             this.basicInfo.addressArea = val.area;
             this.basicInfo.addressTown = val.town;
-        },
-        updateSex () {
-
         }
     },
     components: {

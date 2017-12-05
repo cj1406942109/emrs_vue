@@ -58,10 +58,10 @@
                                     <tr><td><label class="bold">主治医生：</label>{{mr.basicInfo.doctor.name}}</td></tr>
                                     <tr><td><label class="bold">民族：</label>{{getStaticIndexName('nationalityList',mr.basicInfo.nationality)}}</td></tr>
                                     <tr><td><label class="bold">职业：</label>{{getStaticIndexName('professionList',mr.basicInfo.profession)}}</td></tr>
-                                    <tr><td><label class="bold">出生日期：</label>{{mr.basicInfo.birthday}}</td></tr>
-                                    <tr><td><label class="bold">出生地：</label>{{mr.basicInfo.birthProvince}}&nbsp;{{mr.basicInfo.birthCity}}</td></tr>
-                                    <tr><td><label class="bold">家庭住址：</label>{{mr.basicInfo.addressProvince}}&nbsp;{{mr.basicInfo.addressCity}}&nbsp;{{mr.basicInfo.addressArea}}&nbsp;{{mr.basicInfo.addressTown}}</td></tr>
-                                    <tr><td><label class="bold">详细住址：</label>{{mr.basicInfo.address}}</td></tr>
+                                    <tr><td><label class="bold">出生日期：</label>{{mr.basicInfo.birthday.time}}</td></tr>
+                                    <tr><td><label class="bold">出生地：</label>{{mr.basicInfo.birthAddress.province}}&nbsp;{{mr.basicInfo.birthAddress.city}}</td></tr>
+                                    <tr><td><label class="bold">家庭住址：</label>{{mr.basicInfo.address.province}}&nbsp;{{mr.basicInfo.address.city}}&nbsp;{{mr.basicInfo.address.area}}&nbsp;{{mr.basicInfo.address.town}}</td></tr>
+                                    <tr><td><label class="bold">详细住址：</label>{{mr.basicInfo.address.detail}}</td></tr>
                                 </tbody>
                             </table>                                                       
                         </div>
