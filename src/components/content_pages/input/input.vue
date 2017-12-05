@@ -238,6 +238,7 @@ export default {
             }
         },
         emptyFieldCheck (mr, emptyMedicalRecord) {
+            console.log(mr);
             //现病史
             if(!(mr.historyOfPresentIllness.careCauses.indexOf('1')>=0)){
                 mr.historyOfPresentIllness.chestPain = emptyMedicalRecord.historyOfPresentIllness.chestPain;
@@ -581,8 +582,8 @@ export default {
                 }
             }
             if(mr.specialExamination.holterEcg.pathologicalQWave.isPathologicalQWave!='1'){
-                mr.specialExamination.holterEcg.isPathologicalQWave.frequentness='';
-                mr.specialExamination.holterEcg.isPathologicalQWave.arrhythmiaTypes=[];
+                mr.specialExamination.holterEcg.pathologicalQWave.frequentness='';
+                mr.specialExamination.holterEcg.pathologicalQWave.arrhythmiaTypes=[];
             }
             if(mr.specialExamination.holterEcg.stSegmentChange.isStSegmentChange!='1'){
                 mr.specialExamination.holterEcg.stSegmentChange.stSegmentDepression=emptyMedicalRecord.specialExamination.holterEcg.stSegmentChange.stSegmentDepression;
