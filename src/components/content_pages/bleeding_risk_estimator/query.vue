@@ -456,7 +456,7 @@ export default {
             });
         },
         getRecordList(){
-            this.$http.post(config.apiHost + '/dp/getAllPredictions').then(response => {
+            this.$http.post(config.apiHost + '/dp/getAllPredictionsByUserId', {userId: sessionStorage.getItem('user')._id}).then(response => {
                 let responseData = response.body;
                 if (responseData.status) {            
                     this.recordList=responseData.data;

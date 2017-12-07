@@ -41,7 +41,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [resolve('src'), resolve('test')]
+                include: [resolve('src'), resolve('test'), resolve('/node_modules/_sweet-modal-vue@2.0.0@sweet-modal-vue/src')]
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
