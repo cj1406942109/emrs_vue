@@ -445,38 +445,38 @@ export default {
                 this.$refs.dataSaving.close();
                 let responseData = response.body;
                 if (responseData.status) {            
-                    this.getRecordList();
+                    this.getRecordList(this);
                 } else {
                     this.errorMessage = 'Save data failed, please try again!';
-                    this.$refs.dataError.open();
+                    this.$refs.errorModal.open();
                 }
             }, response => {
                 this.errorMessage = 'Save data failed, please try again!';
-                this.$refs.dataError.open();
+                this.$refs.errorModal.open();
             });
         },
-        getRecordList(){
-            this.$http.post(config.apiHost + '/dp/getAllPredictionsByUserId', {userId: sessionStorage.getItem('user')._id}).then(response => {
+        getRecordList(vm){
+            vm.$http.post(config.apiHost + '/dp/getAllPredictionsByUserId', {userId: sessionStorage.getItem('user')._id}).then(response => {
                 let responseData = response.body;
                 if (responseData.status) {            
-                    this.recordList=responseData.data;
+                    vm.recordList=responseData.data;
                 } else {
-                    this.errorMessage = 'Get the result data failed, please try again!';
-                    this.$refs.dataError.open();
+                    vm.errorMessage = 'Get the result data failed, please try again!';
+                    vm.$refs.errorModal.open();
                 }
             }, response => {
-                this.errorMessage = 'Get the result data failed, please try again!';
-                this.$refs.dataError.open();
+                vm.errorMessage = 'Get the result data failed, please try again!';
+                vm.$refs.errorModal.open();
             });
         }
     },
     watch: {
         '$route' () {
-            this.getRecordList();
+            this.getRecordList(this);
         }
     },
     created () {
-        this.getRecordList();
+        this.getRecordList(this);
     },
     components: {
         SweetButton
