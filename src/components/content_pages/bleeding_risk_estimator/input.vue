@@ -7,7 +7,7 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <router-link to="/home/brs_input">Input Data</router-link>
+                <router-link to="/home/bre_input">Input Data</router-link>
             </li>
         </ul>
         <div class="page-toolbar">
@@ -298,7 +298,53 @@
             </div>
             <div class="portlet box blue">
                 <div class="portlet-title">
-                    <div class="caption">Lab Examination</div>
+                    <div class="caption">Special Examination</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body form-horizontal"> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">Paclitaxel-eluting Stent</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.specialExamination.paclitaxelElutingStent">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>    
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4" :class="{'font-red':errors.has('stent-diameter')}">Stent Diameter</label>
+                        <div class="col-md-8">
+                            <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('stent-diameter')}" class="form-control input-inline" v-model="rawdata.specialExamination.stentDiameter" name="stent-diameter">
+                            <span class="help-inline" :class="{'font-red':errors.has('stent-diameter')}">mm</span>
+                            <span v-show="errors.has('stent-diameter')" class="help-block font-red">{{ errors.first('stent-diameter') }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4" :class="{'font-red':errors.has('lvef')}">LVEF</label>
+                        <div class="col-md-8">
+                            <input v-validate="{numeric:true,min_value:0,max_value:100}" :class="{'input': true, 'border-red': errors.has('lvef')}" class="form-control input-inline" v-model="rawdata.specialExamination.lvef" name="lvef">
+                            <span class="help-inline" :class="{'font-red':errors.has('lvef')}">%</span>
+                            <span v-show="errors.has('lvef')" class="help-block font-red">{{ errors.first('lvef') }}</span>
+                        </div>
+                    </div>                     
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">Vein Graft Stent</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.specialExamination.veinGraftStent">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption">Lab Examination (Part I)</div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse"> </a>
                     </div>
@@ -312,14 +358,14 @@
                             <span v-show="errors.has('hematocrit')" class="help-block font-red">{{ errors.first('hematocrit') }}</span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('cr')}">Cr</label>
                         <div class="col-md-8">
                             <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('cr')}" class="form-control input-inline" v-model="rawdata.labExamination.cr" name="cr">
                             <span class="help-inline" :class="{'font-red':errors.has('cr')}">mg/dL</span>
                             <span v-show="errors.has('cr')" class="help-block font-red">{{ errors.first('cr') }}</span>
                         </div>
-                    </div>                     
+                    </div>                      -->
                     <div class="form-group">
                         <label class="control-label bold col-md-4" :class="{'font-red':errors.has('GFR')}">GFR: Cockcroft-Gault</label>
                         <div class="col-md-8">
@@ -378,48 +424,229 @@
             </div>
             <div class="portlet box blue">
                 <div class="portlet-title">
-                    <div class="caption">Special Examination</div>
+                    <div class="caption">Lab Examination (Part II)</div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse"> </a>
                     </div>
                 </div>
-                <div class="portlet-body form-horizontal"> 
+                <div class="portlet-body form-horizontal">     
                     <div class="form-group">
-                        <label class="control-label bold col-md-6">Paclitaxel-eluting Stent</label>
+                        <label class="control-label bold col-md-4">High Sensitivity Cardiac Troponin I (HSTNI)</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.highSensitivityCardiacTroponinI">
+                            <span class="help-inline">pg/mL</span>                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">N-Terminal Pro-Brain Natriuretic Peptide</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.nTerminalProBrainNatriureticPeptide">
+                            <span class="help-inline">pg/mL</span>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Urea</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.urea">
+                            <span class="help-inline">pg/mL</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.urea)>=9.5"></i>
+                            <i class="fa fa-arrow-down font-blue" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.urea)<=3.6"></i>
+                            <span class="help-inline">(normal range: 3.6-9.5)</span>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Cr</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.cr">
+                            <span class="help-inline">μmol/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.cr)>=104"></i>
+                            <i class="fa fa-arrow-down font-blue" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.cr)<=59"></i>
+                            <span class="help-inline">(normal range: 59-104)</span>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Uric Acid</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.uricAcid">
+                            <span class="help-inline">μmol/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.uricAcid)>=416.5"></i>
+                            <i class="fa fa-arrow-down font-blue" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.uricAcid)<=202.3"></i>
+                            <span class="help-inline">(normal range: 202.3-416.5)</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Total Cholesterol (TC)</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.totalCholesterol">
+                            <span class="help-inline">mmol/L</span>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Triglyceride (TG)</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.triglyceride">
+                            <span class="help-inline">mmol/L</span>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">HDL</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.HDL">
+                            <span class="help-inline">mmol/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.HDL)>=1.55"></i>
+                            <i class="fa fa-arrow-down font-blue" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.HDL)<=1.04"></i>
+                            <span class="help-inline">(normal range: 1.04-1.55)</span>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">LDL</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.LDL">
+                            <span class="help-inline">mmol/L</span>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">hs-CRP</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.hsCRP">
+                            <span class="help-inline">mg/L</span>
+                            <span v-if="parseFloat(rawdata.labExamination2.hsCRP)<1" class="help-block font-green">Low risk of cardiovascular disease</span>
+                            <span v-else-if="parseFloat(rawdata.labExamination2.hsCRP)<=3" class="help-block font-yellow">Moderate risk of cardiovascular disease</span>
+                            <span v-else-if="parseFloat(rawdata.labExamination2.hsCRP)<=10" class="help-block font-red">High risk of cardiovascular disease</span>
+                            <span v-else-if="parseFloat(rawdata.labExamination2.hsCRP)>10" class="help-block font-red bold">There may be infection or inflammation</span>
+                        </div>
+                    </div>       
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Glucose</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.glucose">
+                            <span class="help-inline">mmol/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.glucose)>=6.05"></i>
+                            <i class="fa fa-arrow-down font-blue" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.glucose)<=4.11"></i>
+                            <span class="help-inline">(normal range: 4.11-6.05)</span>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">D-Dimer</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.dDimer">
+                            <span class="help-inline">μg/mL</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.dDimer)>=0.5"></i>
+                            <span class="help-inline">(normal range: < 0.5)</span>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Platelets Count</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="rawdata.labExamination2.plateletsCount">
+                            <span class="help-inline">×10<sup>9</sup>/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.plateletsCount)>=350"></i>
+                            <i class="fa fa-arrow-down font-blue" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.plateletsCount)<=125"></i>
+                            <span class="help-inline">(normal range: 125.00-350.00)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption">Drugs for Treatment</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body form-horizontal">                         
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">Antiplatelets</label>
                         <div class="col-md-6">
-                            <select class="form-control input-inline" v-model="rawdata.specialExamination.paclitaxelElutingStent">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.antiplatelets">
                                 <option value="" disabled selected>--select--</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">B-blocker</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.bBlocker">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">CCB</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.CCB">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">ACEI/ARB</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.ACEIARB">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">Statin</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.statin">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">Digoxin</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.digoxin">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">Diuretic</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.diuretic">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="control-label bold col-md-6">Warfarin</label>
+                        <div class="col-md-6">
+                            <select class="form-control input-inline" v-model="rawdata.drugsForTreatment.warfarin">
+                                <option value="" disabled selected>--select--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>   
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Other Drugs</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" rows="5" v-model="rawdata.drugsForTreatment.otherDrugs"></textarea>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label bold col-md-4">Echocardiogram / Angiography Report</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" rows="5" v-model="rawdata.drugsForTreatment.echocardiogramAngiographyReport"></textarea>
                         </div>
                     </div>    
-                    <div class="form-group">
-                        <label class="control-label bold col-md-4" :class="{'font-red':errors.has('stent-diameter')}">Stent Diameter</label>
-                        <div class="col-md-8">
-                            <input v-validate="{decimal:2,min_value:0}" :class="{'input': true, 'border-red': errors.has('stent-diameter')}" class="form-control input-inline" v-model="rawdata.specialExamination.stentDiameter" name="stent-diameter">
-                            <span class="help-inline" :class="{'font-red':errors.has('stent-diameter')}">mm</span>
-                            <span v-show="errors.has('stent-diameter')" class="help-block font-red">{{ errors.first('stent-diameter') }}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label bold col-md-4" :class="{'font-red':errors.has('lvef')}">LVEF</label>
-                        <div class="col-md-8">
-                            <input v-validate="{numeric:true,min_value:0,max_value:100}" :class="{'input': true, 'border-red': errors.has('lvef')}" class="form-control input-inline" v-model="rawdata.specialExamination.lvef" name="lvef">
-                            <span class="help-inline" :class="{'font-red':errors.has('lvef')}">%</span>
-                            <span v-show="errors.has('lvef')" class="help-block font-red">{{ errors.first('lvef') }}</span>
-                        </div>
-                    </div>                     
-                    <div class="form-group">
-                        <label class="control-label bold col-md-6">Vein Graft Stent</label>
-                        <div class="col-md-6">
-                            <select class="form-control input-inline" v-model="rawdata.specialExamination.veinGraftStent">
-                                <option value="" disabled selected>--select--</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -948,17 +1175,17 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>        
     <sweet-modal ref="saveDataConfirm" icon="warning">
         Save the input data and the result data?
         <sweet-button class="btn red" slot="button" v-on:click="$refs.saveDataConfirm.close()">取消</sweet-button>
         <sweet-button class="btn green" slot="button" v-on:click="SaveData()">确定</sweet-button>
     </sweet-modal>
     <sweet-modal ref="dataError" icon="error" :blocking="true" :hide-close-button="false">
-        Please fill in all the blanks and get the result data!
+        {{errorMessage}}
     </sweet-modal>
-    <sweet-modal ref="dataSaving" icon="success" :blocking="true" :hide-close-button="false">
-        All your data are saved, redirecting to the result list page!
+    <sweet-modal ref="dataSaving" icon="success" :blocking="true" :hide-close-button="true">
+        Saveing your data, please wait for a while……
     </sweet-modal>
   </div>
 </template>
@@ -966,6 +1193,7 @@
 <script>
 import SweetButton from 'sweet-modal-vue/docs/components/Button';
 import utils from '@/utils/utils';
+import config from '@/config';
 
 export default {
     data () {
@@ -1007,7 +1235,6 @@ export default {
                 },
                 labExamination: {
                     hematocrit: '',
-                    cr: '',
                     GFR: '',
                     haemoglobin: '',
                     whiteBloodCells: '',
@@ -1020,8 +1247,59 @@ export default {
                     stentDiameter: '',
                     lvef: '',
                     veinGraftStent: ''
+                },
+                labExamination2: {
+                    highSensitivityCardiacTroponinI: '',
+                    nTerminalProBrainNatriureticPeptide: '',
+                    urea: '',
+                    cr: '',
+                    uricAcid: '',
+                    triglyceride: '',
+                    totalCholesterol: '',
+                    HDL: '',
+                    LDL: '',
+                    hsCRP: '',
+                    glucose: '',
+                    dDimer: '',
+                    plateletsCount: ''
+                },
+                drugsForTreatment: {
+                    antiplatelets: '',
+                    bBlocker: '',
+                    CCB: '',
+                    ACEIARB: '',
+                    statin: '',
+                    digoxin: '',
+                    diuretic: '',
+                    warfarin: '',
+                    otherDrugs: '',
+                    echocardiogramAngiographyReport: ''
                 }
-            }
+            },
+            followUpInfo: [{
+                bleeding: '',
+                stroke: '',
+                mi: '',
+                heartFailure: '',
+                death: '',
+                liverFunctionTest: '',
+                renalFunctionTest: '',
+                plateleFunction: '',
+                lipidProfile: '',
+                echocardiogramCTAngiographyReport: ''
+            },{
+                bleeding: '',
+                stroke: '',
+                mi: '',
+                heartFailure: '',
+                death: '',
+                liverFunctionTest: '',
+                renalFunctionTest: '',
+                plateleFunction: '',
+                lipidProfile: '',
+                echocardiogramCTAngiographyReport: ''
+            }],
+            errorMessage: ''
         }
     },
     computed: {
@@ -1264,7 +1542,7 @@ export default {
                 }
                 HASBLEDScore.abnormalRenalFunction = rawdata.labExamination.abnormalRenalFunction;
                 HASBLEDScore.abnormalLiverFunction = rawdata.labExamination.abnormalLiverFunction;
-                HASBLEDScore.priorStroke = rawdata.medicalHistory.priorStroke;
+                HASBLEDScore.priorStroke = rawdata.medicalHistory.priorStrokeOrTIAOrThromboembolism;
                 if(rawdata.medicalHistory.priorHistoryBleeding==='2'||rawdata.medicalHistory.priorHistoryBleeding==='3'){
                     HASBLEDScore.priorMajorBleedingOrPredisposingToBleeding = 1;
                 }else if(rawdata.medicalHistory.priorHistoryBleeding==='1'){
@@ -1526,16 +1804,38 @@ export default {
     },
     methods: {
         checkData () {
-            console.log(this.rawdata,this.resultData,sessionStorage.getItem('user'));
             if(this.resultData.DAPTScore.result.value===''||this.resultData.BleedingScore.result.value===''||this.resultData.HASBLEDScore.result.value===''||this.resultData.CHADSVASScore.result.value===''||this.resultData.DAPTScore.result.value===''){
-                this.$refs.dataError.open();      
+                this.errorMessage = 'Please fill in all the blanks and get the result data!';
+                this.$refs.dataError.open();
             }else{
                 this.$refs.saveDataConfirm.open();            
             }
         },
         SaveData () {
-            this.$refs.dataSaving.open();
-            console.log(this.rawdata,this.resultData,sessionStorage.getItem('user'));
+            this.$refs.saveDataConfirm.close();
+            this.$refs.dataSaving.open();         
+            this.$http.post(config.apiHost + '/dp/insertPrediction', {prediction: {
+                rawData: this.rawdata, 
+                resultData: this.resultData, 
+                followUpInfo: this.followUpInfo,
+                userId: sessionStorage.getItem('user')._id,
+                createTime: '',
+                lastUpdateTime: ''
+            }}).then(response => {
+                this.$refs.dataSaving.close();
+                let responseData = response.body;
+                if (responseData.status) {                    
+                    this.$router.push('/home/bre_query');
+                } else {
+                    this.$refs.dataSaving.close();
+                    this.errorMessage = 'Save your data failed, please try again!';
+                    this.$refs.dataError.open();
+                }
+            }, response => {
+                this.$refs.dataSaving.close();
+                this.errorMessage = 'Save your data failed, please try again!';
+                this.$refs.dataError.open();
+            });
         }
     },
     components: {

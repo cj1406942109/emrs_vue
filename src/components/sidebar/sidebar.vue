@@ -98,7 +98,7 @@ export default {
                             icon: 'icon-note',
                             href: '/home/bre_input'
                         },{
-                            title: 'Query Result',
+                            title: 'Result List',
                             icon: 'icon-list',
                             href: '/home/bre_query'
                         }
