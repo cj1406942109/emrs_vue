@@ -5,6 +5,10 @@ import home from '@/components/home/home';
 import index from '@/components/content_pages/index/index';
 import BRSInput from '@/components/content_pages/bleeding_risk_estimator/input';
 import BRSQuery from '@/components/content_pages/bleeding_risk_estimator/query';
+import CADInput from '@/components/content_pages/coronary_artery_disease_estimator/input';
+import CADQuery from '@/components/content_pages/coronary_artery_disease_estimator/query';
+import FRSInput from '@/components/content_pages/framingham_risk_score/input';
+import FRSQuery from '@/components/content_pages/framingham_risk_score/query';
 
 Vue.use(Router)
 
@@ -37,6 +41,18 @@ const router = new Router({
             }, {
                 path: 'bre_query',
                 component: BRSQuery
+            }, {
+                path: 'cad_input',
+                component: CADInput
+            }, {
+                path: 'cad_query',
+                component: CADQuery
+            }, {
+                path: 'frs_input',
+                component: FRSInput
+            }, {
+                path: 'frs_query',
+                component: FRSQuery
             }]
         }
     ]

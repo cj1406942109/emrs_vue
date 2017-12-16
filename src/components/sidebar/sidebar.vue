@@ -103,6 +103,40 @@ export default {
                             href: '/home/bre_query'
                         }
                     ]
+                },
+                {
+                    title: 'Coronary Artery Disease',
+                    icon: 'icon-calculator',
+                    href: '',
+                    isOpen: false,
+                    submenu: [
+                        {
+                            title: 'Input Data',
+                            icon: 'icon-note',
+                            href: '/home/cad_input'
+                        },{
+                            title: 'Result List',
+                            icon: 'icon-list',
+                            href: '/home/cad_query'
+                        }
+                    ]
+                },
+                {
+                    title: 'Framingham risk score',
+                    icon: 'icon-calculator',
+                    href: '',
+                    isOpen: false,
+                    submenu: [
+                        {
+                            title: 'Input Data',
+                            icon: 'icon-note',
+                            href: '/home/frs_input'
+                        },{
+                            title: 'Result List',
+                            icon: 'icon-list',
+                            href: '/home/frs_query'
+                        }
+                    ]
                 }
             ],
             currentMenu: 0,

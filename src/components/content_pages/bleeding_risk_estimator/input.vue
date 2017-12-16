@@ -434,7 +434,9 @@
                         <label class="control-label bold col-md-4">High Sensitivity Cardiac Troponin I (HSTNI)</label>
                         <div class="col-md-8">
                             <input class="form-control input-inline" v-model="rawdata.labExamination2.highSensitivityCardiacTroponinI">
-                            <span class="help-inline">pg/mL</span>                            
+                            <span class="help-inline">pg/mL</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.highSensitivityCardiacTroponinI)>=15.6"></i>
+                            <span class="help-inline">(normal range: < 15.6)</span>                            
                         </div>
                     </div>
                     <div class="form-group">
@@ -442,6 +444,8 @@
                         <div class="col-md-8">
                             <input class="form-control input-inline" v-model="rawdata.labExamination2.nTerminalProBrainNatriureticPeptide">
                             <span class="help-inline">pg/mL</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.nTerminalProBrainNatriureticPeptide)>=116"></i>
+                            <span class="help-inline">(normal range: < 116)</span>
                         </div>
                     </div> 
                     <div class="form-group">
@@ -479,6 +483,8 @@
                         <div class="col-md-8">
                             <input class="form-control input-inline" v-model="rawdata.labExamination2.totalCholesterol">
                             <span class="help-inline">mmol/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.totalCholesterol)>=5.18"></i>
+                            <span class="help-inline">(normal range: < 5.18)</span>
                         </div>
                     </div> 
                     <div class="form-group">
@@ -486,6 +492,8 @@
                         <div class="col-md-8">
                             <input class="form-control input-inline" v-model="rawdata.labExamination2.triglyceride">
                             <span class="help-inline">mmol/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.triglyceride)>=1.7"></i>
+                            <span class="help-inline">(normal range: < 1.70)</span>
                         </div>
                     </div> 
                     <div class="form-group">
@@ -503,6 +511,8 @@
                         <div class="col-md-8">
                             <input class="form-control input-inline" v-model="rawdata.labExamination2.LDL">
                             <span class="help-inline">mmol/L</span>
+                            <i class="fa fa-arrow-up font-red" aria-hidden="true" v-if="parseFloat(rawdata.labExamination2.LDL)>=3.37"></i>
+                            <span class="help-inline">(normal range: < 3.37)</span>
                         </div>
                     </div> 
                     <div class="form-group">
@@ -1545,7 +1555,7 @@ export default {
                 HASBLEDScore.priorStroke = rawdata.medicalHistory.priorStrokeOrTIAOrThromboembolism;
                 if(rawdata.medicalHistory.priorHistoryBleeding==='2'||rawdata.medicalHistory.priorHistoryBleeding==='3'){
                     HASBLEDScore.priorMajorBleedingOrPredisposingToBleeding = 1;
-                }else if(rawdata.medicalHistory.priorHistoryBleeding==='1'){
+                }else if(rawdata.medicalHistory.priorHistoryBleeding==='1'||rawdata.medicalHistory.priorHistoryBleeding==='4'){
                     HASBLEDScore.priorMajorBleedingOrPredisposingToBleeding = 0;
                 }
                 HASBLEDScore.labileINR = rawdata.labExamination.labileINR;
@@ -1818,7 +1828,7 @@ export default {
                 rawData: this.rawdata, 
                 resultData: this.resultData, 
                 followUpInfo: this.followUpInfo,
-                userId: sessionStorage.getItem('user')._id,
+                userId: JSON.parse(sessionStorage.getItem('user'))._id,
                 createTime: '',
                 lastUpdateTime: ''
             }}).then(response => {

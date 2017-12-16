@@ -14,7 +14,6 @@ import '@/../static/css/family=Open+Sans.css';
 import '@/../static/plugins/simple-line-icons/simple-line-icons.min.css';
 import '@/../static/plugins/jquery-slimscroll/jquery.slimscroll.min';
 
-
 import '@/assets/global/css/components-rounded.css';
 import '@/assets/global/css/plugins.css';
 
