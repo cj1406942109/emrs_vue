@@ -40,7 +40,7 @@
                                     <i title="collapse" class="fa fa-minus-square-o" aria-hidden="true" v-else></i>
                                 </span>
                             </td>
-                            <td v-show="!checkCollapseStatus(index+1)"><span class="bold">Patiend ID:</span> {{item.patientInfo.id}} &nbsp;&nbsp; <span class="bold">Name:</span> {{item.patientInfo.id.name}}</td>
+                            <td v-show="!checkCollapseStatus(index+1)"><span class="bold">Patiend ID:</span> {{item.patientInfo.id}} &nbsp;&nbsp; <span class="bold">Name:</span> {{item.patientInfo.name}}</td>
                             <td colspan="1" v-show="!checkCollapseStatus(index+1)" class="font-blue">Click the collapse button left to view detail information</td>
                             <td v-show="checkCollapseStatus(index+1)">
                                 <table class="table table-bordered table-hover">
@@ -121,72 +121,7 @@ export default {
         return {
             collapseList: [1],
             recordList: [],
-            errorMessage: '',
-            optionList: {
-                bleedingOption: [
-                    {val: 1, text: 'Spontaneous Bleeding'},
-                    {val: 2, text: 'Major Bleeding'},
-                    {val: 3, text: 'Predisposition to Bleeding'},
-                    {val: 4, text: 'No'}
-                ],
-                hematocritOption: [
-                    {val:0, text: '> 39.9'},
-                    {val:2, text: '37-39.9'},
-                    {val:3, text: '34-36.9'},
-                    {val:7, text: '31-33.9'},
-                    {val:9, text: '< 31'}
-                ],
-                GFROption: [
-                    {val:0, text: '> 120'},
-                    {val:7, text: '91-120'},
-                    {val:17, text: '61-90'},
-                    {val:28, text: '31-60'},
-                    {val:35, text: '16-30'},
-                    {val:39, text: '< 16'}
-                ],
-                heartRateOption: [
-                    {val:0, text: '< 71'},
-                    {val:1, text: '71-80'},
-                    {val:3, text: '81-90'},
-                    {val:6, text: '91-100'},
-                    {val:8, text: '101-110'},
-                    {val:10, text: '111-120'},
-                    {val:11, text: '> 120'},
-                ],
-                systolicBloodPressureOption: [
-                    {val:10, text: '< 91'},
-                    {val:8, text: '91-100'},
-                    {val:5, text: '101-120 or >200'},
-                    {val:3, text: '181-200'},
-                    {val:1, text: '121-180'}
-                ],
-                ageOption: [
-                    {val:0, text: '< 65'},
-                    {val:1, text: '65-74'},
-                    {val:2, text: '≥ 75'}
-                ],
-                priorVascularDiseaseOption: [
-                    {val:0, text: 'No'},
-                    {val:6, text: 'Yes'}
-                ],
-                diabetesMellitusOption: [
-                    {val:0, text: 'No'},
-                    {val:6, text: 'Yes'}
-                ],
-                congestiveHeartsFailureOption: [
-                    {val:0, text: 'No'},
-                    {val:7, text: 'Yes'}
-                ],
-                sexOption: [
-                    {val:0, text: 'Male'},
-                    {val:8, text: 'Female'}
-                ],
-                priorStrokeTIAThromboembolismOption: [
-                    {val:0, text: 'No'},
-                    {val:2, text: 'Yes'}
-                ]
-            },
-            currentItem: ''
+            errorMessage: ''
         }
     },
     methods: {
@@ -214,25 +149,6 @@ export default {
                 }
             })
             return eleInList;
-        },
-        getBooleanText(val){
-            if(val==0){
-                return 'No';
-            }else if(val==1){
-                return 'Yes';
-            }else{
-                return '';
-            }
-        },
-        getOptionText(arrayName, val){
-            let text = '';
-            let array = this.optionList[arrayName];
-            array.forEach(function(item){
-                if(item.val==val){
-                    text=item.text;
-                }
-            })
-            return text;
         },
         getRecordList(vm){
             vm.$http.post(config.apiHost + '/dp/getAllFRSPredictionsByUserId', {userId: JSON.parse(sessionStorage.getItem('user'))._id}).then(response => {

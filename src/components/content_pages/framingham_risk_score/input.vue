@@ -793,6 +793,7 @@ export default {
                 let responseData = response.body;
                 if (responseData.status) {
                     this.successMsg = 'Save your data successfully';
+                    this.resetData();
                     var dataSavingModal = this.$refs.dataSaving;
                     setTimeout(function () {
                         dataSavingModal.close();

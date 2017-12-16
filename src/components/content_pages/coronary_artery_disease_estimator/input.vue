@@ -18,7 +18,8 @@
                 <ul class="dropdown-menu pull-right" role="menu">
                     <li class="divider"> </li>
                     <li>
-                        <a href="javascritp:;" @click="checkData()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Data</a> 
+                        <a href="javascritp:;" @click="checkData()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Data</a>
+                        <a href="javascritp:;" @click="resetData()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Reset Data</a> 
                     </li>
                 </ul>
             </div>
@@ -506,6 +507,22 @@ export default {
         }
     },
     methods: {
+        resetData () {
+            let resetInfo = this.patientInfo;
+            resetInfo.id = '';
+            resetInfo.name = '';
+            resetInfo.age = '';
+            resetInfo.gender = '';
+            resetInfo.phone = '';
+            resetInfo.address = '';
+            resetInfo.other = '';
+            resetInfo.location = [];
+            resetInfo.characteristic = [];
+            resetInfo.duration = '';
+            resetInfo.precipitationFactors = [];
+            resetInfo.reliefFactors = [];
+            resetInfo.reliefTime = '';
+        },
         checkData () {
             if(this.resultData.symptomStatus ===''||this.resultData.probability ===''||this.resultData.percent ===''){
                 this.errorMessage = 'Please fill in all the blanks and get the result data!';
@@ -517,14 +534,6 @@ export default {
         SaveData () {
             this.$refs.saveDataConfirm.close();
             this.$refs.dataSaving.open();
-            console.log({
-                prediction: {
-                patientInfo: this.patientInfo, 
-                resultData: this.resultData, 
-                userId: JSON.parse(sessionStorage.getItem('user'))._id,
-                createTime: '',
-                lastUpdateTime: ''
-            }});   
             this.$http.post(config.apiHost + '/dp/insertCADPrediction', {prediction: {
                 patientInfo: this.patientInfo, 
                 resultData: this.resultData, 
@@ -535,6 +544,7 @@ export default {
                 let responseData = response.body;
                 if (responseData.status) {
                     this.successMsg = 'Save your data successfully';
+                    this.resetData();
                     var dataSavingModal = this.$refs.dataSaving;
                     setTimeout(function () {
                         dataSavingModal.close();
