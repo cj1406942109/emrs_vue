@@ -38,6 +38,12 @@
                 </div>
                 <div class="portlet-body form-horizontal">     
                     <div class="form-group">
+                        <label class="control-label bold col-md-4">Patient ID</label>
+                        <div class="col-md-8">
+                            <input class="form-control input-inline" v-model="patientInfo.id">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label bold col-md-4">Name</label>
                         <div class="col-md-8">
                             <input class="form-control input-inline" v-model="patientInfo.name">
@@ -278,7 +284,6 @@ export default {
 
             this.$set(returnValue, 'symptomStatus',setSymptomStatus(this.patientInfo, this.$validator));
             this.$set(returnValue, 'probability',setProbability(this.patientInfo, returnValue.symptomStatus));
-            // this.$set(returnValue, 'probability','dd');
             this.$set(returnValue, 'percent',setPercent(returnValue.probability));
 
             function setSymptomStatus(patientInfo, validator) {
@@ -552,7 +557,7 @@ export default {
     },
     mounted () {
         utils.handleSidebarAndContentHeight();
-        // utils.handleGoTop();
+        utils.handleGoTop();
     }
 }
 </script>

@@ -814,6 +814,7 @@ export default {
     },
     mounted () {
         utils.handleSidebarAndContentHeight();
+        utils.handleGoTop();
     }
 }
 </script>

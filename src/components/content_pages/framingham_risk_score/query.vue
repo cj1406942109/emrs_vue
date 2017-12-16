@@ -3,15 +3,15 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <span>Bleeding Risk Estimator</span>
+                    <span>Framingham Risk Score Calculator</span>
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <router-link to="/home/bre_query">Result List</router-link>
+                    <router-link to="/home/frs_query">Result List</router-link>
                 </li>
             </ul>                     
         </div>
-        <h1 class="page-title"> Bleeding Risk Estimator
+        <h1 class="page-title"> Framingham Risk Score Calculator
             <small>Dispaly the result list below</small>        
         </h1>
         <div class="portlet light">
