@@ -78,7 +78,7 @@
                         条记录
                     </label>
                 </div>
-                <div>
+                <div style="overflow: auto">
                         <!-- api-url="https://vuetable.ratiw.net/api/users" -->                    
                         <!-- api-url="apiUrl"                     -->
                     <vuetable ref="vuetable"                        
